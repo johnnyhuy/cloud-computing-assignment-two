@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  stayapp:
+    image: stayapp:latest
+    build:
+      context: .
+    ports:
+      - 80:80
