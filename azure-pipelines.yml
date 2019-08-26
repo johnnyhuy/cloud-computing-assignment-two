@@ -11,27 +11,8 @@ variables:
 stages:
 - stage: Production
   jobs:
-  - job: build_application
-    displayName: Validate PowerShell Scripts
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: DockerCompose@0
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerComposeFile: 'docker-compose.yml'
-        action: 'Build services'
-
-    - task: ECRPushImage@1
-      inputs:
-        awsCredentials: '$(AWS_SERVICE_CONNECTION)'
-        regionName: 'ap-southeast-2'
-        imageSource: 'imagename'
-        sourceImageName: 'staypp'
-        repositoryName: 'stayapp'
-
   - job: deploy_infrastructure
-    displayName: Validate PowerShell Scripts
+    displayName: Deploy Infrastructure
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -62,3 +43,23 @@ stages:
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+
+  - job: build_application
+    displayName: Build Application
+    depends_on: deploy_infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Build services'
+
+    - task: ECRPushImage@1
+      inputs:
+        awsCredentials: '$(AWS_SERVICE_CONNECTION)'
+        regionName: 'ap-southeast-2'
+        imageSource: 'imagename'
+        sourceImageName: 'staypp'
+        repositoryName: 'stayapp'
