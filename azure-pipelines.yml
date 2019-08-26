@@ -46,6 +46,7 @@ stages:
 
   - job: build_application
     displayName: Build Application
+    dependsOn: deploy_infrastructure
     pool:
       vmImage: 'ubuntu-latest'
     steps:
