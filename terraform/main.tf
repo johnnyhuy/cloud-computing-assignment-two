@@ -3,6 +3,16 @@ provider "aws" {
   region  = "ap-southeast-2"
 }
 
-resource "aws_ecr_repository" "foo" {
-  name = "${var.ecr_name}-ecr"
+terraform {
+  backend "s3" {
+    bucket = "stayapp-terraform"
+    key    = "terraform"
+    region = "ap-southeast-2"
+  }
+}
+
+module "compute" {
+  source = "./modules/compute"
+  ecr_name = "${var.ecr_name}"
+  tags = "${var.tags}"
 }
