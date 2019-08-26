@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  stayapp:
+    image: stayapp:latest
+    volumes:
+      - ./app:/app
+    environment:
+      - FLASK_APP=app/main.py
+      - FLASK_DEBUG=1
+    command: flask run --host=0.0.0.0 --port=80
+    build:
+      context: .
+    ports:
+      - 80:80
