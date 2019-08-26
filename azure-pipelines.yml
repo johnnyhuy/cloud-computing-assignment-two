@@ -3,6 +3,10 @@ trigger:
 
 variables:
 - group: stayapp-variable-group
+- name: AWS_SERVICE_CONNECTION
+  value: aws-service-connection
+- name: AWS_TERRAFORM_SERVICE_CONNECTION
+  value: aws-terraform-service-connection
 
 stages:
 - stage: Production
@@ -12,12 +16,19 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Build services'
+
     - task: ECRPushImage@1
       inputs:
-        awsCredentials: 'aws-service-connection'
+        awsCredentials: '$(AWS_SqERVICE_CONNECTION)'
         regionName: 'ap-southeast-2'
-        sourceImageName: 'stayapp'
-        repositoryName: '$(ContainerRegistry)'
+        imageSource: 'imagename'
+        sourceImageName: 'staypp'
+        repositoryName: 'stayapp'
 
   - job: deploy_infrastructure
     displayName: Validate PowerShell Scripts
@@ -34,6 +45,20 @@ stages:
         provider: 'aws'
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-        backendServiceAWS: 'aws-terraform-service-connection'
+        backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
         backendAWSBucketName: 'stayapp-terraform'
         backendAWSKey: 'terraform'
+
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'aws'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'aws'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
