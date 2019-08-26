@@ -37,6 +37,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-var-file $(System.DefaultWorkingDirectory)/terraform/production.tfvars'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
@@ -45,6 +46,7 @@ stages:
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-var-file $(System.DefaultWorkingDirectory)/terraform/production.tfvars -auto-approve'
 
   - job: build_application
     displayName: Build Application
