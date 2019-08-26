@@ -31,6 +31,7 @@ stages:
         backendAWSKey: 'terraform'
 
     - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
       inputs:
         provider: 'aws'
         command: 'plan'
@@ -38,6 +39,7 @@ stages:
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
 
     - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
       inputs:
         provider: 'aws'
         command: 'apply'
@@ -51,12 +53,14 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: DockerCompose@0
+      displayName: 'Build Docker images'
       inputs:
         containerregistrytype: 'Container Registry'
         dockerComposeFile: 'docker-compose.yml'
         action: 'Build services'
 
     - task: ECRPushImage@1
+      displayName: 'Push StayApp to ECR'
       inputs:
         awsCredentials: '$(AWS_SERVICE_CONNECTION)'
         regionName: 'ap-southeast-2'
