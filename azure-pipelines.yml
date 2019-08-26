@@ -67,5 +67,5 @@ stages:
         awsCredentials: '$(AWS_SERVICE_CONNECTION)'
         regionName: 'ap-southeast-2'
         imageSource: 'imagename'
-        sourceImageName: 'staypp'
+        sourceImageName: 'stayapp'
         repositoryName: 'stayapp'
