@@ -24,7 +24,7 @@ stages:
 
     - task: ECRPushImage@1
       inputs:
-        awsCredentials: '$(AWS_SqERVICE_CONNECTION)'
+        awsCredentials: '$(AWS_SERVICE_CONNECTION)'
         regionName: 'ap-southeast-2'
         imageSource: 'imagename'
         sourceImageName: 'staypp'
