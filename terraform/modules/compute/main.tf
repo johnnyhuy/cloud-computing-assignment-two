@@ -7,20 +7,20 @@ resource "aws_ecr_lifecycle_policy" "ecrpolicy" {
 
   policy = <<EOF
 {
-"rules": [
-  {
-    "action": {
-      "type": "expire"
-    },
-    "selection": {
-      "countType": "imageCountMoreThan",
-      "countNumber": 8,
-      "tagStatus": "any"
-    },
-    "description": "Remove old images.",
-    "rulePriority": 1
-  }
-]
+  "rules": [
+    {
+      "action": {
+        "type": "expire"
+      },
+      "selection": {
+        "countType": "imageCountMoreThan",
+        "countNumber": 8,
+        "tagStatus": "any"
+      },
+      "description": "Remove old images.",
+      "rulePriority": 1
+    }
+  ]
 }
   EOF
 }
