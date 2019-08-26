@@ -15,7 +15,7 @@ resource "aws_ecr_lifecycle_policy" "ecrpolicy" {
       },
       "selection": {
         "countType": "imageCountMoreThan",
-        "countNumber": 8,
+        "countNumber": 4,
         "tagStatus": "any"
       },
       "description": "Remove old images.",
