@@ -13,6 +13,6 @@ terraform {
 
 module "compute" {
   source = "./modules/compute"
-  ecr_name = "${var.ecr_name}"
+  repository_name = "${var.repository_name}"
   tags = "${var.tags}"
 }

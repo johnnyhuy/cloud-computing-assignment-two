@@ -67,4 +67,4 @@ stages:
         regionName: 'ap-southeast-2'
         imageSource: 'imagename'
         sourceImageName: 'stayapp'
-        repositoryName: 'stayapp-ecr'
+        repositoryName: 'stayapp'
