@@ -1,4 +1,4 @@
-ecr_name = "stayapp"
+repository_name = "stayapp"
 tags = {
     type = "education"
 }

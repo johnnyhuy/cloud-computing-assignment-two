@@ -1,5 +1,5 @@
-variable "ecr_name" {
-  description = "Container registry name"
+variable "repository_name" {
+  description = "The suffix path of the registry url."
   type = "string"
 }
 
