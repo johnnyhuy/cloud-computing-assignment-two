@@ -3,6 +3,8 @@ trigger:
 
 variables:
 - group: stayapp-variable-group
+- name: GCP_SERVICE_CONNECTION
+  value: google-terraform-service-connection
 - name: AWS_SERVICE_CONNECTION
   value: aws-service-connection
 - name: AWS_TERRAFORM_SERVICE_CONNECTION
@@ -11,7 +13,36 @@ variables:
 stages:
 - stage: Production
   jobs:
-  - job: deploy_infrastructure
+  - job: gcp_infrastructure
+    displayName: Deploy Infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'gcp'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
+        backendGCPBucketName: 'stayapp.appspot.com'
+        backendGCPPrefix: 'terraform.tfstate'
+
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'gcp'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'gcp'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-auto-approve'
+
+  - job: aws_infrastructure
     displayName: Deploy Infrastructure
     pool:
       vmImage: 'ubuntu-latest'
