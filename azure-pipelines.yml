@@ -80,7 +80,9 @@ stages:
 
   - job: build_application
     displayName: Build Application
-    dependsOn: deploy_infrastructure
+    dependsOn:
+      - gcp_infrastructure
+      - aws_infrastructure
     pool:
       vmImage: 'ubuntu-latest'
     steps:
