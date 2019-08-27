@@ -1,17 +1,16 @@
 provider "google" {
-  project     = "stayapp"
-  region      = "australia-southeast1"
-  zone        = "australia-southeast1-c"
+  project = "stayapp"
+  region  = "australia-southeast1"
+  zone    = "australia-southeast1-c"
 }
 
 terraform {
   backend "gcs" {
-    bucket  = "stayapp"
-    prefix  = "terraform.tfstate"
+    bucket  = "stayapp-terraform"
   }
 }
 
 module "compute" {
   source = "./modules/compute"
-  tags = "${var.tags}"
+  tags   = "${var.tags}"
 }
