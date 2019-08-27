@@ -23,9 +23,9 @@ stages:
         provider: 'gcp'
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
-        backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-        backendAWSBucketName: 'stayapp-terraform'
-        backendAWSKey: 'terraform'
+        backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
+        backendGCPBucketName: 'stayapp.appspot.com'
+        backendGCPPrefix: 'terraform.tfstate'
 
     - task: TerraformTaskV1@0
       inputs:
