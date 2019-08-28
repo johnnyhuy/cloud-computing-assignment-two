@@ -7,6 +7,7 @@ provider "google" {
 terraform {
   backend "gcs" {
     bucket  = "stayapp-terraform"
+    prefix = "terraform"
   }
 }
 
