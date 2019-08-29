@@ -1,19 +1,103 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
+pr:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+variables:
+- group: stayapp-variable-group
+- name: GCP_SERVICE_CONNECTION
+  value: google-terraform-service-connection
+- name: AWS_SERVICE_CONNECTION
+  value: aws-service-connection
+- name: AWS_TERRAFORM_SERVICE_CONNECTION
+  value: aws-terraform-service-connection
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+- stage: Production
+  jobs:
+  - job: gcp_infrastructure
+    displayName: Deploy Google Cloud Platform Infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'gcp'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
+        backendGCPBucketName: 'stayapp-terraform'
+        backendGCPPrefix: 'terraform'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'gcp'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'gcp'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-auto-approve'
+
+  - job: aws_infrastructure
+    displayName: Deploy Amazon Web Services Infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.7'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'aws'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        backendAWSBucketName: 'stayapp-terraform'
+        backendAWSKey: 'terraform'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
+      inputs:
+        provider: 'aws'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'aws'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-auto-approve'
+
+  - job: build_application
+    displayName: Build Application
+    dependsOn:
+      - gcp_infrastructure
+      - aws_infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: DockerCompose@0
+      displayName: 'Build Docker images'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Build services'
+
+    - task: ECRPushImage@1
+      displayName: 'Push StayApp to ECR'
+      inputs:
+        awsCredentials: '$(AWS_SERVICE_CONNECTION)'
+        regionName: 'ap-southeast-2'
+        imageSource: 'imagename'
+        sourceImageName: 'stayapp'
+        repositoryName: 'stayapp'
