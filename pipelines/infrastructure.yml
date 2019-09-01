@@ -1,5 +1,12 @@
+trigger: none
+
 pr:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - terraform/*
 
 variables:
 - group: stayapp-variable-group
@@ -9,6 +16,8 @@ variables:
   value: aws-service-connection
 - name: AWS_TERRAFORM_SERVICE_CONNECTION
   value: aws-terraform-service-connection
+- name: TF_IN_AUTOMATION
+  value: 1
 
 stages:
 - stage: Production
@@ -19,6 +28,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
       inputs:
         provider: 'gcp'
         command: 'init'
@@ -26,21 +36,30 @@ stages:
         backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
         backendGCPBucketName: 'stayapp-terraform'
         backendGCPPrefix: 'terraform'
+        commandOptions: '-input=false'
 
     - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
       inputs:
         provider: 'gcp'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/tfplan'
 
     - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
       inputs:
         provider: 'gcp'
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-auto-approve'
+        commandOptions: '-input=false -auto-approve'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'gcp'
 
   - job: aws_infrastructure
     displayName: Deploy Amazon Web Services Infrastructure
@@ -60,6 +79,7 @@ stages:
         backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
         backendAWSBucketName: 'stayapp-terraform'
         backendAWSKey: 'terraform'
+        commandOptions: '-input=false'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
@@ -68,6 +88,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/tfplan'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
@@ -76,7 +97,12 @@ stages:
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-        commandOptions: '-auto-approve'
+        commandOptions: '-input=false -auto-approve'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'aws'
 
   - job: build_application
     displayName: Build Application
