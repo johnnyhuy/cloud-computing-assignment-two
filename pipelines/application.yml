@@ -19,6 +19,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: AWSShellScript@1
+      displayName: 'Get ECR password'
       inputs:
         awsCredentials: 'aws-service-connection'
         regionName: 'ap-southeast-2'
@@ -29,12 +30,27 @@ stages:
         failOnStandardError: true
 
     - task: Kubernetes@1
+      displayName: 'Remove ECR Secret'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'gcp-gke-service-connection'
+        namespace: 'default'
+        command: 'delete'
+        arguments: 'secret --ignore-not-found ecr-crendentials'
+        secretType: 'generic'
+
+    - task: Kubernetes@1
+      displayName: 'Set ECR Secret'
       inputs:
         connectionType: 'Kubernetes Service Connection'
         kubernetesServiceEndpoint: 'gcp-gke-service-connection'
         namespace: 'default'
         command: 'create'
-        arguments: 'secret docker-registry ecr-crendentials --docker-server 961143247577.dkr.ecr.ap-southeast-2.amazonaws.com --docker-username aws --docker-password $(ECR_PASSWORD)'
+        arguments: |
+          secret docker-registry ecr-crendentials
+            --docker-server 961143247577.dkr.ecr.ap-southeast-2.amazonaws.com
+            --docker-username aws
+            --docker-password $(ECR_PASSWORD)'
         secretType: 'generic'
 
     - task: Kubernetes@1
