@@ -22,8 +22,8 @@ stages:
         regionName: 'ap-southeast-2'
         scriptType: 'inline'
         inlineScript: |
-          $password = aws ecr --region=ap-southeast-2 get-login --output text --query authorizationData | cut -d ' ' -f6
-          echo '##vso[task.setvariable variable=ECR_PASSWORD]${password}'
+          password=`aws ecr --region=ap-southeast-2 get-login --output text --query authorizationData | cut -d ' ' -f6`
+          echo "##vso[task.setvariable variable=ECR_PASSWORD]$password"
         failOnStandardError: true
 
     - task: Kubernetes@1
