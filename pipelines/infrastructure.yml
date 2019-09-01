@@ -14,6 +14,8 @@ variables:
   value: aws-service-connection
 - name: AWS_TERRAFORM_SERVICE_CONNECTION
   value: aws-terraform-service-connection
+- name: TF_IN_AUTOMATION
+  value: 1
 
 stages:
 - stage: Production
@@ -32,6 +34,7 @@ stages:
         backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
         backendGCPBucketName: 'stayapp-terraform'
         backendGCPPrefix: 'terraform'
+        commandOptions: '-input=false'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
@@ -40,6 +43,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-input=false'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
@@ -48,7 +52,7 @@ stages:
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-auto-approve'
+        commandOptions: '-input=false -auto-approve'
 
   - job: aws_infrastructure
     displayName: Deploy Amazon Web Services Infrastructure
@@ -68,6 +72,7 @@ stages:
         backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
         backendAWSBucketName: 'stayapp-terraform'
         backendAWSKey: 'terraform'
+        commandOptions: '-input=false'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
@@ -76,6 +81,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-input=false'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
@@ -84,7 +90,7 @@ stages:
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-        commandOptions: '-auto-approve'
+        commandOptions: '-input=false -auto-approve'
 
   - job: build_application
     displayName: Build Application
