@@ -7,7 +7,8 @@ spec:
   ports:
   - port: 80
     protocol: TCP
-    targetPort: '80'
+    targetPort: 80
   selector:
     app.kubernetes.io/name: stayapp
-  type: NodePort
+  type: LoadBalancer
+  loadBalancerIP: '35.244.76.200'

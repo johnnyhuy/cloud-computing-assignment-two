@@ -1,8 +1,0 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: stayapp-ingress
-spec:
-  backend:
-    serviceName: stayapp
-    servicePort: '80'
