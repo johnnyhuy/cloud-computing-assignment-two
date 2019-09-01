@@ -1,0 +1,104 @@
+pr:
+  branches:
+    include:
+    - master
+
+variables:
+- group: stayapp-variable-group
+- name: KUBERNETES_SERVICE_CONNECTION
+  value: gcp-gke-service-connection
+
+stages:
+- stage: Production
+  jobs:
+  - job: gcp_infrastructure
+    displayName: Deploy Google Cloud Platform Infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'gcp'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
+        backendGCPBucketName: 'stayapp-terraform'
+        backendGCPPrefix: 'terraform'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
+      inputs:
+        provider: 'gcp'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'gcp'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-auto-approve'
+
+  - job: aws_infrastructure
+    displayName: Deploy Amazon Web Services Infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.7'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'aws'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        backendAWSBucketName: 'stayapp-terraform'
+        backendAWSKey: 'terraform'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
+      inputs:
+        provider: 'aws'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'aws'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-auto-approve'
+
+  - job: build_application
+    displayName: Build Application
+    dependsOn:
+      - gcp_infrastructure
+      - aws_infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: DockerCompose@0
+      displayName: 'Build Docker images'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Build services'
+
+    - task: ECRPushImage@1
+      displayName: 'Push StayApp to ECR'
+      inputs:
+        awsCredentials: '$(AWS_SERVICE_CONNECTION)'
+        regionName: 'ap-southeast-2'
+        imageSource: 'imagename'
+        sourceImageName: 'stayapp'
+        repositoryName: 'stayapp'
