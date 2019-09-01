@@ -5,4 +5,4 @@ metadata:
 spec:
   backend:
     serviceName: stayapp
-    servicePort: 80
+    servicePort: '80'
