@@ -24,3 +24,10 @@ stages:
         useConfigurationFile: true
         configuration: '$(System.DefaultWorkingDirectory)/kubernetes/stayapp'
         secretType: 'generic'
+
+    - task: AWSCLI@1
+      inputs:
+        awsCredentials: 'aws-service-connection'
+        regionName: 'ap-southeast-2'
+        awsCommand: |
+          aws ecr --region=ap-southeast-2 get-login --output text --query authorizationData | cut -d '' '' -f6
