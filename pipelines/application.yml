@@ -36,7 +36,7 @@ stages:
         kubernetesServiceEndpoint: 'gcp-gke-service-connection'
         namespace: 'default'
         command: 'delete'
-        arguments: 'secret --ignore-not-found ecr-crendentials'
+        arguments: 'secret --ignore-not-found ecr-credentials'
         secretType: 'generic'
 
     - task: Kubernetes@1
@@ -46,7 +46,7 @@ stages:
         kubernetesServiceEndpoint: 'gcp-gke-service-connection'
         namespace: 'default'
         command: 'create'
-        arguments: 'secret docker-registry ecr-crendentials --docker-server https://961143247577.dkr.ecr.ap-southeast-2.amazonaws.com --docker-username AWS --docker-password $(ECR_PASSWORD)'
+        arguments: 'secret docker-registry ecr-credentials --docker-server https://961143247577.dkr.ecr.ap-southeast-2.amazonaws.com --docker-username AWS --docker-password $(ECR_PASSWORD)'
         secretType: 'generic'
 
     - task: Kubernetes@1
