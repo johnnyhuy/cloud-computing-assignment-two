@@ -19,6 +19,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
       inputs:
         provider: 'gcp'
         command: 'init'
@@ -28,6 +29,7 @@ stages:
         backendGCPPrefix: 'terraform'
 
     - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
       inputs:
         provider: 'gcp'
         command: 'plan'
@@ -35,6 +37,7 @@ stages:
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
 
     - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
       inputs:
         provider: 'gcp'
         command: 'apply'
