@@ -56,15 +56,6 @@ stages:
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
         commandOptions: '-input=false -auto-approve'
 
-    - task: TerraformTaskV1@0
-      displayName: 'Terraform output'
-      inputs:
-        provider: 'gcp'
-        command: 'output'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
-        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-json > $(Build.ArtifactStagingDirectory)/output.json'
-
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -107,15 +98,6 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
         commandOptions: '-input=false -auto-approve'
-
-    - task: TerraformTaskV1@0
-      displayName: 'Terraform output'
-      inputs:
-        provider: 'aws'
-        command: 'output'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
-        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-        commandOptions: '-json > $(Build.ArtifactStagingDirectory)/output.json'
 
     - task: PublishBuildArtifacts@1
       inputs:
