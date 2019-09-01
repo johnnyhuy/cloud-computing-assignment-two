@@ -14,7 +14,7 @@ stages:
 - stage: Production
   jobs:
   - job: stayapp_application
-    displayName: Deploy Google Cloud Platform Infrastructure
+    displayName: Deploy Stay application
     pool:
       vmImage: 'ubuntu-latest'
     steps:
