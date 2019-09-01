@@ -12,7 +12,7 @@ spec:
         app.kubernetes.io/name: stayapp
     spec:
       containers:
-      - image: nginx:latest
+      - image: 961143247577.dkr.ecr.ap-southeast-2.amazonaws.com/stayapp:latest
         imagePullPolicy: IfNotPresent
         name: stayapp-flask-server
         ports:
@@ -25,3 +25,5 @@ spec:
           requests:
             cpu: 25m
             memory: 128Mi
+        imagePullSecrets:
+        - name: ecr-credencials
