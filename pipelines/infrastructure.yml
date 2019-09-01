@@ -45,7 +45,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/tfplan'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
@@ -55,6 +55,20 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
         commandOptions: '-input=false -auto-approve'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform output'
+      inputs:
+        provider: 'gcp'
+        command: 'output'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-json > $(Build.ArtifactStagingDirectory)/output.json'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'gcp'
 
   - job: aws_infrastructure
     displayName: Deploy Amazon Web Services Infrastructure
@@ -83,7 +97,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-        commandOptions: '-input=false'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/tfplan'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
@@ -93,6 +107,20 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
         commandOptions: '-input=false -auto-approve'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform output'
+      inputs:
+        provider: 'aws'
+        command: 'output'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-json > $(Build.ArtifactStagingDirectory)/output.json'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'aws'
 
   - job: build_application
     displayName: Build Application
