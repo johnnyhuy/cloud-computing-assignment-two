@@ -29,5 +29,4 @@ stages:
       inputs:
         awsCredentials: 'aws-service-connection'
         regionName: 'ap-southeast-2'
-        awsCommand: |
-          aws ecr --region=ap-southeast-2 get-login --output text --query authorizationData | cut -d '' '' -f6
+        awsCommand: 'aws ecr --region=ap-southeast-2 get-login --output text --query authorizationData | cut -d '' '' -f6'
