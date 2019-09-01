@@ -46,7 +46,7 @@ stages:
         kubernetesServiceEndpoint: 'gcp-gke-service-connection'
         namespace: 'default'
         command: 'create'
-        arguments: |
+        arguments: >-
           secret docker-registry ecr-crendentials
             --docker-server 961143247577.dkr.ecr.ap-southeast-2.amazonaws.com
             --docker-username aws
