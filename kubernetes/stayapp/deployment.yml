@@ -25,5 +25,5 @@ spec:
           requests:
             cpu: 25m
             memory: 128Mi
-        imagePullSecrets:
-        - name: ecr-credencials
+      imagePullSecrets:
+      - name: ecr-credencials
