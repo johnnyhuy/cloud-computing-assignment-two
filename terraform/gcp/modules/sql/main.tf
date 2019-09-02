@@ -6,16 +6,14 @@ resource "google_sql_database_instance" "stayapp" {
     tier = "db-f1-micro"
 
     ip_configuration {
-      authorized_networks = [
-        {
-          name = "kubernetes-stayapp"
-          value = "35.244.76.200"
-        },
-        {
-          name = "my-ip"
-          value = "123.208.218.213"
-        },
-      ]
+      authorized_networks {
+        name = "kubernetes-stayapp"
+        value = "35.244.76.200"
+      }
+      authorized_networks {
+        name = "my-ip"
+        value = "123.208.218.213"
+      }
     }
   }
 }
