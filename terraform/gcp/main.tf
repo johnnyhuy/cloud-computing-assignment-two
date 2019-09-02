@@ -6,7 +6,7 @@ provider "google" {
 
 terraform {
   backend "gcs" {
-    bucket  = "stayapp-terraform"
+    bucket = "stayapp-terraform"
     prefix = "terraform"
   }
 }
@@ -14,4 +14,11 @@ terraform {
 module "compute" {
   source = "./modules/compute"
   tags   = "${var.tags}"
+}
+
+module "sql" {
+  source       = "./modules/sql"
+  tags         = "${var.tags}"
+  sql_username = "${var.sql_username}"
+  sql_password = "${var.sql_password}"
 }
