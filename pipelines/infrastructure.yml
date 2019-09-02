@@ -45,7 +45,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -var ''sql_password=$(SQL_PASSWORD)'' -out $(Build.ArtifactStagingDirectory)/tfplan'
+        commandOptions: '-input=false -var "sql_password=$(SQL_PASSWORD)" -out $(Build.ArtifactStagingDirectory)/tfplan'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
