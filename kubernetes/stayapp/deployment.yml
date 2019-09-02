@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: stayapp-deployment
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: stayapp
@@ -18,6 +19,12 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 3
         resources:
           limits:
             cpu: 200m
