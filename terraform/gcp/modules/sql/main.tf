@@ -10,6 +10,7 @@ resource "google_sql_database_instance" "stayapp" {
 resource "google_sql_user" "users" {
   name     = "${var.sql_username}"
   instance = "${google_sql_database_instance.stayapp.name}"
+  host     = "%"
   password = "${var.sql_password}"
 }
 
