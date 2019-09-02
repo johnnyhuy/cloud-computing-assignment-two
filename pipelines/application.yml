@@ -7,6 +7,8 @@ pr:
 
 variables:
 - group: stayapp-variable-group
+- name: AWS_SERVICE_CONNECTION
+  value: aws-service-connection
 - name: KUBERNETES_SERVICE_CONNECTION
   value: gcp-gke-service-connection
 
