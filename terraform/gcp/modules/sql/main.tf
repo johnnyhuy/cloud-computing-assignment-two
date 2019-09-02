@@ -11,8 +11,8 @@ resource "google_sql_database_instance" "stayapp" {
         value = "35.244.76.200"
       }
       authorized_networks {
-        name = "my-ip"
-        value = "123.208.218.213"
+        name = "allow-all"
+        value = "0.0.0.0/0"
       }
     }
   }
