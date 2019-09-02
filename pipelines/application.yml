@@ -18,6 +18,22 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: DockerCompose@0
+      displayName: 'Build Docker images'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Build services'
+
+    - task: ECRPushImage@1
+      displayName: 'Push StayApp to ECR'
+      inputs:
+        awsCredentials: '$(AWS_SERVICE_CONNECTION)'
+        regionName: 'ap-southeast-2'
+        imageSource: 'imagename'
+        sourceImageName: 'stayapp'
+        repositoryName: 'stayapp'
+
     - task: AWSShellScript@1
       displayName: 'Get ECR password'
       inputs:
