@@ -45,7 +45,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -var "sql_password=$(SQL_PASSWORD)" -out $(Build.ArtifactStagingDirectory)/tfplan'
+        commandOptions: '-input=false -var "sql_password=$(SQL_PASSWORD)" -out $(Build.ArtifactStagingDirectory)/default.tfplan'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
@@ -54,7 +54,7 @@ stages:
         command: 'apply'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -auto-approve $(Build.ArtifactStagingDirectory)/tfplan'
+        commandOptions: '-input=false -auto-approve $(Build.ArtifactStagingDirectory)/default.tfplan'
 
     - task: PublishBuildArtifacts@1
       inputs:
@@ -88,7 +88,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
         environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/tfplan'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/default.tfplan'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
