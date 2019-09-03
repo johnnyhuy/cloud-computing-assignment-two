@@ -1,14 +1,10 @@
-resource "google_container_cluster" "stayapp-austse" {
+resource "google_container_cluster" "stayapp_austse_cluster" {
   name                     = "stayapp-austse"
   location                 = "australia-southeast1"
   min_master_version       = "1.13.7-gke.24"
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  node_config {
-    tags = ["education", "region-austse"]
-  }
-
   master_auth {
     username = ""
     password = ""
@@ -19,17 +15,13 @@ resource "google_container_cluster" "stayapp-austse" {
   }
 }
 
-resource "google_container_cluster" "stayapp-us" {
-  name                     = "stayapp-us"
-  location                 = "us-east4"
+resource "google_container_cluster" "stayapp_us_cluster" {
+  name     = "stayapp-us"
+  location = "us-east4"
   min_master_version       = "1.13.7-gke.24"
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  node_config {
-    tags = ["region-us"]
-  }
-
   master_auth {
     username = ""
     password = ""
@@ -40,7 +32,7 @@ resource "google_container_cluster" "stayapp-us" {
   }
 }
 
-resource "google_container_node_pool" "stayapp-austse-pool" {
+resource "google_container_node_pool" "stayapp_austse_pool" {
   name       = "stayapp-pool"
   cluster    = "${google_container_cluster.stayapp-austse.name}"
   node_count = 1
@@ -48,7 +40,7 @@ resource "google_container_node_pool" "stayapp-austse-pool" {
   node_config {
     preemptible  = true
     machine_type = "n1-standard-1"
-    tags = ["region-austse"]
+    tags         = ["region-austse"]
 
     metadata = {
       disable-legacy-endpoints = "true"
@@ -61,7 +53,7 @@ resource "google_container_node_pool" "stayapp-austse-pool" {
   }
 }
 
-resource "google_container_node_pool" "stayapp-us-pool" {
+resource "google_container_node_pool" "stayapp_us_pool" {
   name       = "stayapp-pool-us"
   cluster    = "${google_container_cluster.stayapp-us.name}"
   node_count = 1
@@ -69,7 +61,7 @@ resource "google_container_node_pool" "stayapp-us-pool" {
   node_config {
     preemptible  = true
     machine_type = "n1-standard-1"
-    tags = ["region-us"]
+    tags         = ["region-us"]
 
     metadata = {
       disable-legacy-endpoints = "true"
@@ -109,7 +101,7 @@ resource "acme_certificate" "johnnyhuy_acme" {
 
     config = {
       CF_API_EMAIL = "johnnyhuynhdev@gmail.com"
-      CF_API_KEY   = "172ffc049e23a2cb8fb63b15fa29aca547b5a"
+      CF_API_KEY   = "05c3066e319ab980ed7df4ab1fef2a0b22b91"
     }
   }
 }
@@ -124,27 +116,62 @@ resource "google_compute_ssl_certificate" "johnnyhuy_certificate" {
   }
 }
 
-# resource "google_compute_global_address" "default" {
-#   name         = "stayapp-global-ip"
-#   ip_version   = "IPV4"
-#   address_type = "EXTERNAL"
-# }
+resource "google_compute_global_address" "stayapp_global_address" {
+  name         = "stayapp-global-ip"
+  ip_version   = "IPV4"
+  address_type = "EXTERNAL"
+}
 
-# resource "google_compute_target_http_proxy" "http" {
-#   count   = 1
-#   name    = "${var.name}-http-proxy"
-#   url_map = var.url_map
-# }
+resource "google_compute_global_forwarding_rule" "stayapp_https" {
+  count      = 1
+  name       = "stayapp-https-rule"
+  target     = google_compute_target_https_proxy.stayapp_https_proxy[0].self_link
+  ip_address = "${google_compute_global_address.stayapp_global_address.address}"
+  port_range = "443"
+  depends_on = [google_compute_global_address.stayapp_global_address]
+}
 
-# resource "google_compute_global_forwarding_rule" "http" {
-#   provider   = google-beta
-#   count      = 1
-#   name       = "${var.name}-http-rule"
-#   target     = google_compute_target_http_proxy.http[0].self_link
-#   ip_address = google_compute_global_address.default.address
-#   port_range = "80"
+resource "google_compute_target_https_proxy" "stayapp_https_proxy" {
+  count   = 1
+  name    = "stayapp-https-proxy"
+  url_map = "${google_compute_url_map.stayapp_url_map.self_link}"
 
-#   depends_on = [google_compute_global_address.default]
+  ssl_certificates = ["${google_compute_ssl_certificate.johnnyhuy_certificate.self_link}"]
+}
 
-#   labels = var.custom_labels
-# }
+resource "google_compute_url_map" "stayapp_url_map" {
+  name        = "stayapp-url-map"
+
+  default_service = "${google_compute_backend_service.stayapp_backend.self_link}"
+
+  host_rule {
+    hosts        = ["stay.johnnyhuy.com"]
+    path_matcher = "allpaths"
+  }
+
+  path_matcher {
+    name            = "allpaths"
+    default_service = "${google_compute_backend_service.stayapp_backend.self_link}"
+
+    path_rule {
+      paths   = ["/*"]
+      service = "${google_compute_backend_service.stayapp_backend.self_link}"
+    }
+  }
+}
+
+resource "google_compute_backend_service" "stayapp_backend" {
+  name        = "stayapp-backend"
+  port_name   = "http"
+  protocol    = "HTTP"
+  timeout_sec = 10
+
+  health_checks = ["${google_compute_http_health_check.stayapp_health_check.self_link}"]
+}
+
+resource "google_compute_http_health_check" "stayapp_health_check" {
+  name               = "stayapp-health-check"
+  request_path       = "/"
+  check_interval_sec = 1
+  timeout_sec        = 1
+}
