@@ -1,9 +1,13 @@
 resource "google_container_cluster" "stayapp_austse_cluster" {
   name                     = "stayapp-austse"
-  location                 = "australia-southeast1"
+  location                 = "australia-southeast1-a"
   min_master_version       = "1.13.7-gke.24"
   remove_default_node_pool = true
   initial_node_count       = 1
+
+  node_locations = [
+    "australia-southeast1-c",
+  ]
 
   master_auth {
     username = ""
@@ -17,10 +21,14 @@ resource "google_container_cluster" "stayapp_austse_cluster" {
 
 resource "google_container_cluster" "stayapp_us_cluster" {
   name     = "stayapp-us"
-  location = "us-east4"
+  location = "us-central1-a"
   min_master_version       = "1.13.7-gke.24"
   remove_default_node_pool = true
   initial_node_count       = 1
+
+  node_locations = [
+    "us-central1-c",
+  ]
 
   master_auth {
     username = ""
@@ -34,13 +42,12 @@ resource "google_container_cluster" "stayapp_us_cluster" {
 
 resource "google_container_node_pool" "stayapp_austse_pool" {
   name       = "stayapp-pool"
-  cluster    = "${google_container_cluster.stayapp-austse.name}"
+  cluster    = "${google_container_cluster.stayapp_austse_cluster.name}"
   node_count = 1
 
   node_config {
     preemptible  = true
     machine_type = "n1-standard-1"
-    tags         = ["region-austse"]
 
     metadata = {
       disable-legacy-endpoints = "true"
@@ -55,13 +62,12 @@ resource "google_container_node_pool" "stayapp_austse_pool" {
 
 resource "google_container_node_pool" "stayapp_us_pool" {
   name       = "stayapp-pool-us"
-  cluster    = "${google_container_cluster.stayapp-us.name}"
+  cluster    = "${google_container_cluster.stayapp_us_cluster.name}"
   node_count = 1
 
   node_config {
     preemptible  = true
     machine_type = "n1-standard-1"
-    tags         = ["region-us"]
 
     metadata = {
       disable-legacy-endpoints = "true"
@@ -100,8 +106,8 @@ resource "acme_certificate" "johnnyhuy_acme" {
     provider = "cloudflare"
 
     config = {
-      CF_API_EMAIL = "johnnyhuynhdev@gmail.com"
-      CF_API_KEY   = "05c3066e319ab980ed7df4ab1fef2a0b22b91"
+      CF_API_EMAIL = "silly me"
+      CF_API_KEY   = "silly me"
     }
   }
 }
