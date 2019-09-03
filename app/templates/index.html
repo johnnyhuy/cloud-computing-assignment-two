@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-light p-4">
+                <form>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlSelect1">Suburb</label>
+                            <input type="text" class="form-control" id="validationDefault01" placeholder="Suburb"
+                                   required>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlSelect1">State</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Victoria</option>
+                                <option>New South Wales</option>
+                                <option>Queensland</option>
+                                <option>South Australia</option>
+                                <option>Western Australia</option>
+                                <option>Australian Capital Territory</option>
+                                <option>Northern Territory</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlSelect1">Min Rooms</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>4+</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlSelect1">Max Rooms</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlSelect1">Min Bathrooms</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlSelect1">Max BathRooms</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlSelect1">Min Carspaces</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="exampleFormControlSelect1">Max Carspaces</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                            <label class="form-check-label" for="invalidCheck2">
+                               Surrounding Suburbs
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                </form>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+    <div class="container">
+        {% for p in listings %}
+            <ul>
+                <a href="#">
+                    <li>
+                        <img src="{{ p['listing']['media'][0]['url'] }}" style="height:150px;">
+                        {{ p['listing']['media'][0]['url'] }}
+                    </li>
+                </a>
+            </ul>
+        {% endfor %}
+    </div>
+{% endblock %}
