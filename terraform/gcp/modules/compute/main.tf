@@ -1,5 +1,5 @@
 resource "google_container_cluster" "stayapp-austse" {
-  name                     = "stayapp"
+  name                     = "stayapp-austse"
   location                 = "australia-southeast1"
   min_master_version       = "1.13.7-gke.24"
   remove_default_node_pool = true
@@ -20,14 +20,14 @@ resource "google_container_cluster" "stayapp-austse" {
 }
 
 resource "google_container_cluster" "stayapp-us" {
-  name                     = "stayapp"
+  name                     = "stayapp-us"
   location                 = "us-east4"
   min_master_version       = "1.13.7-gke.24"
   remove_default_node_pool = true
   initial_node_count       = 1
 
   node_config {
-    tags = ["education", "region-us"]
+    tags = ["region-us"]
   }
 
   master_auth {
@@ -48,6 +48,7 @@ resource "google_container_node_pool" "stayapp-austse-pool" {
   node_config {
     preemptible  = true
     machine_type = "n1-standard-1"
+    tags = ["region-austse"]
 
     metadata = {
       disable-legacy-endpoints = "true"
@@ -68,6 +69,7 @@ resource "google_container_node_pool" "stayapp-us-pool" {
   node_config {
     preemptible  = true
     machine_type = "n1-standard-1"
+    tags = ["region-us"]
 
     metadata = {
       disable-legacy-endpoints = "true"
