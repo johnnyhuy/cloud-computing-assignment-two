@@ -1,0 +1,91 @@
+{
+  "listingType": "Sale",
+  "propertyTypes": [
+    "AcreageSemiRural"
+  ],
+  "propertyFeatures": [
+    "AirConditioning"
+  ],
+  "listingAttributes": [
+    "HasPhotos"
+  ],
+  "propertyEstablishedType": "Any",
+  "minBedrooms": 0,
+  "maxBedrooms": 0,
+  "minBathrooms": 0,
+  "maxBathrooms": 0,
+  "minCarspaces": 0,
+  "maxCarspaces": 0,
+  "minPrice": 0,
+  "maxPrice": 0,
+  "minLandArea": 0,
+  "maxLandArea": 0,
+  "advertiserIds": [
+    0
+  ],
+  "adIds": [
+    0
+  ],
+  "excludeAdIds": [
+    0
+  ],
+  "locations": [
+    {
+      "state": "ACT",
+      "region": "string",
+      "area": "string",
+      "suburb": "string",
+      "postCode": "string",
+      "includeSurroundingSuburbs": true
+    }
+  ],
+  "locationTerms": "string",
+  "keywords": [
+    "string"
+  ],
+  "newDevOnly": true,
+  "inspectionFrom": "2019-08-29T03:00:34.014Z",
+  "inspectionTo": "2019-08-29T03:00:34.014Z",
+  "auctionFrom": "2019-08-29T03:00:34.014Z",
+  "auctionTo": "2019-08-29T03:00:34.014Z",
+  "ruralOnly": true,
+  "excludePriceWithheld": true,
+  "sort": {
+    "sortKey": "Default",
+    "direction": "Ascending",
+    "proximityTo": {
+      "lat": 0,
+      "lon": 0
+    }
+  },
+  "page": 0,
+  "pageSize": 0,
+  "geoWindow": {
+    "box": {
+      "topLeft": {
+        "lat": 0,
+        "lon": 0
+      },
+      "bottomRight": {
+        "lat": 0,
+        "lon": 0
+      }
+    },
+    "circle": {
+      "center": {
+        "lat": 0,
+        "lon": 0
+      },
+      "radiusInMeters": 0
+    },
+    "polygon": {
+      "points": [
+        {
+          "lat": 0,
+          "lon": 0
+        }
+      ]
+    }
+  },
+  "updatedSince": "2019-08-29T03:00:34.014Z"
+}
