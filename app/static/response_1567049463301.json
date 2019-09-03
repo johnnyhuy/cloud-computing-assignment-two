@@ -1,0 +1,414 @@
+[
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015549445,
+      "advertiser": {
+        "type": "Agency",
+        "id": 4720,
+        "name": "Nelson Alexander Brunswick",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/4720/logo_4720.png?date=131377426126558798",
+        "preferredColourHex": "#1e0f14",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/4720/banner_4720.png?date=131377426205308836",
+        "contacts": [
+          {
+            "name": "Peter Jones",
+            "photoUrl": "https://images.domain.com.au/img/4720/contact_664629.jpeg?mod=190215-110950"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "$1,500,000 - $1,600,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015549445_1_1_190828_010859-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015549445_2_1_190828_010859-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015549445_3_1_190828_010859-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015549445_4_1_190828_010859-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015549445_5_1_190828_010859-w1600-h1067"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "Floorboards",
+          "Gas",
+          "InternalLaundry",
+          "SecureParking",
+          "Heating"
+        ],
+        "propertyType": "House",
+        "allPropertyTypes": [
+          "House"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 3,
+        "carspaces": 3,
+        "unitNumber": "",
+        "streetNumber": "223",
+        "street": "Edward Street",
+        "area": "North",
+        "region": "Melbourne Region",
+        "suburb": "BRUNSWICK EAST",
+        "postcode": "3057",
+        "displayableAddress": "223 Edward Street, Brunswick East",
+        "latitude": -37.7750244,
+        "longitude": 144.972961
+      },
+      "headline": "Approx 627sqm of Blue-Chip City-Fringe Potential",
+      "summaryDescription": "<b>Approx 627sqm of Blue-Chip City-Fringe Potential</b><br />Occupying one of the area's larger allotments, this freestanding solid-brick Victorian provides a family environment of immediate quality and unbeatable convenience along with amazing options...",
+      "hasFloorplan": true,
+      "hasVideo": true,
+      "labels": [
+        "New"
+      ],
+      "auctionSchedule": {
+        "time": "2019-09-21T12:00:00",
+        "auctionLocation": "On Site"
+      },
+      "inspectionSchedule": {
+        "byAppointment": false,
+        "recurring": false,
+        "times": [
+          {
+            "openingTime": "2019-08-31T14:30:00",
+            "closingTime": "2019-08-31T15:00:00"
+          },
+          {
+            "openingTime": "2019-09-05T17:30:00",
+            "closingTime": "2019-09-05T18:00:00"
+          },
+          {
+            "openingTime": "2019-09-07T11:00:00",
+            "closingTime": "2019-09-07T11:30:00"
+          },
+          {
+            "openingTime": "2019-09-12T17:30:00",
+            "closingTime": "2019-09-12T18:00:00"
+          }
+        ]
+      },
+      "listingSlug": "223-edward-street-brunswick-east-vic-3057-2015549445"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015527138,
+      "advertiser": {
+        "type": "Agency",
+        "id": 21490,
+        "name": "Ray White Brunswick",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/21490/logo_21490.png?date=131378336667024819",
+        "preferredColourHex": "#FEE536",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/21490/banner_21490.png?date=131378336997493939",
+        "contacts": [
+          {
+            "name": "Alex Ilyin",
+            "photoUrl": "https://images.domain.com.au/img/21490/contact_1117438.jpeg?mod=190819-163022"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "Auction"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015527138_1_1_190816_122100-w2768-h2343"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015527138_2_1_190816_122100-w3520-h2350"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015527138_3_1_190816_122100-w3520-h2350"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015527138_4_1_190816_122100-w3520-h2350"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015527138_9_1_190819_011621-w3543-h2362"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "AirConditioning",
+          "BuiltInWardrobes",
+          "Ensuite",
+          "Gas",
+          "SecureParking",
+          "GroundFloor",
+          "NorthFacing",
+          "Bath"
+        ],
+        "propertyType": "House",
+        "allPropertyTypes": [
+          "House"
+        ],
+        "bathrooms": 2,
+        "bedrooms": 3,
+        "carspaces": 1,
+        "unitNumber": "",
+        "streetNumber": "85",
+        "street": "Albert Street",
+        "area": "North",
+        "region": "Melbourne Region",
+        "suburb": "BRUNSWICK EAST",
+        "postcode": "3057",
+        "displayableAddress": "85 Albert Street, Brunswick East",
+        "latitude": -37.7698555,
+        "longitude": 144.972565,
+        "landArea": 146
+      },
+      "headline": "Architecturally Designed Haven",
+      "summaryDescription": "<b>Architecturally Designed Haven</b><br />This beautifully presented two storey Victorian terrace couples the elegance of modern features with a supreme location. Perfectly positioned in Brunswick East, this home has tram and train lines, buses and th...",
+      "hasFloorplan": true,
+      "hasVideo": true,
+      "labels": [],
+      "auctionSchedule": {
+        "time": "2019-09-21T10:00:00",
+        "auctionLocation": "On Site"
+      },
+      "inspectionSchedule": {
+        "byAppointment": false,
+        "recurring": false,
+        "times": [
+          {
+            "openingTime": "2019-08-31T10:00:00",
+            "closingTime": "2019-08-31T10:30:00"
+          },
+          {
+            "openingTime": "2019-09-04T19:00:00",
+            "closingTime": "2019-09-04T19:30:00"
+          },
+          {
+            "openingTime": "2019-09-07T13:00:00",
+            "closingTime": "2019-09-07T13:30:00"
+          },
+          {
+            "openingTime": "2019-09-11T19:00:00",
+            "closingTime": "2019-09-11T19:30:00"
+          },
+          {
+            "openingTime": "2019-09-14T10:00:00",
+            "closingTime": "2019-09-14T10:30:00"
+          },
+          {
+            "openingTime": "2019-09-18T18:00:00",
+            "closingTime": "2019-09-18T18:30:00"
+          },
+          {
+            "openingTime": "2019-09-21T09:30:00",
+            "closingTime": "2019-09-21T10:00:00"
+          }
+        ]
+      },
+      "listingSlug": "85-albert-street-brunswick-east-vic-3057-2015527138"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2014998383,
+      "advertiser": {
+        "type": "Agency",
+        "id": 19914,
+        "name": "CRS Property",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/19914/logo_19914.jpeg",
+        "preferredColourHex": "#1c1b1c",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/19914/banner_19914.jpeg",
+        "contacts": [
+          {
+            "name": "Ross Mercorillo",
+            "photoUrl": "https://images.domain.com.au/img/19914/contact_999841.JPG?mod=180815-110650"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "Price on Application"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014998383_1_pi_190307_114009-w780-h586"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014998383_3_pi_190307_114010-w995-h742"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014998383_4_pi_190307_114011-w779-h583"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014998383_2_pi_190307_114010-w569-h361"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "SecureParking",
+          "GroundFloor"
+        ],
+        "propertyType": "House",
+        "allPropertyTypes": [
+          "House"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 3,
+        "carspaces": 1,
+        "unitNumber": "",
+        "streetNumber": "111",
+        "street": "Nicholson Street",
+        "area": "North",
+        "region": "Melbourne Region",
+        "suburb": "BRUNSWICK EAST",
+        "postcode": "3057",
+        "displayableAddress": "111 Nicholson Street, Brunswick East",
+        "latitude": -37.7737732,
+        "longitude": 144.978973,
+        "landArea": 496
+      },
+      "headline": "The Ideal Occupy/Invest Opportunity",
+      "summaryDescription": "<b>The Ideal Occupy/Invest Opportunity</b><br />CRS Property is delighted to offer for sale this high-profile city fringe freehold situated at 111 Nicholson Street East Brunswick. \r\n\r\nThe property presents an ideally placed freehold within one of Melbo...",
+      "hasFloorplan": false,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": true,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "111-nicholson-street-brunswick-east-vic-3057-2014998383"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015536976,
+      "advertiser": {
+        "type": "Agency",
+        "id": 27076,
+        "name": "O'Brien Real Estate Preston/Reservoir",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/27076/logo_27076.png",
+        "preferredColourHex": "#19202A",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/27076/banner_27076.png",
+        "contacts": [
+          {
+            "name": "Gino Vernucci",
+            "photoUrl": "https://images.domain.com.au/img/27076/contact_1314999.jpeg?mod=190319-152220"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "Auction Saturday 14th September at 3:00pm"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015536976_1_1_190821_064450-w2000-h1500"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015536976_2_1_190821_064450-w2000-h1500"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015536976_3_1_190821_064450-w2000-h1500"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015536976_4_1_190821_064450-w2000-h1500"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015536976_5_1_190821_064450-w2000-h1500"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "Floorboards"
+        ],
+        "propertyType": "House",
+        "allPropertyTypes": [
+          "House"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 3,
+        "carspaces": 2,
+        "unitNumber": "",
+        "streetNumber": "45",
+        "street": "Hickford  Street",
+        "area": "North",
+        "region": "Melbourne Region",
+        "suburb": "BRUNSWICK EAST",
+        "postcode": "3057",
+        "displayableAddress": "45 Hickford  Street, Brunswick East",
+        "latitude": -37.7660561,
+        "longitude": 144.976608,
+        "landArea": 420
+      },
+      "headline": "Outstanding opportunity",
+      "summaryDescription": "<b>Outstanding opportunity</b><br />Perfect position with amazing potential set on a superb 420sqm (approx.) allotement with rear ROW access. This home will surely tempt all renovators and opportunist that will take this three bedroom period style home...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "auctionSchedule": {
+        "time": "2019-09-14T15:00:00",
+        "auctionLocation": "On Site"
+      },
+      "inspectionSchedule": {
+        "byAppointment": false,
+        "recurring": false,
+        "times": [
+          {
+            "openingTime": "2019-08-31T14:00:00",
+            "closingTime": "2019-08-31T14:30:00"
+          },
+          {
+            "openingTime": "2019-09-05T17:30:00",
+            "closingTime": "2019-09-05T18:00:00"
+          },
+          {
+            "openingTime": "2019-09-07T12:00:00",
+            "closingTime": "2019-09-07T12:30:00"
+          },
+          {
+            "openingTime": "2019-09-11T18:00:00",
+            "closingTime": "2019-09-11T18:30:00"
+          },
+          {
+            "openingTime": "2019-09-14T14:30:00",
+            "closingTime": "2019-09-14T15:00:00"
+          }
+        ]
+      },
+      "listingSlug": "45-hickford-street-brunswick-east-vic-3057-2015536976"
+    }
+  }
+]
