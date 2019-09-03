@@ -1,0 +1,109 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - terraform/*
+
+variables:
+- group: stayapp-variable-group
+- name: GCP_SERVICE_CONNECTION
+  value: google-terraform-service-connection
+- name: AWS_SERVICE_CONNECTION
+  value: aws-service-connection
+- name: AWS_TERRAFORM_SERVICE_CONNECTION
+  value: aws-terraform-service-connection
+- name: TF_IN_AUTOMATION
+  value: 1
+
+stages:
+- stage: Production
+  jobs:
+  - job: gcp_infrastructure
+    displayName: Deploy Google Cloud Platform Infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.7'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'gcp'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
+        backendGCPBucketName: 'stayapp-terraform'
+        backendGCPPrefix: 'terraform'
+        commandOptions: '-input=false'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
+      inputs:
+        provider: 'gcp'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -var "sql_password=$(SQL_PASSWORD)" -out $(Build.ArtifactStagingDirectory)/default.tfplan'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'gcp'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -auto-approve $(Build.ArtifactStagingDirectory)/default.tfplan'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'gcp'
+
+  - job: aws_infrastructure
+    displayName: Deploy Amazon Web Services Infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.7'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'aws'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        backendAWSBucketName: 'stayapp-terraform'
+        backendAWSKey: 'terraform'
+        commandOptions: '-input=false'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
+      inputs:
+        provider: 'aws'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/default.tfplan'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'aws'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -auto-approve'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'aws'
