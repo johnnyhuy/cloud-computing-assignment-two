@@ -4,7 +4,10 @@ resource "google_container_cluster" "primary" {
   min_master_version       = "1.13.7-gke.24"
   remove_default_node_pool = true
   initial_node_count       = 1
-  service_account = "${var.service_account}"
+
+  node_config {
+    service_account = "${var.service_account}"
+  }
 
   master_auth {
     username = ""

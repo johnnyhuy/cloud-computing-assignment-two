@@ -4,6 +4,9 @@ pr:
   branches:
     include:
     - master
+  paths:
+    exclude:
+    - terraform/*
 
 variables:
 - group: stayapp-variable-group
