@@ -14,6 +14,7 @@ terraform {
 module "compute" {
   source = "./modules/compute"
   tags   = "${var.tags}"
+  service_account = "${var.service_account}"
 }
 
 module "sql" {
