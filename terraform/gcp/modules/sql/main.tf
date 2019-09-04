@@ -27,6 +27,6 @@ resource "google_sql_user" "users" {
 }
 
 resource "google_sql_database" "database" {
-  name     = "stayapp"
+  name     = "stayapp-sql"
   instance = "${google_sql_database_instance.stayapp.name}"
 }
