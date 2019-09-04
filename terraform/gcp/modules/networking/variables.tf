@@ -1,23 +1,3 @@
-variable "tags" {
-  description = "Tags for all the resources"
-  type        = "map"
-}
-
-variable "service_account" {
-  description = "MySQL instance username"
-  type        = "string"
-}
-
-variable "sql_username" {
-  description = "MySQL instance username"
-  type        = "string"
-}
-
-variable "sql_password" {
-  description = "MySQL instance password"
-  type        = "string"
-}
-
 variable "cloudflare_email" {
   description = "Cloudflare email used to auth against their API"
   type = "string"
@@ -35,5 +15,10 @@ variable "cloudflare_record_domain" {
 
 variable "cloudflare_record_name" {
   description = "Cloudflare record name or subdomain"
+  type = "string"
+}
+
+variable "cloudflare_record_ip_address" {
+  description = "Cloudflare record IP address of the single A record"
   type = "string"
 }
