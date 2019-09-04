@@ -3,6 +3,11 @@ variable "tags" {
   type        = "map"
 }
 
+variable "service_account" {
+  description = "MySQL instance username"
+  type        = "string"
+}
+
 variable "sql_username" {
   description = "MySQL instance username"
   type        = "string"
