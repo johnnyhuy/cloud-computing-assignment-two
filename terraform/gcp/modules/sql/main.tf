@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "stayapp" {
-  name   = "stayapp-instance"
+  name   = "stayapp-sql"
   region = "australia-southeast1"
 
   settings {
@@ -27,6 +27,6 @@ resource "google_sql_user" "users" {
 }
 
 resource "google_sql_database" "database" {
-  name     = "stayapp-sql"
+  name     = "stayapp"
   instance = "${google_sql_database_instance.stayapp.name}"
 }
