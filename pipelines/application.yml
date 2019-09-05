@@ -5,6 +5,11 @@ pr:
     include:
     - master
   paths:
+    include:
+    - app/*
+    - kubernetes/*
+    - Dockerfile
+    - docker-compose.yml
     exclude:
     - terraform/*
 
