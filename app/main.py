@@ -1,25 +1,64 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import json
-from app.suburb import Suburb
-from app.object_populator import ObjectPopulator
+
+from location import Suburb, Council, State
+from data_grabber import SuburbData, CouncilData, StateData, FeesData, DomainAccessToken, SearchResponseData
+from stats import GraphBuilder
+import domain_api_constants
 
 app = Flask(__name__)
 
-with open('./static/response_1567049463301.json') as json_file:
-    listings = json.load(json_file)
+global listings
 
-@app.route("/")
+domain_access_token = DomainAccessToken().get_token()
+
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', listings=listings)
+    global listings
+    if request.method == 'POST':
+
+        api_query = domain_api_constants.QUERY_DATA \
+            .replace('SUBURB_PLACEHOLDER', request.form.get('suburb_name')) \
+            .replace('MIN_BEDROOMS_PLACEHOLDER', str(request.form.get('min_bedrooms'))) \
+            .replace('MAX_BEDROOMS_PLACEHOLDER', str(request.form.get('max_bedrooms')) )\
+            .replace('MIN_BATHROOMS_PLACEHOLDER', str(request.form.get('min_bathrooms'))) \
+            .replace('MAX_BATHROOMS_PLACEHOLDER', str(request.form.get('max_bathrooms'))) \
+            .replace('MIN_CARSPACES_PLACEHOLDER', str(request.form.get('min_carspaces'))) \
+            .replace('MAX_CARSPACES_PLACEHOLDER', str(request.form.get('max_carspaces')))
+        listings = SearchResponseData(domain_access_token, api_query).get_data()
+        return render_template('index.html', listings=listings)
+    else:
+        return render_template('index.html')
 
 
-@app.route("/listing/<property_id>")
+@app.route("/listing/<property_id>", methods=['GET', 'POST'])
 def listing(property_id):
+    global listings
+
     for p in listings:
-        if str(p['listing']['id']) == property_id:
-            suburb = Suburb(['propertyDetails']['suburb'])
-            ObjectPopulator.populate_suburb_object(suburb)
-            return render_template('listing.html', p=p,suburb=suburb)
+        if p['type'] == 'PropertyListing':
+            if str(p['listing']['id']) == property_id:
+
+                suburb_data = SuburbData(p['listing']['propertyDetails']['suburb'], domain_access_token)
+                suburb = Suburb(suburb_data.get_data())
+
+                council_data = CouncilData(suburb.council_name)
+                council = Council(council_data.get_data())
+
+                state_data = StateData("Victoria")
+                state = State(state_data.get_data())
+
+                crime = GraphBuilder(state, council, suburb)
+                crime_fig_url = crime.get_url()
+                if request.method == 'POST':
+                    price_estimate = request.form.get('price_estimate')
+                    fees = FeesData(price_estimate)
+
+                    return render_template('listing.html', p=p, suburb=suburb, council=council, state=state,
+                                           crime_fig_url=crime_fig_url, fees=fees)
+                else:
+                    return render_template('listing.html', p=p, suburb=suburb, council=council, state=state,
+                                           crime_fig_url=crime_fig_url)
     return "Property Not Found"
 
 

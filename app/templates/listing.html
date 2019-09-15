@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container" , style="border:thin black solid;">
+        <div class="row">
+            <div class="col-md-6" style="border:thin black solid;">
+                <img class="img-fluid" src="{{ p['listing']['media'][0]['url'] }}">
+                {{ p['listing']['summaryDescription']|safe }}
+            </div>
+            <div class="col-md-6" style="border:thin black solid;">
+                <div style="word-wrap:break-word;">
+                    <div>
+                        <h1>Price</h1>
+                        <p>
+                            Listed below are the additional fees that you'll likely be required to pay on top of the
+                            property price. To calculate these values please enter a price estimate in the field
+                            below:
+                        </p>
+                        <form method="POST">
+                            <div class="form-group">
+                                <div class="form-inline"><input type="number" class="form-control" name="price_estimate"
+                                                                placeholder=
+                                                                        {% if fees is defined %}
+                                                                            {{ fees.price_estimate }}
+                                                                        {% else %}
+                                                                            "Please Enter Value"
+                                                                        {% endif %}
+                                >
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                                <small class="form-text text-muted">Enter house price estimate to calculate added costs
+                                </small>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            {% if fees is defined %}
+                                <tr>
+                                    <td>Stamp Duty</td>
+                                    <td>{{ fees.stamp_duty }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Mortgage Registration Fee (Electronic)</td>
+                                    <td>{{ fees.mortgage_registration_fee }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Land Transfer Fee</td>
+                                    <td>{{ fees.land_transfer_fee }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Conveyancing</td>
+                                    <td>{{ fees.conveyancing_fee }}</td>
+                                </tr>
+                                <tr>
+                                    <td>TOTAL</td>
+                                    <td>{{ fees.total_fees }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>Stamp Duty</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Mortgage Registration Fee (Electronic)</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Land Transfer Fee</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Conveyancing</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>TOTAL</td>
+                                    <td>0</td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h1>Crime</h1>
+                    <div style="word-wrap:break-word;">
+                        {{ suburb.name }}'s crime rate in 2019 is {{ suburb.get_low_high_crime_state_2019(council) }}
+                        than it's council {{ council.name }}, which itself has a
+                        {{ council.get_low_high_crime_state_2019(state) }} crime rate than the state of {{ state.name }}
+                    </div>
+                    <img class="img-fluid" src="/{{ crime_fig_url }}">
+                    <div>
+                        <h1>Schools</h1>
+                        <div style="word-wrap:break-word;">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi doloribus enim eveniet hic
+                            impedit
+                            ipsa iure molestias quia temporibus veritatis. Consectetur, illum, magni. Aut doloremque
+                            excepturi
+                            incidunt laudantium obcaecati sed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
