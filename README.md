@@ -13,6 +13,7 @@ Real estate application using cloud resources
     - [Tools and techniques](#tools-and-techniques)
     - [Data persistence](#data-persistence)
     - [User interface](#user-interface)
+    - [Layout](#layout)
 
 ## Application Development
 
@@ -53,6 +54,7 @@ Here are the prerequisites to start work on it:
 
 - Terraform CLI
 - AWS CLI
+- GCloud SDK
 
 [Terraform Getting started - AWS](https://learn.hashicorp.com/terraform/getting-started/install)
 
@@ -101,3 +103,13 @@ Create a real estate helper tool by developing a simple web application that can
 - PHP application backend
 - Vue.js frontend (optional)
 - Grafana metrics dashboard (optional)
+
+### Layout
+
+This is the application layout of the Python application in a Kubernetes cluster.
+
+![application](./images/cloud-computing-design-application.png)
+
+This is the continuous integration and delivery process to get it into the cloud.
+
+![ci-cd](./images/cloud-computing-design-ci-cd.png)
