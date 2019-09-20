@@ -17,8 +17,3 @@ variable "cloudflare_record_name" {
   description = "Cloudflare record name or subdomain"
   type = "string"
 }
-
-variable "cloudflare_record_ip_address" {
-  description = "Cloudflare record IP address of the single A record"
-  type = "string"
-}
