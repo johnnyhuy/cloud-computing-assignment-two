@@ -4,6 +4,11 @@ provider "google" {
   zone    = "australia-southeast1-c"
 }
 
+provider "cloudflare" {
+  email = "${var.cloudflare_email}"
+  token = "${var.cloudflare_token}"
+}
+
 terraform {
   backend "gcs" {
     bucket = "stayapp-terraform"
