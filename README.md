@@ -14,6 +14,9 @@ Real estate application using cloud resources
     - [How to stop Flask app](#how-to-stop-flask-app)
   - [Infrastructure Development](#infrastructure-development)
     - [Getting started with pipelines in Azure DevOps](#getting-started-with-pipelines-in-azure-devops)
+      - [Creating the project](#creating-the-project)
+      - [Creating the pipelines](#creating-the-pipelines)
+      - [Get the application pipeline deploying applications](#get-the-application-pipeline-deploying-applications)
     - [How to run a deployment from you local machine](#how-to-run-a-deployment-from-you-local-machine)
 
 ## Project name: Stay App
@@ -93,6 +96,18 @@ Here are the prerequisites to start work on it:
 [Terraform Getting started - AWS](https://learn.hashicorp.com/terraform/getting-started/install)
 
 ### Getting started with pipelines in Azure DevOps
+
+This section will cover the setup in Azure DevOps
+
+#### Creating the project
+
+TODO
+
+#### Creating the pipelines
+
+TODO
+
+#### Get the application pipeline deploying applications
 
 Pipelines are set in the code repository under `pipelines/application.yml` and `pipelines/infrastructure.yml` to allow Azure DevOps to run against their build agents.
 
