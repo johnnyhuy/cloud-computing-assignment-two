@@ -22,7 +22,6 @@ module "networking" {
   cloudflare_token = "${var.cloudflare_token}"
   cloudflare_record_domain = "${var.cloudflare_record_domain}"
   cloudflare_record_name = "${var.cloudflare_record_name}"
-  cloudflare_record_ip_address = "${var.cloudflare_record_ip_address}"
 }
 
 module "sql" {
