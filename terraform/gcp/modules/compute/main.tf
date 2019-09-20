@@ -5,10 +5,6 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
-  node_config {
-    service_account = "${var.service_account}"
-  }
-
   master_auth {
     username = ""
     password = ""
