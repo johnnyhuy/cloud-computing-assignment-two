@@ -35,17 +35,25 @@ stages:
         backendGCPPrefix: 'terraform'
         commandOptions: '-input=false'
 
+    - task: replacetokens@3
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**/*.tfvars'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '$('
+        tokenSuffix: ')'
+
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
-      env:
-        CLOUDFLARE_TOKEN: $(TERRAFORM_CLOUDFLARE_TOKEN)
-        CLOUDFLARE_EMAIL: $(TERRAFORM_CLOUDFLARE_EMAIL)
       inputs:
         provider: 'gcp'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -var sql_password=''$(SQL_PASSWORD)'' -out ''$(Build.ArtifactStagingDirectory)/default.tfplan'''
+        commandOptions: '-input=false -out ''$(Build.ArtifactStagingDirectory)/default.tfplan'''
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
