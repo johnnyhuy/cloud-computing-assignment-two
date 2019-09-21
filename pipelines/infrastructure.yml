@@ -38,8 +38,8 @@ stages:
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
       env:
-        CLOUDFLARE_TOKEN: $(CLOUDFLARE_TOKEN)
-        CLOUDFLARE_EMAIL: test@gmail.com
+        CLOUDFLARE_TOKEN: $(TERRAFORM_CLOUDFLARE_TOKEN)
+        CLOUDFLARE_EMAIL: $(TERRAFORM_CLOUDFLARE_EMAIL)
       inputs:
         provider: 'gcp'
         command: 'plan'
