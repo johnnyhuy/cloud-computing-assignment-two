@@ -1,0 +1,132 @@
+trigger: none
+pr: none
+
+variables:
+- group: stayapp-variable-group
+- name: GCP_SERVICE_CONNECTION
+  value: google-terraform-service-connection
+- name: AWS_SERVICE_CONNECTION
+  value: aws-service-connection
+- name: AWS_TERRAFORM_SERVICE_CONNECTION
+  value: aws-terraform-service-connection
+- name: TF_VERSION
+  value: '0.12.9'
+
+stages:
+- stage: Production
+  jobs:
+  - job: gcp_infrastructure
+    displayName: Google Cloud Platform
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@0
+      displayName: 'Install Terraform'
+      inputs:
+        terraformVersion: '$(TF_VERSION)'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'gcp'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
+        backendGCPBucketName: 'stayapp-terraform'
+        backendGCPPrefix: 'terraform'
+        commandOptions: '-input=false'
+
+    - task: replacetokens@3
+      displayName: 'Replace tokens'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**/*.tfvars'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '$('
+        tokenSuffix: ')'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
+      env:
+        TF_IN_AUTOMATION: 1
+      inputs:
+        provider: 'gcp'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/default.tfplan'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
+      env:
+        TF_IN_AUTOMATION: 1
+      inputs:
+        provider: 'gcp'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
+        environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -auto-approve $(Build.ArtifactStagingDirectory)/default.tfplan'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'gcp'
+
+  - job: aws_infrastructure
+    displayName: Amazon Web Services
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@0
+      displayName: 'Install Terraform'
+      inputs:
+        terraformVersion: '$(TF_VERSION)'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'aws'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        backendAWSBucketName: 'stayapp-terraform'
+        backendAWSKey: 'terraform'
+        commandOptions: '-input=false'
+
+    - task: replacetokens@3
+      displayName: 'Replace tokens'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**/*.tfvars'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '$('
+        tokenSuffix: ')'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
+      inputs:
+        provider: 'aws'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/default.tfplan'
+
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'aws'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -auto-approve'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'aws'
