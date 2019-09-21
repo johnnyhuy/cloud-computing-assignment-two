@@ -16,10 +16,10 @@ terraform {
   }
 }
 
-module "compute" {
-  source = "./modules/compute"
-  tags   = "${var.tags}"
-}
+# module "compute" {
+#   source = "./modules/compute"
+#   tags   = "${var.tags}"
+# }
 
 module "networking" {
   source = "./modules/networking"
@@ -29,9 +29,9 @@ module "networking" {
   cloudflare_record_name = "${var.cloudflare_record_name}"
 }
 
-# module "sql" {
-#   source       = "./modules/sql"
-#   tags         = "${var.tags}"
-#   sql_username = "${var.sql_username}"
-#   sql_password = "${var.sql_password}"
-# }
+module "sql" {
+  source       = "./modules/sql"
+  tags         = "${var.tags}"
+  sql_username = "${var.sql_username}"
+  sql_password = "${var.sql_password}"
+}
