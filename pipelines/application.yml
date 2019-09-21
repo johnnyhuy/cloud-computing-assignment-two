@@ -1,0 +1,73 @@
+trigger: none
+pr: none
+
+variables:
+- group: stayapp-variable-group
+- name: AWS_SERVICE_CONNECTION
+  value: aws-service-connection
+- name: KUBERNETES_SERVICE_CONNECTION
+  value: gcp-gke-service-connection
+
+stages:
+- stage: Production
+  jobs:
+  - job: stayapp_application
+    displayName: Deploy Stay application
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: DockerCompose@0
+      displayName: 'Build Docker images'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerComposeFile: 'docker-compose.yml'
+        action: 'Build services'
+
+    - task: ECRPushImage@1
+      displayName: 'Push StayApp to ECR'
+      inputs:
+        awsCredentials: '$(AWS_SERVICE_CONNECTION)'
+        regionName: 'ap-southeast-2'
+        imageSource: 'imagename'
+        sourceImageName: 'stayapp'
+        repositoryName: 'stayapp'
+
+    - task: AWSShellScript@1
+      displayName: 'Get ECR password'
+      inputs:
+        awsCredentials: 'aws-service-connection'
+        regionName: 'ap-southeast-2'
+        scriptType: 'inline'
+        inlineScript: |
+          password=`aws ecr --region=ap-southeast-2 get-login --output text --query authorizationData | cut -d ' ' -f6`
+          echo "##vso[task.setvariable variable=ECR_PASSWORD]$password"
+        failOnStandardError: true
+
+    - task: Kubernetes@1
+      displayName: 'Remove ECR Secret'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'gcp-gke-service-connection'
+        namespace: 'default'
+        command: 'delete'
+        arguments: 'secret --ignore-not-found ecr-credentials'
+        secretType: 'generic'
+
+    - task: Kubernetes@1
+      displayName: 'Set ECR Secret'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'gcp-gke-service-connection'
+        namespace: 'default'
+        command: 'create'
+        arguments: 'secret docker-registry ecr-credentials --docker-server https://961143247577.dkr.ecr.ap-southeast-2.amazonaws.com --docker-username AWS --docker-password $(ECR_PASSWORD)'
+        secretType: 'generic'
+
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: '$(KUBERNETES_SERVICE_CONNECTION)'
+        command: 'apply'
+        useConfigurationFile: true
+        configuration: '$(System.DefaultWorkingDirectory)/kubernetes/stayapp'
+        secretType: 'generic'
