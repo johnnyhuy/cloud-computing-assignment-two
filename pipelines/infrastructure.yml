@@ -37,12 +37,15 @@ stages:
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
+      env:
+        CLOUDFLARE_TOKEN: $(CLOUDFLARE_TOKEN)
+        CLOUDFLARE_EMAIL: $(CLOUDFLARE_EMAIL)
       inputs:
         provider: 'gcp'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -var cloudflare_email=''$(CLOUDFLARE_EMAIL)'' -var cloudflare_token=''$(CLOUDFLARE_TOKEN)'' -var sql_password=''$(SQL_PASSWORD)'' -out ''$(Build.ArtifactStagingDirectory)/default.tfplan'''
+        commandOptions: '-input=false -var sql_password=''$(SQL_PASSWORD)'' -out ''$(Build.ArtifactStagingDirectory)/default.tfplan'''
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
