@@ -37,17 +37,15 @@ stages:
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
-      shit:
-        - eat shit
       env:
         CLOUDFLARE_TOKEN: $(CLOUDFLARE_TOKEN)
-        CLOUDFLARE_EMAIL: $(CLOUDFLARE_EMAIL)
+        CLOUDFLARE_EMAIL: test@gmail.com
       inputs:
         provider: 'gcp'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -var sql_password=''$(SQL_PASSWORD)'' -out ''$(Build.ArtifactStagingDirectory)/default.tfplan'''
+        commandOptions: '-input=false -var sql_password=''$(SQL_PASSWORD)'' -var cloudflare_email="$CLOUDFLARE_EMAIL" cloudflare_token="$CLOUDFLARE_TOKEN" -out ''$(Build.ArtifactStagingDirectory)/default.tfplan'''
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
