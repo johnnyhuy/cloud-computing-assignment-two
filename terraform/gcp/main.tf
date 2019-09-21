@@ -16,15 +16,13 @@ terraform {
   }
 }
 
-# module "compute" {
-#   source = "./modules/compute"
-#   tags   = "${var.tags}"
-# }
+module "compute" {
+  source = "./modules/compute"
+  tags   = "${var.tags}"
+}
 
 module "networking" {
   source = "./modules/networking"
-  cloudflare_email = "${var.cloudflare_email}"
-  cloudflare_token = "${var.cloudflare_token}"
   cloudflare_record_domain = "${var.cloudflare_record_domain}"
   cloudflare_record_name = "${var.cloudflare_record_name}"
 }
