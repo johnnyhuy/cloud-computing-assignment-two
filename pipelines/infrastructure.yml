@@ -96,6 +96,18 @@ stages:
         backendAWSKey: 'terraform'
         commandOptions: '-input=false'
 
+    - task: replacetokens@3
+      displayName: 'Replace tokens'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**/*.tfvars'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '$('
+        tokenSuffix: ')'
+
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
       inputs:
