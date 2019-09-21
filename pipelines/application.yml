@@ -1,17 +1,5 @@
 trigger: none
-
-pr:
-  branches:
-    include:
-    - master
-  paths:
-    include:
-    - app/*
-    - kubernetes/*
-    - Dockerfile
-    - docker-compose.yml
-    exclude:
-    - terraform/*
+pr: none
 
 variables:
 - group: stayapp-variable-group
