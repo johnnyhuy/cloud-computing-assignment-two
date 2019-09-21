@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - image: 961143247577.dkr.ecr.ap-southeast-2.amazonaws.com/stayapp:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: stayapp-flask-server
         ports:
         - containerPort: 80
