@@ -11,6 +11,10 @@ variables:
   value: aws-terraform-service-connection
 - name: TF_IN_AUTOMATION
   value: 1
+- name: CLOUDFLARE_TOKEN
+  value: $(CLOUDFLARE_TOKEN)
+- name: CLOUDFLARE_EMAIL
+  value: $(CLOUDFLARE_EMAIL)
 
 stages:
 - stage: Production
