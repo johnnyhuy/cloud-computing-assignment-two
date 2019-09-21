@@ -58,45 +58,45 @@ stages:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: 'gcp'
 
-  # - job: aws_infrastructure
-  #   displayName: Amazon Web Services
-  #   pool:
-  #     vmImage: 'ubuntu-latest'
-  #   steps:
-  #   - task: TerraformInstaller@0
-  #     inputs:
-  #       terraformVersion: '0.12.7'
+  - job: aws_infrastructure
+    displayName: Amazon Web Services
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.12.7'
 
-  #   - task: TerraformTaskV1@0
-  #     displayName: 'Terraform init'
-  #     inputs:
-  #       provider: 'aws'
-  #       command: 'init'
-  #       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
-  #       backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-  #       backendAWSBucketName: 'stayapp-terraform'
-  #       backendAWSKey: 'terraform'
-  #       commandOptions: '-input=false'
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'aws'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        backendServiceAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        backendAWSBucketName: 'stayapp-terraform'
+        backendAWSKey: 'terraform'
+        commandOptions: '-input=false'
 
-  #   - task: TerraformTaskV1@0
-  #     displayName: 'Terraform plan'
-  #     inputs:
-  #       provider: 'aws'
-  #       command: 'plan'
-  #       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
-  #       environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-  #       commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/default.tfplan'
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform plan'
+      inputs:
+        provider: 'aws'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/default.tfplan'
 
-  #   - task: TerraformTaskV1@0
-  #     displayName: 'Terraform apply'
-  #     inputs:
-  #       provider: 'aws'
-  #       command: 'apply'
-  #       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
-  #       environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
-  #       commandOptions: '-input=false -auto-approve'
+    - task: TerraformTaskV1@0
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'aws'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+        environmentServiceNameAWS: '$(AWS_TERRAFORM_SERVICE_CONNECTION)'
+        commandOptions: '-input=false -auto-approve'
 
-  #   - task: PublishBuildArtifacts@1
-  #     inputs:
-  #       pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-  #       artifactName: 'aws'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'aws'
