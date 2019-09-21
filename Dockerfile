@@ -3,5 +3,5 @@ FROM tiangolo/uwsgi-nginx-flask:python3.7-alpine3.8
 
 COPY app /app
 
-RUN apk add --update alpine-sdk python3-dev
+RUN apk add --update alpine-sdk python3-dev freetype-dev
 RUN pip install --requirement requirements.txt
