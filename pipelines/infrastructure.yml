@@ -53,7 +53,7 @@ stages:
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -out ''$(Build.ArtifactStagingDirectory)/default.tfplan'''
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/default.tfplan'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
