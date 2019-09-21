@@ -59,6 +59,7 @@ stages:
         artifactName: 'gcp'
 
   - job: aws_infrastructure
+    enabled: false
     displayName: Deploy Amazon Web Services Infrastructure
     pool:
       vmImage: 'ubuntu-latest'
