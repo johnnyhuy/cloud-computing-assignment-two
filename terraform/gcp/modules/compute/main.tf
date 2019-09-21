@@ -1,5 +1,5 @@
 resource "google_container_cluster" "primary" {
-  name                     = "stayapp"
+  name                     = "stayapp-cluster"
   location                 = "australia-southeast1-a"
   min_master_version       = "1.14.6-gke.1"
   remove_default_node_pool = true
