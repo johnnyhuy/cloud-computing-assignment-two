@@ -13,7 +13,12 @@ variable "sql_password" {
   type        = "string"
 }
 
-variable "cloudflare_api_token" {
+variable "cloudflare_email" {
+  description = "Cloudflare email used to auth against their API"
+  type = "string"
+}
+
+variable "cloudflare_token" {
   description = "Cloudflare token used to auth against their API"
   type = "string"
 }
