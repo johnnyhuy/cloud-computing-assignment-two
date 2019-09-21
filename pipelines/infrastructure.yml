@@ -1,12 +1,5 @@
 trigger: none
-
-pr:
-  branches:
-    include:
-    - master
-  paths:
-    include:
-    - terraform/*
+pr: none
 
 variables:
 - group: stayapp-variable-group
@@ -16,20 +9,21 @@ variables:
   value: aws-service-connection
 - name: AWS_TERRAFORM_SERVICE_CONNECTION
   value: aws-terraform-service-connection
-- name: TF_IN_AUTOMATION
-  value: 1
+- name: TF_VERSION
+  value: '0.12.9'
 
 stages:
 - stage: Production
   jobs:
   - job: gcp_infrastructure
-    displayName: Deploy Google Cloud Platform Infrastructure
+    displayName: Google Cloud Platform
     pool:
       vmImage: 'ubuntu-latest'
     steps:
     - task: TerraformInstaller@0
+      displayName: 'Install Terraform'
       inputs:
-        terraformVersion: '0.12.7'
+        terraformVersion: '$(TF_VERSION)'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform init'
@@ -42,17 +36,33 @@ stages:
         backendGCPPrefix: 'terraform'
         commandOptions: '-input=false'
 
+    - task: replacetokens@3
+      displayName: 'Replace tokens'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**/*.tfvars'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '$('
+        tokenSuffix: ')'
+
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
+      env:
+        TF_IN_AUTOMATION: 1
       inputs:
         provider: 'gcp'
         command: 'plan'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         environmentServiceNameGCP: '$(GCP_SERVICE_CONNECTION)'
-        commandOptions: '-input=false -var "sql_password=$(SQL_PASSWORD)" -out $(Build.ArtifactStagingDirectory)/default.tfplan'
+        commandOptions: '-input=false -out $(Build.ArtifactStagingDirectory)/default.tfplan'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform apply'
+      env:
+        TF_IN_AUTOMATION: 1
       inputs:
         provider: 'gcp'
         command: 'apply'
@@ -66,13 +76,14 @@ stages:
         artifactName: 'gcp'
 
   - job: aws_infrastructure
-    displayName: Deploy Amazon Web Services Infrastructure
+    displayName: Amazon Web Services
     pool:
       vmImage: 'ubuntu-latest'
     steps:
     - task: TerraformInstaller@0
+      displayName: 'Install Terraform'
       inputs:
-        terraformVersion: '0.12.7'
+        terraformVersion: '$(TF_VERSION)'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform init'
@@ -84,6 +95,18 @@ stages:
         backendAWSBucketName: 'stayapp-terraform'
         backendAWSKey: 'terraform'
         commandOptions: '-input=false'
+
+    - task: replacetokens@3
+      displayName: 'Replace tokens'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**/*.tfvars'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '$('
+        tokenSuffix: ')'
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'

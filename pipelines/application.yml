@@ -1,9 +1,5 @@
 trigger: none
-
-pr:
-  branches:
-    include:
-    - master
+pr: none
 
 variables:
 - group: stayapp-variable-group

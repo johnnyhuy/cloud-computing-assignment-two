@@ -11,4 +11,4 @@ spec:
   selector:
     app.kubernetes.io/name: stayapp
   type: LoadBalancer
-  loadBalancerIP: '35.244.76.200'
+  loadBalancerIP: '35.189.38.101'
