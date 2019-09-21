@@ -11,10 +11,6 @@ variables:
   value: aws-terraform-service-connection
 - name: TF_IN_AUTOMATION
   value: 1
-- name: CLOUDFLARE_TOKEN
-  value: $(CLOUDFLARE_TOKEN)
-- name: CLOUDFLARE_EMAIL
-  value: $(CLOUDFLARE_EMAIL)
 
 stages:
 - stage: Production
@@ -41,6 +37,8 @@ stages:
 
     - task: TerraformTaskV1@0
       displayName: 'Terraform plan'
+      shit:
+        - eat shit
       env:
         CLOUDFLARE_TOKEN: $(CLOUDFLARE_TOKEN)
         CLOUDFLARE_EMAIL: $(CLOUDFLARE_EMAIL)
