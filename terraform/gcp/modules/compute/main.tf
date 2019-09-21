@@ -1,6 +1,6 @@
 resource "google_container_cluster" "primary" {
   name                     = "stayapp"
-  location                 = "australia-southeast1"
+  location                 = "australia-southeast1-a"
   min_master_version       = "1.13.7-gke.24"
   remove_default_node_pool = true
   initial_node_count       = 1
@@ -17,7 +17,7 @@ resource "google_container_cluster" "primary" {
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = "stayapp-pool"
-  location   = "australia-southeast1"
+  location   = "australia-southeast1-a"
   cluster    = "${google_container_cluster.primary.name}"
   node_count = 1
 
@@ -34,8 +34,4 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
-}
-
-resource "google_compute_address" "ip_address" {
-  name = "stayapp-static-ip"
 }

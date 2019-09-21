@@ -135,6 +135,7 @@ dmypy.json
 Scripts/
 pyvenv.cfg
 .vscode/
+.terraform/
 .terraform
 *.tfstate
 *.tfstate.backup
