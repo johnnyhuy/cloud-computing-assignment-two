@@ -5,8 +5,7 @@ provider "google" {
 }
 
 provider "cloudflare" {
-  email = "${var.cloudflare_email}"
-  token = "${var.cloudflare_token}"
+  api_token = "${var.cloudflare_api_token}"
 }
 
 terraform {
