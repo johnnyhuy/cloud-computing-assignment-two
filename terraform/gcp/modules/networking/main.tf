@@ -7,5 +7,4 @@ resource "cloudflare_record" "single_a" {
   name   = "${var.cloudflare_record_name}"
   value  = "${google_compute_address.ip_address.address}"
   type   = "A"
-  ttl    = 3600
 }
