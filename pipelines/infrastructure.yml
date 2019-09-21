@@ -21,6 +21,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: TerraformInstaller@0
+      displayName: 'Install Terraform'
       inputs:
         terraformVersion: '0.12.9'
 
@@ -36,6 +37,7 @@ stages:
         commandOptions: '-input=false'
 
     - task: replacetokens@3
+      displayName: 'Replace tokens'
       inputs:
         rootDirectory: '$(System.DefaultWorkingDirectory)'
         targetFiles: '**/*.tfvars'
