@@ -1,5 +1,5 @@
 provider "google" {
-  project = "stayapp-253702"
+  project = "${var.gcp_project_id}"
   region  = "australia-southeast1"
   zone    = "australia-southeast1-c"
 }
