@@ -1,4 +1,6 @@
-trigger: none
+trigger:
+- master
+
 pr: none
 
 variables:
@@ -25,6 +27,8 @@ stages:
 
     - task: ECRPushImage@1
       displayName: 'Push StayApp to ECR'
+      env:
+        STAYAPP_TAG: '$(Build.BuildId)'
       inputs:
         awsCredentials: '$(AWS_SERVICE_CONNECTION)'
         regionName: 'ap-southeast-2'

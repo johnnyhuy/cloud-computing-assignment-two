@@ -2,7 +2,7 @@ version: '3'
 
 services:
   stayapp:
-    image: stayapp:latest
+    image: stayapp:${STAYAPP_TAG:-latest}
     volumes:
       - ./app:/app
     environment:

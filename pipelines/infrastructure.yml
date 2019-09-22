@@ -1,4 +1,6 @@
-trigger: none
+trigger:
+- master
+
 pr: none
 
 variables:
@@ -32,7 +34,7 @@ stages:
         command: 'init'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/gcp'
         backendServiceGCP: '$(GCP_SERVICE_CONNECTION)'
-        backendGCPBucketName: 'stayapp-terraform'
+        backendGCPBucketName: 'stayapp-terraform-state'
         backendGCPPrefix: 'terraform'
         commandOptions: '-input=false'
 
