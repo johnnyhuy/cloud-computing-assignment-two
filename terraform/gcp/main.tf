@@ -1,7 +1,6 @@
 provider "google" {
   project = "stayapp"
   region  = "australia-southeast1"
-  zone    = "australia-southeast1-c"
 }
 
 provider "cloudflare" {
