@@ -1,7 +1,7 @@
-resource "google_container_cluster" "primary" {
-  name                     = "stayapp"
+resource "google_container_cluster" "main" {
+  name                     = "stayapp-cluster"
   location                 = "australia-southeast1-a"
-  min_master_version       = "1.13.7-gke.24"
+  min_master_version       = "1.13.9-gke.3"
   remove_default_node_pool = true
   initial_node_count       = 1
 
@@ -15,10 +15,10 @@ resource "google_container_cluster" "primary" {
   }
 }
 
-resource "google_container_node_pool" "primary_preemptible_nodes" {
-  name       = "stayapp-pool"
+resource "google_container_node_pool" "node" {
+  name       = "stayapp-node-pool"
   location   = "australia-southeast1-a"
-  cluster    = "${google_container_cluster.primary.name}"
+  cluster    = "${google_container_cluster.main.name}"
   node_count = 1
 
   node_config {
