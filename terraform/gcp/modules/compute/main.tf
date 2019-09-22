@@ -1,7 +1,7 @@
-resource "google_container_cluster" "cluster" {
+resource "google_container_cluster" "main" {
   name                     = "stayapp-cluster"
-  location                 = "australia-southeast1"
-  min_master_version       = "1.14.6-gke.1"
+  location                 = "australia-southeast1-a"
+  min_master_version       = "1.13.9-gke.3"
   remove_default_node_pool = true
   initial_node_count       = 1
 
@@ -17,8 +17,8 @@ resource "google_container_cluster" "cluster" {
 
 resource "google_container_node_pool" "node" {
   name       = "stayapp-node-pool"
-  location   = "australia-southeast1"
-  cluster    = "${google_container_cluster.primary.name}"
+  location   = "australia-southeast1-a"
+  cluster    = "${google_container_cluster.main.name}"
   node_count = 1
 
   node_config {

@@ -1,6 +1,7 @@
 provider "google" {
-  project = "stayapp"
+  project = "stayapp-253702"
   region  = "australia-southeast1"
+  zone    = "australia-southeast1-c"
 }
 
 provider "cloudflare" {
@@ -10,7 +11,7 @@ provider "cloudflare" {
 
 terraform {
   backend "gcs" {
-    bucket = "stayapp-terraform"
+    bucket = "stayapp-terraform-state"
     prefix = "terraform"
   }
 }
