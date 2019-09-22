@@ -30,6 +30,7 @@ module "networking" {
 module "sql" {
   source       = "./modules/sql"
   tags         = "${var.tags}"
+  cluster_ip = "${module.compute.cluster_ip}"
   sql_username = "${var.sql_username}"
   sql_password = "${var.sql_password}"
 }
