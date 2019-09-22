@@ -19,6 +19,9 @@ RUN apk add --update libstdc++
 COPY --from=build /opt/venv /opt/venv
 ENV PYTHONPATH="/opt/venv/lib/python3.7/site-packages/:$PYTHONPATH"
 ENV PATH="/opt/venv/bin:$PATH"
+ENV FLASK_APP="app/main.py"
 
 COPY app /app
+
+CMD [ "flask", "run", "--host=0.0.0.0" , "--port=80" ]
 

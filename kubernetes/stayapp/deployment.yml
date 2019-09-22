@@ -24,8 +24,6 @@ spec:
         env:
         - name: FLASK_APP
           value: app/main.py
-        - name: FLASK_DEBUG
-          value: '1'
         livenessProbe:
           httpGet:
             path: /
