@@ -1,4 +1,4 @@
-resource "google_container_cluster" "primary" {
+resource "google_container_cluster" "cluster" {
   name                     = "stayapp-cluster"
   location                 = "australia-southeast1"
   min_master_version       = "1.14.6-gke.1"
@@ -15,7 +15,7 @@ resource "google_container_cluster" "primary" {
   }
 }
 
-resource "google_container_node_pool" "primary_preemptible_nodes" {
+resource "google_container_node_pool" "node" {
   name       = "stayapp-node-pool"
   location   = "australia-southeast1"
   cluster    = "${google_container_cluster.primary.name}"
