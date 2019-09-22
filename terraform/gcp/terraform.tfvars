@@ -1,7 +1,6 @@
 tags = {
     type = "education"
 }
-gcp_project_id = "stayapp-253702"
 sql_username = "admin"
 sql_password = "$(SQL_PASSWORD)"
 cloudflare_email = "$(TERRAFORM_CLOUDFLARE_EMAIL)"
