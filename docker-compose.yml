@@ -5,9 +5,11 @@ services:
     image: stayapp:${STAYAPP_TAG:-latest}
     volumes:
       - ./app:/app
+    command: python -m ptvsd --host 0.0.0.0 --port 8080 --wait -m flask run --no-reload --no-debugger --host 0.0.0.0 --port 80
     environment:
       - FLASK_DEBUG=1
     build:
       context: .
     ports:
       - 80:80
+      - 8080:8080
