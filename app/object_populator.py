@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 import requests
-from app.static import contants
+from static import contants
 
 class ObjectPopulator:
     crime_database = mysql.connector.connect(
