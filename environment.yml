@@ -1,0 +1,26 @@
+name: stayapp
+channels:
+  - conda-forge
+dependencies:
+  - matplotlib=3.1.1
+  - pip
+  - numpy
+  - python-dateutil
+  - pyparsing
+  - tornado
+  - cycler
+  - tk
+  - libpng
+  - zlib
+  - freetype
+  - httptools
+  - pip:
+    - jinja2
+    - fastapi
+    - uvicorn
+    - aiofiles
+    - ptvsd
+    - pkgconfig==1.5.1
+    - requests==2.22.0
+    - mysql-connector==2.2.9
+
