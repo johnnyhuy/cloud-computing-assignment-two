@@ -3,13 +3,14 @@ version: '3'
 services:
   stayapp:
     image: stayapp:${STAYAPP_TAG:-latest}
+    restart: on-failure
     volumes:
       - ./app:/app
-    command: python -m ptvsd --host 0.0.0.0 --port 8080 --wait -m flask run --no-reload --no-debugger --host 0.0.0.0 --port 80
+    command: uvicorn main:app --host 0.0.0.0 --log-level debug --reload
     environment:
-      - FLASK_DEBUG=1
+      ENVIRONMENT: development
     build:
       context: .
     ports:
-      - 80:80
+      - 8000:8000
       - 8080:8080

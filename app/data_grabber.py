@@ -1,9 +1,9 @@
 import mysql.connector
 from mysql.connector import Error
+import json
 import requests
 import domain_api_constants as domain_constants
 import fee_constants
-import json
 
 class DomainAccessToken:
 
@@ -40,7 +40,7 @@ class SearchResponseData:
             response = requests.post(
                 domain_constants.LISTINGS_SEARCH_URL,
                 headers=headers,
-                data= data
+                data=data
             )
 
             self.json_data = response.json()
