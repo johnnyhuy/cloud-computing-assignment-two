@@ -31,7 +31,7 @@ module "sql" {
   source       = "./modules/sql"
   tags         = "${var.tags}"
   stayapp_ip = "${module.networking.stayapp_public_ip}"
-  stayapp_sql_database_name = "${stayapp_sql_database_name}"
+  stayapp_sql_database_name = "${var.stayapp_sql_database_name}"
   sql_username = "${var.sql_username}"
   sql_password = "${var.sql_password}"
 }
