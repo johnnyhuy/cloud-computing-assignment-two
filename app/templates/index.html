@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-5">
             <div class="shadow ml-5 p-4 rounded-lg bg-white border">
-                <form method="POST">
+                <form method="POST" action="/listings">
                     <div id="suburbInputForm" class="form-group mb-1">
                         <label for="suburbInput">Suburb</label>
                         <input id="suburbInput" type="text" class="form-control" name="suburb_name" placeholder="Suburb" list="suburbs" required>
@@ -18,7 +18,7 @@
                     <div class="form-row">
                         <div class="form-group col-12 col-lg-4">
                             <label for="bedroomInput">Bedrooms</label>
-                            <select multiple class="form-control" id="bedroomInput" name="bedrooms">
+                            <select class="form-control" id="bedroomInput" name="bedrooms">
                                 <option selected>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group col-12 col-lg-4">
                             <label for="bathroomInput">Bathrooms</label>
-                            <select multiple class="form-control" id="bathroomInput" name="bathrooms">
+                            <select class="form-control" id="bathroomInput" name="bathrooms">
                                 <option selected>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group col-12 col-lg-4">
                             <label for="carSpaceInput">Car spaces</label>
-                            <select multiple class="form-control" id="carSpaceInput" name="carspaces">
+                            <select class="form-control" id="carSpaceInput" name="carspaces">
                                 <option selected>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -62,32 +62,6 @@
                 </p>
             </div>
         </div>
-    </div>
-    <div class="container">
-        {% if listings is defined %}
-            {% for listing in listings %}
-                {% if listing['type'] ==  'PropertyListing' %}
-                    <ul>
-                        <a href="{{ url_for('listing', property_id = listing['listing']['id']) }}">
-                            <li>
-                                <div class="row">
-                                    <img src="{{ listing['listing']['media'][0]['url'] }}"
-                                         style="height:150px;">{{ listing['listing']['propertyDetails']['displayableAddress'] }}
-                                    <br>
-                                    {{ listing['listing']['propertyDetails']['bedrooms'] }}
-                                    Bed, {{ listing['listing']['propertyDetails']['bathrooms'] }}
-                                    Bath, {{ listing['listing']['propertyDetails']['carspaces'] }} carspace
-                                    <br>
-                                    {{ listing['listing']['propertyDetails']['landArea'] }} sqm
-                                    <br>
-                                    {{ listing['listing']['priceDetails']['displayPrice'] }}
-                                </div>
-                            </li>
-                        </a>
-                    </ul>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
     </div>
 {% endblock %}
 
