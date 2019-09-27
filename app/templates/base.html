@@ -25,13 +25,13 @@
         <link href="https://fonts.googleapis.com/css?family=Cabin|Raleway&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
     </head>
     <body class="d-flex flex-column">
         <div class="container">
             <header class="d-flex py-4">
                 <a class="d-flex" href="{{ url_for('index') }}">
-                    <img class="mr-2" style="height: 2em" src="{{ url_for('static', path='logo.svg') }}" alt="logo">
+                    <img class="mr-2" style="height: 2em" src="{{ url_for('static', path='images/logo.svg') }}" alt="logo">
                     <h3>Stay</h3>
                 </a>
                 <nav class="ml-auto d-flex">
@@ -48,7 +48,7 @@
             </div>
         </main>
         <footer>
-            <div class="pt-5 container text-center">
+            <div class="py-5 container text-center">
                 Made with ❤ by <a target="_blank" href="https://github.com/goran-stojkoski">@goran-stojkoski</a> & <a target="_blank" href="https://github.com/johnnyhuy">@johnnyhuy</a>
             </div>
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
