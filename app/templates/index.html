@@ -4,7 +4,7 @@
         <div class="col-md-5">
             <div class="shadow ml-5 p-4 rounded-lg bg-white border">
                 <form method="POST" action="/listings">
-                    <div id="suburbInputForm" class="form-group mb-1">
+                    <div id="suburbInputForm" class="form-group mb-3">
                         <label for="suburbInput">Suburb</label>
                         <input id="suburbInput" type="text" class="form-control" name="suburb_name" placeholder="Suburb" list="suburbs" required>
                         <small id="suggested" class="form-text text-muted pt-1 pb-2">Suggested suburbs</small>
@@ -15,9 +15,10 @@
                             <a class="btn btn-secondary text-light rounded-pill px-4 mb-2 mx-1">Frankston</a>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row mb-2">
                         <div class="form-group col-12 col-lg-4">
                             <label for="bedroomInput">Bedrooms</label>
+                            <small id="suggested" class="form-text text-muted">Maximum</small>
                             <select class="form-control" id="bedroomInput" name="bedrooms">
                                 <option selected>1</option>
                                 <option>2</option>
@@ -28,6 +29,7 @@
                         </div>
                         <div class="form-group col-12 col-lg-4">
                             <label for="bathroomInput">Bathrooms</label>
+                            <small id="suggested" class="form-text text-muted">Maximum</small>
                             <select class="form-control" id="bathroomInput" name="bathrooms">
                                 <option selected>1</option>
                                 <option>2</option>
@@ -38,6 +40,7 @@
                         </div>
                         <div class="form-group col-12 col-lg-4">
                             <label for="carSpaceInput">Car spaces</label>
+                            <small id="suggested" class="form-text text-muted">Maximum</small>
                             <select class="form-control" id="carSpaceInput" name="carspaces">
                                 <option selected>1</option>
                                 <option>2</option>
