@@ -1,29 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container">
-        {% if listings is defined %}
-            {% for result in listings %}
-                {% set listing = result.get('listing') %}
-                {% set propertyDetails = listing.get('propertyDetails') %}
-                {% set priceDetails = listing.get('priceDetails') %}
-                <ul>
-                    <a href="{{ url_for('listing', property_id = listing['id']) }}">
-                        <li>
-                            <div class="row">
-                                <img src="{{ listing['media'][0]['url'] }}" style="height:150px;">{{ propertyDetails['displayableAddress'] }}
-                                <br>
-                                {{ propertyDetails['bedrooms'] }}
-                                Bed, {{ propertyDetails['bathrooms'] }}
-                                Bath, {{ propertyDetails['carspaces'] }} carspace
-                                <br>
-                                {{ propertyDetails['landArea'] }} sqm
-                                <br>
-                                {{ priceDetails['displayPrice'] }}
+        <div class="row">
+            {% if listings is defined %}
+                {% for result in listings %}
+                    {% set listing = result.get('listing') %}
+                    {% set propertyDetails = listing.get('propertyDetails') %}
+                    {% set priceDetails = listing.get('priceDetails') %}
+                    <div class="col-lg-4 col-6 d-flex flex-column mb-4">
+                        <div class="card flex-grow-1">
+                            <a href="{{ url_for('listing', property_id = listing['id']) }}">
+                                <img src="{{ listing['media'][0]['url'] }}" class="card-img-top" alt="property_image_{{ listing['id'] }}">
+                            </a>
+                            <div class="card-body">
+                                <a href="{{ url_for('listing', property_id = listing['id']) }}">
+                                    <h5 class="card-title font-weight-bold">{{ listing['headline'] }}</h5>
+                                </a>
+                                <p class="card-text">{{ priceDetails['displayPrice'] }}</p>
+                                <p class="card-text">{{ propertyDetails['landArea'] }} sqm</p>
+                                <p class="card-text">{{ propertyDetails['displayableAddress'] }}</p>
+                                <p class="card-text">{{ propertyDetails['bedrooms'] }} bedrooms</p>
+                                <p class="card-text">{{ propertyDetails['bathrooms'] }} bathrooms</p>
+                                <p class="card-text">{{ propertyDetails['carspaces'] }} car spaces</p>
+                                <a href="{{ url_for('listing', property_id = listing['id']) }}">See more</a>
                             </div>
-                        </li>
-                    </a>
-                </ul>
-            {% endfor %}
-        {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
