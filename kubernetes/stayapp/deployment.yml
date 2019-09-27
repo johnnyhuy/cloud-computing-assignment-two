@@ -19,6 +19,10 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
+        env:
+          - name: FLASK_APP
+            value: /app/main.py
+        command: ['flask', 'run', '--host', '0.0.0.0', '--port', '80']
         livenessProbe:
           httpGet:
             path: /
