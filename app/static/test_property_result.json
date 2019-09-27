@@ -1,0 +1,821 @@
+[
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015660154,
+      "advertiser": {
+        "type": "Agency",
+        "id": 19,
+        "name": "Woodards",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/19/logo_19.GIF?date=2015-09-07-14-09-52",
+        "preferredColourHex": "#001534",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/19/banner_19.GIF",
+        "contacts": [
+          {
+            "name": "Jason Sharpe",
+            "photoUrl": "https://images.domain.com.au/img/19/contact_720420.jpeg?mod=190926-093304"
+          }
+        ]
+      },
+      "priceDetails": {
+        "price": 350000,
+        "priceFrom": 350000,
+        "priceTo": 350000,
+        "displayPrice": "$349,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015660154_1_1_190919_021052-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015660154_2_1_190919_021052-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015660154_3_1_190919_021052-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015660154_4_1_190919_021052-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015660154_5_1_190919_021052-w1600-h1067"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 1,
+        "unitNumber": "507",
+        "streetNumber": "6",
+        "street": "Leicester Street",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "507/6 Leicester Street, Carlton",
+        "latitude": -37.80604,
+        "longitude": 144.960281
+      },
+      "headline": "Investors delight circa 7% return; city lifestyle, Carlton postcode",
+      "summaryDescription": "<b></b><br />With a strong rental demand in the complex, this apartment is currently returning $1,847.00 pcm.\r\n\r\nHighly coveted location, right on the precipice of the vibrant CBD, with a stunning view of the iconic Queen Victoria Market. This apartmen...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": false,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "507-6-leicester-street-carlton-vic-3053-2015660154"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015116774,
+      "advertiser": {
+        "type": "Agency",
+        "id": 4513,
+        "name": "Stockdale & Leggo Dandenong",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/4513/logo_4513.jpg?date=132030493862026806",
+        "preferredColourHex": "#222427",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/4513/banner_4513.jpg?date=132030494063275164",
+        "contacts": [
+          {
+            "name": "Jerome Mulholland",
+            "photoUrl": "https://images.domain.com.au/img/4513/contact_1606488.jpeg?mod=190924-121549"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "$340,000 - $370,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015116774_1_1_190402_035557-w480-h640"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015116774_2_1_190402_035557-w640-h480"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015116774_3_1_190402_035557-w640-h480"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015116774_4_1_190402_035635-w480-h640"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015116774_5_1_190402_035635-w640-h480"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "SwimmingPool",
+          "Gym"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 1,
+        "unitNumber": "701",
+        "streetNumber": "800",
+        "street": "Swanston Street",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "701/800 Swanston Street, Carlton",
+        "latitude": -37.7977371,
+        "longitude": 144.965271
+      },
+      "headline": "AFFORDABLE INVESTMENT",
+      "summaryDescription": "<b></b><br />Spacious one bedroom apartment designed for student accommodation very close to Melbourne Uni & shopping complex.  Offers spacious lounge, practical kitchen, large bedroom with BIR's & tiled bathroom. Use of gym & swimming pool.  Easily le...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": true,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "701-800-swanston-street-carlton-vic-3053-2015116774"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015525364,
+      "advertiser": {
+        "type": "Agency",
+        "id": 24322,
+        "name": "Hockingstuart Melbourne",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/24322/logo_24322.jpeg?date=131399794314201786",
+        "preferredColourHex": "#E30013",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/24322/banner_24322.jpeg",
+        "contacts": [
+          {
+            "name": "Jordan Terlizzi",
+            "photoUrl": "https://images.domain.com.au/img/24322/contact_1292476.jpeg?mod=190926-165302"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "$237,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015525364_1_1_190815_035401-w2100-h1400"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015525364_2_1_190815_035401-w2100-h1400"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015525364_3_1_190815_035401-w2100-h1400"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015525364_4_1_190815_035402-w2100-h1400"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015525364_5_1_190815_035402-w2100-h1400"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "SwimmingPool",
+          "Furnished",
+          "NorthFacing",
+          "Study"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 1,
+        "unitNumber": "1904",
+        "streetNumber": "570",
+        "street": "Lygon Street",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "1904/570 Lygon Street, Carlton",
+        "latitude": -37.79356,
+        "longitude": 144.969055,
+        "buildingArea": 40
+      },
+      "headline": "North facing, top floor in the heart of Carlton",
+      "summaryDescription": "<b></b><br />Apartment living doesnt get much better than a central Carlton location, with public transport, restaurants and shopping spots, all virtually at your door. This generous, one bedroom apartment is perfectly positioned right on the Lygon Str...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": false,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "1904-570-lygon-street-carlton-vic-3053-2015525364"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015184499,
+      "advertiser": {
+        "type": "Agency",
+        "id": 7120,
+        "name": "    Love & Co",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/7120/logo_7120.jpeg",
+        "preferredColourHex": "#1F384C",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/7120/banner_7120.jpeg",
+        "contacts": [
+          {
+            "name": "Peter Strates",
+            "photoUrl": "https://images.domain.com.au/img/7120/contact_1621512.png?mod=190711-091527"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "$190,000 - $209,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015184499_1_1_190418_022045-w5551-h3701"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015184499_2_1_190418_022045-w5551-h3701"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015184499_3_1_190418_022045-w5551-h3701"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015184499_4_1_190418_022045-w5551-h3701"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015184499_5_1_190418_022045-w5551-h3701"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "Study"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "unitNumber": "301",
+        "streetNumber": "131",
+        "street": "Pelham  Street",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "301/131 Pelham  Street, Carlton",
+        "latitude": -37.8027,
+        "longitude": 144.963852
+      },
+      "headline": "Maximise Your Investment  Returning $280 per week\r\nStudent Accommodation",
+      "summaryDescription": "<b></b><br />Ideally located within walking distance from both Melbourne and RMIT Universities as well as the neighbourhood supermarket, this safe and secure studio apartment offers the utmost convenience in a prime inner-city location.\r\nLocated on the...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": true,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "301-131-pelham-street-carlton-vic-3053-2015184499"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015552389,
+      "advertiser": {
+        "type": "Agency",
+        "id": 4719,
+        "name": "Nelson Alexander | Carlton",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/4719/logo_4719.png?date=131377426126246316",
+        "preferredColourHex": "#1e0f14",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/4719/banner_4719.png?date=131377426204840119",
+        "contacts": [
+          {
+            "name": "Spiros Karagiannidis",
+            "photoUrl": "https://images.domain.com.au/img/4719/contact_886309.JPG?mod=180410-153512"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "Private Sale $449,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015552389_1_1_190828_111107-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015552389_2_1_190828_111107-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015552389_3_1_190828_111107-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015552389_4_1_190828_111107-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015552389_5_1_190828_111107-w1600-h1067"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "Gas",
+          "Dishwasher"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 1,
+        "unitNumber": "",
+        "streetNumber": "505/77",
+        "street": "Cardigan Street",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "505/77 Cardigan Street, Carlton",
+        "latitude": -37.80511,
+        "longitude": 144.9644
+      },
+      "headline": "AMAZING CBD VIEWS - INVEST (6.6% return) OR MOVE IN!",
+      "summaryDescription": "<b></b><br />Perched on the 5th level of this city-fridge boutique development offering breathtaking views of the CBD, this apartment would make an ideal investment or fantastic home for those looking to owner occupy. Securely leased until January 2020...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": true,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "505-77-cardigan-street-carlton-vic-3053-2015552389"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2011896716,
+      "advertiser": {
+        "type": "Agency",
+        "id": 6518,
+        "name": "Noel Jones Real Estate Box Hill",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/6518/logo_6518.GIF?date=2015-12-10-11-30-04",
+        "preferredColourHex": "#000937",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/6518/banner_6518.GIF",
+        "contacts": [
+          {
+            "name": "Alvin Lam",
+            "photoUrl": "https://images.domain.com.au/img/6518/contact_1218598.JPG?mod=190924-134906"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "FOR SALE Contact Agent"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2011896716_1_1_190819_111504-w1600-h1199"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2011896716_2_1_190819_111504-w1600-h1199"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2011896716_3_1_190819_111504-w1600-h1199"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2011896716_4_1_190819_111558-w1600-h1199"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2011896716_5_1_190819_111558-w1600-h1199"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "BuiltInWardrobes",
+          "InternalLaundry",
+          "DoubleGlazedWindows"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 1,
+        "unitNumber": "",
+        "streetNumber": "6",
+        "street": "Leicester Street",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "6 Leicester Street, Carlton",
+        "latitude": -37.80604,
+        "longitude": 144.960281
+      },
+      "headline": "Premier Location",
+      "summaryDescription": "<b></b><br />Located opposite to Queen Victoria Market, close proximity to China Town, Royal Melbourne Institute of Technology (RMIT), The Melbourne University, this well presented apartment is perfect for home buyers, astute investors or downsizers.\r\n...",
+      "hasFloorplan": false,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": true,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "6-leicester-street-carlton-vic-3053-2011896716"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2014103322,
+      "advertiser": {
+        "type": "Agency",
+        "id": 15501,
+        "name": "Nelson Alexander | Ivanhoe",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/15501/logo_15501.png?date=131377426129371310",
+        "preferredColourHex": "#1e0f14",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/15501/banner_15501.png?date=131377426207965259",
+        "contacts": [
+          {
+            "name": "Nunzio Sulfaro",
+            "photoUrl": "https://images.domain.com.au/img/15501/contact_1071539.jpeg?mod=190925-171505"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "Private Sale $305,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014103322_1_1_190225_120755-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014103322_2_1_190225_120755-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014103322_3_1_190225_120755-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014103322_4_1_190225_120721-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014103322_5_1_190225_120721-w1600-h1067"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "Floorboards",
+          "Gym",
+          "Bath",
+          "Heating"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "unitNumber": "",
+        "streetNumber": "209/51",
+        "street": "Rathdowne Street",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "209/51 Rathdowne Street, Carlton",
+        "latitude": -37.80586,
+        "longitude": 144.968735
+      },
+      "headline": "CBD EDGE & CARLTON LIFESTYLE - BEST OF BOTH LOCATIONS",
+      "summaryDescription": "<b></b><br />Glamorous Carlton lifestyle, irrespective of your motivations. Whether you are looking to add a savvy, high yielding investment to the portfolio, looking for a professional inner-city mid-week base or simply looking to crack into this ever...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": true,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "209-51-rathdowne-street-carlton-vic-3053-2014103322"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015626285,
+      "advertiser": {
+        "type": "Agency",
+        "id": 24070,
+        "name": "Skysea International Group",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/24070/logo_24070.GIF?date=2015-09-10-11-55-46",
+        "preferredColourHex": "#002C8A",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/24070/banner_24070.GIF",
+        "contacts": [
+          {
+            "name": "Sunny Lu",
+            "photoUrl": "https://images.domain.com.au/img/24070/contact_1189406.JPG?mod=190202-180918"
+          }
+        ]
+      },
+      "priceDetails": {
+        "price": 245000,
+        "priceFrom": 245000,
+        "priceTo": 245000,
+        "displayPrice": "$245,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015626285_24_pi_190910_102714-w800-h600"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015626285_6_pi_190910_102625-w800-h600"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015626285_17_pi_190910_102656-w800-h600"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015626285_7_pi_190910_102632-w800-h600"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015626285_4_pi_190910_102621-w800-h600"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "BuiltInWardrobes",
+          "SwimmingPool",
+          "Furnished",
+          "Gym",
+          "Intercom",
+          "Bath",
+          "Heating",
+          "Study"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 1,
+        "unitNumber": "5608",
+        "streetNumber": "570",
+        "street": "LYGON STREET",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "5608/570 LYGON STREET, Carlton",
+        "latitude": -37.7931175,
+        "longitude": 144.96907,
+        "buildingArea": 42
+      },
+      "headline": "LARGE ONE BEDROOM RIGHT IN THE HEART OF CARLTON!",
+      "summaryDescription": "<b></b><br />Inner suburban apartment living doesn’t get much better than this with a central Carlton location, public transport, restaurants and shopping spots all virtually at your front door.\r\n\r\n This generously proportioned one bedroom twin share a...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": false,
+        "recurring": false,
+        "times": [
+          {
+            "openingTime": "2019-09-28T14:30:00",
+            "closingTime": "2019-09-28T15:00:00"
+          }
+        ]
+      },
+      "listingSlug": "5608-570-lygon-street-carlton-vic-3053-2015626285"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2014962894,
+      "advertiser": {
+        "type": "Agency",
+        "id": 4719,
+        "name": "Nelson Alexander | Carlton",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/4719/logo_4719.png?date=131377426126246316",
+        "preferredColourHex": "#1e0f14",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/4719/banner_4719.png?date=131377426204840119",
+        "contacts": [
+          {
+            "name": "Spiros Karagiannidis",
+            "photoUrl": "https://images.domain.com.au/img/4719/contact_886309.JPG?mod=180410-153512"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "Private Sale $229,000"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014962894_1_1_190221_044309-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014962894_2_1_190221_044309-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014962894_3_1_190221_044309-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014962894_4_1_190221_044309-w1600-h1067"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2014962894_5_1_190221_044309-w1600-h1067"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "SwimmingPool",
+          "Furnished",
+          "Gym"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 1,
+        "unitNumber": "",
+        "streetNumber": "6006/570",
+        "street": "Lygon Street",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "6006/570 Lygon Street, Carlton",
+        "latitude": -37.7931328,
+        "longitude": 144.969208
+      },
+      "headline": "Ideal city pad or savvy 7.5% rental yield!",
+      "summaryDescription": "<b></b><br />Moments away from Melbourne Uni, vibrant Lygon Street shopping & eating precinct plus surrounding parklands, this super low maintenance apartment is the ideal investment or city pad. A hop, skip and a jump away from the CBD and multiple tr...",
+      "hasFloorplan": true,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": true,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "6006-570-lygon-street-carlton-vic-3053-2014962894"
+    }
+  },
+  {
+    "type": "PropertyListing",
+    "listing": {
+      "listingType": "Sale",
+      "id": 2015614760,
+      "advertiser": {
+        "type": "Agency",
+        "id": 4757,
+        "name": " Elite Real Estate",
+        "logoUrl": "https://images.domain.com.au/img/Agencys/4757/logo_4757.png",
+        "preferredColourHex": "#ac172b",
+        "bannerUrl": "https://images.domain.com.au/img/Agencys/4757/banner_4757.png",
+        "contacts": [
+          {
+            "name": "David Ye",
+            "photoUrl": "https://images.domain.com.au/img/4757/contact_1544005.jpeg?mod=190925-162336"
+          }
+        ]
+      },
+      "priceDetails": {
+        "displayPrice": "Price on Application"
+      },
+      "media": [
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015614760_1_1_190904_045411-w1820-h1365"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015614760_2_1_190904_045411-w1820-h1365"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015614760_3_1_190904_045411-w1820-h1365"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015614760_4_1_190904_045328-w1823-h1367"
+        },
+        {
+          "category": "Image",
+          "url": "https://bucket-api.domain.com.au/v1/bucket/image/2015614760_5_1_190904_045328-w737-h553"
+        }
+      ],
+      "propertyDetails": {
+        "state": "VIC",
+        "features": [
+          "SwimmingPool",
+          "Intercom"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+          "ApartmentUnitFlat"
+        ],
+        "bathrooms": 1,
+        "bedrooms": 1,
+        "unitNumber": "818",
+        "streetNumber": "488",
+        "street": "SWANSTON STREET",
+        "area": "Inner City",
+        "region": "Melbourne Region",
+        "suburb": "CARLTON",
+        "postcode": "3053",
+        "displayableAddress": "818/488 SWANSTON STREET, Carlton",
+        "latitude": -37.8055649,
+        "longitude": 144.963379
+      },
+      "headline": "A Smart Investment Next to RMIT",
+      "summaryDescription": "<b></b><br />Investment Apartment in the vicinity of RMIT makes perfect sense!\r\n\r\nJust walking distance to RMIT or The University of Melbourne, no car or transport needed! It is also close to Melbourne Central for unbelievable shopping of all descripti...",
+      "hasFloorplan": false,
+      "hasVideo": false,
+      "labels": [],
+      "inspectionSchedule": {
+        "byAppointment": true,
+        "recurring": false,
+        "times": []
+      },
+      "listingSlug": "818-488-swanston-street-carlton-vic-3053-2015614760"
+    }
+  }
+]
