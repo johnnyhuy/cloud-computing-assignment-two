@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, HTTPException
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
@@ -7,7 +7,7 @@ import os
 import json
 from location import Suburb, Council, State
 from domain.search import Search
-from data_grabber import SuburbData, CouncilData, StateData, FeesData, DomainAccessToken, SearchResponseData
+from data_grabber import SuburbData, CouncilData, StateData, FeesData, DomainAccessToken
 from stats import GraphBuilder
 from pydantic import BaseModel
 
@@ -46,7 +46,7 @@ def index(
         'maxBathrooms': bathrooms,
         'maxCarspaces': carspaces
     }
-    listings = search.get_residential(listing)
+    listings = search.get_residential_listings(listing)
 
     # Local only
     # listings = {}
@@ -62,31 +62,41 @@ def index(
     )
 
 @app.get('/listing/{property_id}')
-def listing(property_id: int):
+def listing(request: Request, property_id: int):
+    listing = search.get_residential_listing(property_id)
 
-    for listing in listings:
-        if str(listing['listing']['id']) == property_id:
-            suburb_data = SuburbData(listing['listing']['propertyDetails']['suburb'], domain_access_token)
-            suburb = Suburb(suburb_data.get_data())
+    if (listing.get('message') == 'Not Found'):
+        raise HTTPException(status_code=404, detail="Property not found")
 
-            council_data = CouncilData(suburb.council_name)
-            council = Council(council_data.get_data())
+    suburb_name = listing.get('addressParts').get('suburb')
+    suburb_data = SuburbData(suburb_name, domain_access_token)
+    suburb = Suburb(suburb_data.get_data())
 
-            state_data = StateData('Victoria')
-            state = State(state_data.get_data())
+    council_data = CouncilData(suburb.council_name)
+    council = Council(council_data.get_data())
 
-            crime = None
-            crime = GraphBuilder(state, council, suburb)
-            crime_fig_url = crime.get_url()
+    state_data = StateData('Victoria')
+    state = State(state_data.get_data())
 
-            if request.method == 'POST':
-                price_estimate = request.form.get('price_estimate')
-                fees = FeesData(price_estimate)
+    crime = None
+    crime = GraphBuilder(state, council, suburb)
+    crime_fig_url = crime.get_url()
 
-                return render_template('listing.html', listing=listing, suburb=suburb, council=council, state=state,
-                                        crime_fig_url=crime_fig_url, fees=fees)
-            else:
-                return render_template('listing.html', listing=listing, suburb=suburb, council=council, state=state,
-                                        crime_fig_url=crime_fig_url)
+    if request.method == 'POST':
+        price_estimate = request.form.get('price_estimate')
+        fees = FeesData(price_estimate)
 
-    return "Property Not Found"
+        return render_template('listing.html', listing=listing, suburb=suburb, council=council, state=state,
+                                crime_fig_url=crime_fig_url, fees=fees)
+    else:
+        return templates.TemplateResponse(
+            'listing.html',
+            {
+                'request': request,
+                'listing': listing,
+                'suburb': suburb,
+                'council': council,
+                'state': state,
+                'crime_fig_url': crime_fig_url
+            }
+        )
