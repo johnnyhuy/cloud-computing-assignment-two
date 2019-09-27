@@ -3,8 +3,8 @@
     <div class="container" , style="border:thin black solid;">
         <div class="row">
             <div class="col-md-6" style="border:thin black solid;">
-                <img class="img-fluid" src="{{ p['listing']['media'][0]['url'] }}">
-                {{ p['listing']['summaryDescription']|safe }}
+                <img class="img-fluid" src="{{ listing['media'][0]['url'] }}">
+                {{ listing['description'] | safe }}
             </div>
             <div class="col-md-6" style="border:thin black solid;">
                 <div style="word-wrap:break-word;">
