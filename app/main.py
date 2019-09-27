@@ -6,6 +6,7 @@ import ptvsd
 import os
 import json
 from location import Suburb, Council, State
+from domain.search import Search
 from data_grabber import SuburbData, CouncilData, StateData, FeesData, DomainAccessToken, SearchResponseData
 from stats import GraphBuilder
 import domain_api_constants
@@ -19,13 +20,10 @@ templates = Jinja2Templates(directory='templates')
 if (os.getenv('ENVIRONMENT', 'production') == 'development'):
     ptvsd.enable_attach(address=('0.0.0.0', 8080))
 
-# global listings
-
 domain_access_token = DomainAccessToken().get_token()
 
 @app.get('/')
 def index(request: Request):
-    # global listings
     return templates.TemplateResponse('index.html', {'request': request})
 
 @app.post('/listings/')
@@ -49,7 +47,7 @@ def index(
         'maxCarspaces': carspaces
     }
     listing_query_json = json.dumps(listing)
-    listings = SearchResponseData(domain_access_token, listing_query_json).get_data()
+    listings = Search(domain_access_token, listing_query_json).get_data()
 
     # Local only
     # listings = {}
@@ -91,4 +89,5 @@ def listing(property_id: int):
     #         else:
     #             return render_template('listing.html', listing=listing, suburb=suburb, council=council, state=state,
     #                                     crime_fig_url=crime_fig_url)
+
     return "Property Not Found"
