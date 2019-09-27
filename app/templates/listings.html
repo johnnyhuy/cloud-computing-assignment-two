@@ -6,7 +6,7 @@
                 {% set listing = result.get('listing') %}
                 {% set propertyDetails = listing.get('propertyDetails') %}
                 {% set priceDetails = listing.get('priceDetails') %}
-                <div class="card mb-5">
+                <div class="card mb-5 overflow-hidden rounded-lg">
                     <div class="row no-gutters">
                         <div class="col-md-4 overflow-hidden">
                             <div style="background: url('{{ listing['media'][0]['url'] }}'); height: 275px; background-position: center; background-size: cover;"></div>
@@ -22,22 +22,22 @@
                                 {% endif %}
                                 <p class="card-text">{{ propertyDetails['displayableAddress'] }}</p>
                                 <div class="row no-gutters">
-                                    {% if (propertyDetails.get('bedrooms') and propertyDetails.get('bathrooms')) %}
-                                        <div class="col-6">
-                                            <p class="mb-3">{{ '%d' % propertyDetails['bedrooms'] }} bedrooms</p>
+                                    {% if (propertyDetails.get('bedrooms')) %}
+                                        <div class="col-sm">
+                                            <p class="mb-3">{{ '%d' % propertyDetails['bedrooms'] }} bedroom{% if (propertyDetails['bedrooms'] > 1) %}s{% endif %}</p>
                                         </div>
-                                        <div class="col-6">
-                                            <p class="mb-3">{{ '%d' % propertyDetails['bathrooms'] }} bathrooms</p>
+                                    {% endif %}
+                                    {% if (propertyDetails.get('bathrooms')) %}
+                                        <div class="col-sm">
+                                            <p class="mb-3">{{ '%d' % propertyDetails['bathrooms'] }} bathroom{% if (propertyDetails['bathrooms'] > 1) %}s{% endif %}</p>
                                         </div>
-                                    {% elif (propertyDetails.get('bedrooms')) %}
-                                        <p class="mb-3">{{ '%d' % propertyDetails['bedrooms'] }} bedrooms</p>
-                                    {% elif (propertyDetails.get('bathrooms')) %}
-                                        <p class="mb-3">{{ '%d' % propertyDetails['bathrooms'] }} bathrooms</p>
+                                    {% endif %}
+                                    {% if (propertyDetails.get('carspaces')) %}
+                                        <div class="col-sm">
+                                            <p class="mb-3">{{ '%d' % propertyDetails['carspaces'] }} car space{% if (propertyDetails['carspaces'] > 1) %}s{% endif %}</p>
+                                        </div>
                                     {% endif %}
                                 </div>
-                                {% if (propertyDetails.get('carspaces')) %}
-                                    <p class="card-text">{{ propertyDetails['carspaces'] }} car spaces</p>
-                                {% endif %}
                                 <a class="btn btn-primary" href="{{ url_for('listing', property_id = listing['id']) }}">See more</a>
                             </div>
                         </div>
