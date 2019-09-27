@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        {% if listings is defined %}
+            {% for result in listings %}
+                {% set listing = result.get('listing') %}
+                {% set propertyDetails = listing.get('propertyDetails') %}
+                {% set priceDetails = listing.get('priceDetails') %}
+                <ul>
+                    <a href="{{ url_for('listing', property_id = listing['id']) }}">
+                        <li>
+                            <div class="row">
+                                <img src="{{ listing['media'][0]['url'] }}" style="height:150px;">{{ propertyDetails['displayableAddress'] }}
+                                <br>
+                                {{ propertyDetails['bedrooms'] }}
+                                Bed, {{ propertyDetails['bathrooms'] }}
+                                Bath, {{ propertyDetails['carspaces'] }} carspace
+                                <br>
+                                {{ propertyDetails['landArea'] }} sqm
+                                <br>
+                                {{ priceDetails['displayPrice'] }}
+                            </div>
+                        </li>
+                    </a>
+                </ul>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
