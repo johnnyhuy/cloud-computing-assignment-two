@@ -1,5 +1,4 @@
-AUTH = ('client_9d78bbb90b7b4262b401ba918f41bbd7',
-        'secret_5e495f5f90b176e7f391ff69cefa893c')
+# Auth credentials
 TOKEN_GENERATOR_URL = 'https://auth.domain.com.au/v1/connect/token'
 DOMAIN_TOKEN_GENERATOR_HEADERS = {
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -20,16 +19,3 @@ SEARCH_PROPERTIES_HEADERS = {
 }
 
 READ_API_ERROR = "Error reading data from API"
-
-QUERY_DATA = '{' \
-             '"listingType":"Sale",' \
-             '"minBedrooms":MIN_BEDROOMS_PLACEHOLDER,' \
-             '"maxBedrooms":MAX_BEDROOMS_PLACEHOLDER,' \
-             '"minBathrooms":MIN_BATHROOMS_PLACEHOLDER,' \
-             '"maxBathrooms":MAX_BATHROOMS_PLACEHOLDER,' \
-             '"minCarspaces":MIN_CARSPACES_PLACEHOLDER,' \
-             '"maxCarspaces":MAX_CARSPACES_PLACEHOLDER,' \
-             '"locations":[{' \
-             '"state":"VIC",' \
-             '"suburb":"SUBURB_PLACEHOLDER"' \
-             '}]}'

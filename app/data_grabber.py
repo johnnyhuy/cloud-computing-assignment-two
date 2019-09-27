@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 import json
+import os
 import requests
 import domain.constants as domain_constants
 import fee_constants
@@ -13,7 +14,10 @@ class DomainAccessToken:
                 domain_constants.TOKEN_GENERATOR_URL,
                 headers=domain_constants.DOMAIN_TOKEN_GENERATOR_HEADERS,
                 data=domain_constants.TOKEN_GENERATOR_DATA,
-                auth=domain_constants.AUTH
+                auth=(
+                    os.getenv('DOMAIN_API_AUTH_CLIENT'),
+                    os.getenv('DOMAIN_API_AUTH_SECRET')
+                )
             )
 
             self.token = access_token_response.json()['access_token']
