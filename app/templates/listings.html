@@ -1,33 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container">
-        <div class="row">
-            {% if listings is defined %}
-                {% for result in listings %}
-                    {% set listing = result.get('listing') %}
-                    {% set propertyDetails = listing.get('propertyDetails') %}
-                    {% set priceDetails = listing.get('priceDetails') %}
-                    <div class="col-lg-4 col-6 d-flex flex-column mb-4">
-                        <div class="card flex-grow-1">
-                            <a href="{{ url_for('listing', property_id = listing['id']) }}">
-                                <img src="{{ listing['media'][0]['url'] }}" class="card-img-top" alt="property_image_{{ listing['id'] }}">
-                            </a>
+        {% if listings is defined %}
+            {% for result in listings %}
+                {% set listing = result.get('listing') %}
+                {% set propertyDetails = listing.get('propertyDetails') %}
+                {% set priceDetails = listing.get('priceDetails') %}
+                <div class="card mb-5">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 overflow-hidden">
+                            <div style="background: url('{{ listing['media'][0]['url'] }}'); height: 250px; background-position: center; background-size: cover;"></div>
+                        </div>
+                        <div class="col-md-8" style="height: 250px;">
                             <div class="card-body">
                                 <a href="{{ url_for('listing', property_id = listing['id']) }}">
-                                    <h5 class="card-title font-weight-bold">{{ listing['headline'] }}</h5>
+                                    <h5 class="card-title font-weight-bold" style="max-width: 450px;">{{ listing['headline'] }}</h5>
                                 </a>
                                 <p class="card-text">{{ priceDetails['displayPrice'] }}</p>
-                                <p class="card-text">{{ propertyDetails['landArea'] }} sqm</p>
+                                {% if (propertyDetails.get('landArea')) %}
+                                    <p class="card-text">{{ propertyDetails['landArea'] }} sqm</p>
+                                {% endif %}
                                 <p class="card-text">{{ propertyDetails['displayableAddress'] }}</p>
-                                <p class="card-text">{{ propertyDetails['bedrooms'] }} bedrooms</p>
-                                <p class="card-text">{{ propertyDetails['bathrooms'] }} bathrooms</p>
-                                <p class="card-text">{{ propertyDetails['carspaces'] }} car spaces</p>
-                                <a href="{{ url_for('listing', property_id = listing['id']) }}">See more</a>
+                                <div class="row no-gutters">
+                                    {% if (propertyDetails.get('bedrooms') and propertyDetails.get('bathrooms')) %}
+                                        <div class="col-6">
+                                            <p class="mb-3">{{ '%d' % propertyDetails['bedrooms'] }} bedrooms</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="mb-3">{{ '%d' % propertyDetails['bathrooms'] }} bathrooms</p>
+                                        </div>
+                                    {% elif (propertyDetails.get('bedrooms')) %}
+                                        <p class="mb-3">{{ '%d' % propertyDetails['bedrooms'] }} bedrooms</p>
+                                    {% elif (propertyDetails.get('bathrooms')) %}
+                                        <p class="mb-3">{{ '%d' % propertyDetails['bathrooms'] }} bathrooms</p>
+                                    {% endif %}
+                                </div>
+                                {% if (propertyDetails.get('carspaces')) %}
+                                    <p class="card-text">{{ propertyDetails['carspaces'] }} car spaces</p>
+                                {% endif %}
+                                <a class="btn btn-primary" href="{{ url_for('listing', property_id = listing['id']) }}">See more</a>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
