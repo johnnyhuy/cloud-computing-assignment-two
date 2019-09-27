@@ -8,6 +8,11 @@ variable "stayapp_ip" {
   type        = "string"
 }
 
+variable "stayapp_sql_database_name" {
+  description = "Stay application database name"
+  type        = "string"
+}
+
 variable "sql_username" {
   description = "MySQL instance username"
   type        = "string"
