@@ -49,18 +49,12 @@ def index(
         'maxCarspaces': carspaces
     }
     listing_query_json = json.dumps(listing)
-    # api_query = domain_api_constants.QUERY_DATA \
-    # .replace('SUBURB_PLACEHOLDER', request.form.get('suburb_name')) \
-    # .replace('MIN_BEDROOMS_PLACEHOLDER', str(request.form.get('min_bedrooms'))) \
-    # .replace('MAX_BEDROOMS_PLACEHOLDER', str(request.form.get('max_bedrooms')) )\
-    # .replace('MIN_BATHROOMS_PLACEHOLDER', str(request.form.get('min_bathrooms'))) \
-    # .replace('MAX_BATHROOMS_PLACEHOLDER', str(request.form.get('max_bathrooms'))) \
-    # .replace('MIN_CARSPACES_PLACEHOLDER', str(request.form.get('min_carspaces'))) \
-    # .replace('MAX_CARSPACES_PLACEHOLDER', str(request.form.get('max_carspaces')))
-    # listings = SearchResponseData(domain_access_token, listing_query_json).get_data()
-    listings = {}
-    with open('static/test_property_result.json', 'r') as outfile:
-        listings = json.load(outfile)
+    listings = SearchResponseData(domain_access_token, listing_query_json).get_data()
+
+    # Local only
+    # listings = {}
+    # with open('static/test_property_result.json', 'r') as outfile:
+    #     listings = json.load(outfile)
 
     return templates.TemplateResponse(
         'listings.html',
