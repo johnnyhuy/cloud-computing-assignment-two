@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 import json
 import requests
-import domain_api_constants as domain_constants
+import domain.constants as domain_constants
 import fee_constants
 
 class DomainAccessToken:
