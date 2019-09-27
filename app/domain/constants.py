@@ -10,7 +10,8 @@ TOKEN_GENERATOR_DATA = {
 
 ADDRESS_LOCATORS_API_URL = 'https://api.domain.com.au/v1/addressLocators?state=Vic&searchLevel=Suburb&suburb='
 LOCATION_PROFILES_API_URL = 'https://api.domain.com.au/v1/locations/profiles/'
-LISTINGS_SEARCH_URL = 'https://api.domain.com.au/v1/listings/residential/_search'
+LISTINGS_RESIDENTIAL_SEARCH_URL = 'https://api.domain.com.au/v1/listings/residential/_search'
+LISTINGS_URL = 'https://api.domain.com.au/v1/listings/{0}'
 
 SEARCH_PROPERTIES_HEADERS = {
     'accept': 'application/json',
