@@ -9,7 +9,6 @@ from location import Suburb, Council, State
 from domain.search import Search
 from data_grabber import SuburbData, CouncilData, StateData, FeesData, DomainAccessToken, SearchResponseData
 from stats import GraphBuilder
-import domain_api_constants
 from pydantic import BaseModel
 
 
