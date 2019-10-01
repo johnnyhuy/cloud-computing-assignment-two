@@ -19,6 +19,11 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          ls -la '$(System.DefaultWorkingDirectory)'
     - task: DockerCompose@0
       displayName: 'Build Docker images'
       inputs:
