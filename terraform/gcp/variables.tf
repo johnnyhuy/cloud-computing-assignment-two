@@ -23,7 +23,7 @@ variable "cloudflare_email" {
   type = "string"
 }
 
-variable "cloudflare_token" {
+variable "cloudflare_api_key" {
   description = "Cloudflare token used to auth against their API"
   type = "string"
 }
