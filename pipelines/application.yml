@@ -23,6 +23,7 @@ stages:
       displayName: Copy deployment files
       inputs:
         contents: |
+          $(System.DefaultWorkingDirectory)/.env.production
           $(System.DefaultWorkingDirectory)/kubernetes/**
           $(System.DefaultWorkingDirectory)/sql/**
         targetFolder: $(Build.ArtifactStagingDirectory)
@@ -70,7 +71,7 @@ stages:
           - task: Bash@3
             displayName: Seed Stay application SQL database
             inputs:
-              filePath: '$(System.DefaultWorkingDirectory)/deployment/sql/seed.sh'
+              filePath: '$(Agent.BuildDirectory)/deployment/sql/seed.sh'
               arguments: '-d stayapp -u $(STAYAPP_DATABASE_USER) -h $(STAYAPP_DATABASE_HOST) -p ''$(STAYAPP_DATABASE_PASSWORD)'''
 
   - deployment: deploy_stayapp
@@ -145,7 +146,7 @@ stages:
               kubernetesServiceEndpoint: 'gcp-gke-service-connection'
               namespace: 'default'
               command: 'create'
-              arguments: 'secret generic stayapp-secrets --from-env-file $(System.DefaultWorkingDirectory)/deployment/.env.production'
+              arguments: 'secret generic stayapp-secrets --from-env-file $(Agent.BuildDirectory)/deployment/.env.production'
               secretType: 'generic'
 
           - task: Kubernetes@1
@@ -155,5 +156,5 @@ stages:
               kubernetesServiceEndpoint: '$(KUBERNETES_SERVICE_CONNECTION)'
               command: 'apply'
               useConfigurationFile: true
-              configuration: '$(System.DefaultWorkingDirectory)/deployment/kubernetes/stayapp'
+              configuration: '$(Agent.BuildDirectory)/deployment/kubernetes/stayapp'
               secretType: 'generic'
