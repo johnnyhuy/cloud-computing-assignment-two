@@ -14,16 +14,26 @@ stages:
 - stage: build
   displayName: Build
   jobs:
+  - job: publish_artifacts
+    displayName: Publish artifacts
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: CopyFiles@2
+      displayName: Copy deployment files
+      inputs:
+        contents: |
+          $(System.DefaultWorkingDirectory)/kubernetes
+          $(Build.ArtifactStagingDirectory)/sql
+        targetFolder: $(Build.ArtifactStagingDirectory)/kubernetes
+    - publish: $(Build.ArtifactStagingDirectory)
+      artifact: deployment
+
   - job: build_stayapp
     displayName: Build Stay application
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          cat '$(System.DefaultWorkingDirectory)/.env.production'
     - task: DockerCompose@0
       displayName: 'Build Docker images'
       inputs:
@@ -54,10 +64,13 @@ stages:
       runOnce:
         deploy:
           steps:
+          - download: current
+            artifact: deployment
+
           - task: Bash@3
             displayName: Seed Stay application SQL database
             inputs:
-              filePath: '$(System.DefaultWorkingDirectory)/sql/seed.sh'
+              filePath: '$(System.DefaultWorkingDirectory)/deployment/sql/seed.sh'
               arguments: '-d stayapp -u $(STAYAPP_DATABASE_USER) -h $(STAYAPP_DATABASE_HOST) -p ''$(STAYAPP_DATABASE_PASSWORD)'''
 
   - deployment: deploy_stayapp
@@ -69,6 +82,9 @@ stages:
       runOnce:
         deploy:
           steps:
+          - download: current
+            artifact: deployment
+
           - task: AWSShellScript@1
             displayName: 'Get ECR password'
             inputs:
@@ -129,7 +145,7 @@ stages:
               kubernetesServiceEndpoint: 'gcp-gke-service-connection'
               namespace: 'default'
               command: 'create'
-              arguments: 'secret generic stayapp-secrets --from-env-file $(System.DefaultWorkingDirectory)/.env.production'
+              arguments: 'secret generic stayapp-secrets --from-env-file $(System.DefaultWorkingDirectory)/deployment/.env.production'
               secretType: 'generic'
 
           - task: Kubernetes@1
@@ -139,5 +155,5 @@ stages:
               kubernetesServiceEndpoint: '$(KUBERNETES_SERVICE_CONNECTION)'
               command: 'apply'
               useConfigurationFile: true
-              configuration: '$(System.DefaultWorkingDirectory)/kubernetes/stayapp'
+              configuration: '$(System.DefaultWorkingDirectory)/deployment/kubernetes/stayapp'
               secretType: 'generic'
