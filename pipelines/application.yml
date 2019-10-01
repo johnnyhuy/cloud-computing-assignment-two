@@ -14,8 +14,8 @@ stages:
 - stage: build
   displayName: Build
   jobs:
-  - job: stayapp_application
-    displayName: Deploy Stay application
+  - job: build_stayapp
+    displayName: Build Stay application
     pool:
       vmImage: 'ubuntu-latest'
     steps:
