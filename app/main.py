@@ -2,8 +2,9 @@ from fastapi import FastAPI, Form, HTTPException
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-import pydevd_pycharm
+# import pydevd_pycharm
 import os
+import ptvsd
 from location import Suburb, Council, State
 from domain.search import Search
 from data_grabber import SuburbData, CouncilData, StateData, FeesData, DomainAccessToken
@@ -14,7 +15,8 @@ app.mount('/static', StaticFiles(directory='static'), name='static')
 templates = Jinja2Templates(directory='templates')
 
 if os.getenv('ENVIRONMENT', 'production') == 'development':
-    pydevd_pycharm.settrace('host.docker.internal', port=8081, stdoutToServer=True, stderrToServer=True)
+    ptvsd.enable_attach()
+    # pydevd_pycharm.settrace('host.docker.internal', port=8081)
 
 
 domain_access_token = DomainAccessToken().get_token()
