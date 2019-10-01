@@ -40,6 +40,21 @@ stages:
 - stage: production
   displayName: Production
   jobs:
+  - deployment: deploy_stayapp_database
+    displayName: Deploy Stay Application SQL database
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'Stay Application'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            displayName: Seed Stay application SQL database
+            inputs:
+              filePath: '$(System.DefaultWorkingDirectory)/sql/seed.sh'
+              arguments: '-d stayapp -u $(STAYAPP_DATABASE_USER) -h $(STAYAPP_DATABASE_HOST) -p ''$(STAYAPP_DATABASE_PASSWORD)'''
+
   - deployment: deploy_stayapp
     displayName: Deploy Stay Application to Kubernetes
     pool:
@@ -113,6 +128,7 @@ stages:
               secretType: 'generic'
 
           - task: Kubernetes@1
+            displayName: 'Apply deployment'
             inputs:
               connectionType: 'Kubernetes Service Connection'
               kubernetesServiceEndpoint: '$(KUBERNETES_SERVICE_CONNECTION)'
