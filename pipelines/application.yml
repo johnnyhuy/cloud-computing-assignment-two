@@ -67,6 +67,38 @@ stages:
         arguments: 'secret docker-registry ecr-credentials --docker-server https://961143247577.dkr.ecr.ap-southeast-2.amazonaws.com --docker-username AWS --docker-password $(ECR_PASSWORD)'
         secretType: 'generic'
 
+    - task: replacetokens@3
+      displayName: 'Replace production env file'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**/*.env.production'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '$('
+        tokenSuffix: ')'
+
+    - task: Kubernetes@1
+      displayName: 'Delete Stay app secrets'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'gcp-gke-service-connection'
+        namespace: 'default'
+        command: 'delete'
+        arguments: 'secret --ignore-not-found stayapp-secrets'
+        secretType: 'generic'
+
+    - task: Kubernetes@1
+      displayName: 'Apply Stay app secrets'
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'gcp-gke-service-connection'
+        namespace: 'default'
+        command: 'create'
+        arguments: 'secret generic stayapp-secrets --from-env-file .env.production'
+        secretType: 'generic'
+
     - task: Kubernetes@1
       inputs:
         connectionType: 'Kubernetes Service Connection'
