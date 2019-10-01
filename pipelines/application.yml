@@ -84,7 +84,7 @@ stages:
             displayName: 'Replace production env file'
             inputs:
               rootDirectory: '$(System.DefaultWorkingDirectory)'
-              targetFiles: '**/*.env.production'
+              targetFiles: '.env.production'
               encoding: 'auto'
               writeBOM: true
               actionOnMissing: 'warn'
@@ -109,7 +109,7 @@ stages:
               kubernetesServiceEndpoint: 'gcp-gke-service-connection'
               namespace: 'default'
               command: 'create'
-              arguments: 'secret generic stayapp-secrets --from-env-file .env.production'
+              arguments: 'secret generic stayapp-secrets --from-env-file $(System.DefaultWorkingDirectory)/.env.production'
               secretType: 'generic'
 
           - task: Kubernetes@1
