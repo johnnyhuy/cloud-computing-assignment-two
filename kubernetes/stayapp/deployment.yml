@@ -17,7 +17,8 @@ spec:
         imagePullPolicy: Always
         name: stayapp-flask-server
         ports:
-        - containerPort: 80
+        - containerPort: 8000
+          hostPort: 80
           protocol: TCP
         env:
           - name: FLASK_APP
@@ -25,14 +26,14 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 8000
           initialDelaySeconds: 60
           periodSeconds: 30
           timeoutSeconds: 20
         readinessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 8000
           initialDelaySeconds: 30
           periodSeconds: 60
           timeoutSeconds: 20
