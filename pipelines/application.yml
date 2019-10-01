@@ -23,8 +23,8 @@ stages:
       displayName: Copy deployment files
       inputs:
         contents: |
-          $(System.DefaultWorkingDirectory)/kubernetes
-          $(Build.ArtifactStagingDirectory)/sql
+          $(System.DefaultWorkingDirectory)/kubernetes/*
+          $(Build.ArtifactStagingDirectory)/sql/*
         targetFolder: $(Build.ArtifactStagingDirectory)/kubernetes
     - publish: $(Build.ArtifactStagingDirectory)
       artifact: deployment
