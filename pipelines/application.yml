@@ -23,7 +23,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          ls -la '$(System.DefaultWorkingDirectory)'
+          cat '$(System.DefaultWorkingDirectory)/.env.production'
     - task: DockerCompose@0
       displayName: 'Build Docker images'
       inputs:
