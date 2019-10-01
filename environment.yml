@@ -16,6 +16,7 @@ dependencies:
   - freetype
   - httptools
   - pip:
+    - pydevd-pycharm~=192.6817.19
     - graphene
     - pyyaml
     - itsdangerous

@@ -16,7 +16,6 @@ class Search:
         self.headers = domain_constants.SEARCH_PROPERTIES_HEADERS
         domain_constants.SEARCH_PROPERTIES_HEADERS['Authorization'] = 'Bearer ' + self.token
 
-
     def get_residential_listings(self, api_query):
         """
         Get residential data from the API
@@ -34,7 +33,6 @@ class Search:
             return response.json()
         except requests.exceptions.HTTPError as e:
             print(domain_constants.READ_API_ERROR, e)
-
 
     def get_residential_listing(self, property_id):
         """
