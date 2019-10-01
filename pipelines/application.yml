@@ -22,7 +22,7 @@ stages:
       displayName: 'Build Docker images'
       inputs:
         containerregistrytype: 'Container Registry'
-        dockerComposeFile: 'docker-compose.yml'
+        dockerComposeFile: 'docker-compose.prod.yml'
         action: 'Build services'
 
     - task: ECRPushImage@1
