@@ -38,9 +38,9 @@ class SuburbData:
     def __pull_sql_data(self):
 
         crime_database = mysql.connector.connect(
-            host="35.189.38.59",
-            user="admin",
-            passwd="FW0HfO$q05o*5q3x"
+            host=os.getenv('STAYAPP_DATABASE_HOST'),
+            user=os.getenv('STAYAPP_DATABASE_USER'),
+            passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
         """
@@ -116,15 +116,14 @@ class SuburbData:
 class CouncilData:
 
     def __init__(self, council_name):
-        self.data_dict = {}
-        self.data_dict['council_name'] = council_name
+        self.data_dict = {'council_name': council_name}
         self.__pull_sql_data()
 
     def __pull_sql_data(self):
         crime_database = mysql.connector.connect(
-            host="35.189.38.59",
-            user="admin",
-            passwd="FW0HfO$q05o*5q3x"
+            host=os.getenv('STAYAPP_DATABASE_HOST'),
+            user=os.getenv('STAYAPP_DATABASE_USER'),
+            passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
         """
@@ -141,7 +140,8 @@ class CouncilData:
             mycursor = crime_database.cursor(dictionary=True)
 
             mycursor.execute("SELECT * "
-                             "FROM stayapp.councils "
+                             "FROM "
+                             "stayapp.councils "
                              "WHERE name = '" + self.data_dict['council_name'] + "'"
                                                                                  ";")
             cn = mycursor.fetchall()[0]
@@ -196,9 +196,9 @@ class StateData:
 
     def __pull_sql_data(self):
         crime_database = mysql.connector.connect(
-            host="35.189.38.59",
-            user="admin",
-            passwd="FW0HfO$q05o*5q3x"
+            host=os.getenv('STAYAPP_DATABASE_HOST'),
+            user=os.getenv('STAYAPP_DATABASE_USER'),
+            passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
         """
@@ -250,9 +250,9 @@ class FeesData:
 
     def __pull_sql_data(self):
         crime_database = mysql.connector.connect(
-            host="35.189.38.59",
-            user="admin",
-            passwd="FW0HfO$q05o*5q3x"
+            host=os.getenv('STAYAPP_DATABASE_HOST'),
+            user=os.getenv('STAYAPP_DATABASE_USER'),
+            passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
         try:
