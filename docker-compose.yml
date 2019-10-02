@@ -3,13 +3,13 @@ version: '3'
 services:
   stayapp:
     image: stayapp:${STAYAPP_TAG:-latest}
+    restart: always
     volumes:
       - ./app:/app
-    environment:
-      - FLASK_APP=app/main.py
-      - FLASK_DEBUG=1
-    command: flask run --host=0.0.0.0 --port=80
+    command: uvicorn main:app --host 0.0.0.0 --log-level debug --reload
+    env_file: .env
     build:
       context: .
     ports:
-      - 80:80
+      - 8000:8000
+      - 5678:5678

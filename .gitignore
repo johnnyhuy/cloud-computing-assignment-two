@@ -142,3 +142,5 @@ pyvenv.cfg
 *.terraform.tfstate.lock.info
 
 test.tfvars
+
+.idea

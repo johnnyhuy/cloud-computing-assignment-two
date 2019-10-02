@@ -5,8 +5,9 @@ provider "google" {
 }
 
 provider "cloudflare" {
+  version = "~> 2.0"
   email = "${var.cloudflare_email}"
-  token = "${var.cloudflare_token}"
+  api_key = "${var.cloudflare_api_key}"
 }
 
 terraform {
@@ -30,7 +31,8 @@ module "networking" {
 module "sql" {
   source       = "./modules/sql"
   tags         = "${var.tags}"
-  cluster_service_ip_range = "${module.compute.cluster_service_ip_range}"
+  stayapp_ip = "${module.networking.stayapp_public_ip}"
+  stayapp_sql_database_name = "${var.stayapp_sql_database_name}"
   sql_username = "${var.sql_username}"
   sql_password = "${var.sql_password}"
 }

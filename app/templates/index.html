@@ -1,28 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="pos-f-t">
-        <div class="collapse" id="navbarToggleExternalContent">
-            <div class="bg-light p-4">
-                <form method="POST">
-                    <div class="form-row">
-                        <div class="col-md-3 mb-3">
-                            <label for="exampleFormControlSelect1">Suburb</label>
-                            <input type="text" class="form-control" name="suburb_name" placeholder="Suburb" list="suburbs" required>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="shadow ml-5 p-4 rounded-lg bg-white border">
+                <form method="POST" action="/listings">
+                    <div id="suburbInputForm" class="form-group mb-3">
+                        <label for="suburbInput">Suburb</label>
+                        <input id="suburbInput" type="text" class="form-control" name="suburb_name" placeholder="Suburb" list="suburbs" required>
+                        <small id="suggested" class="form-text text-muted pt-1 pb-2">Suggested suburbs</small>
+                        <div class="mx-n1">
+                            <a class="btn btn-secondary text-light rounded-pill px-4 mb-2 mx-1">Carlton</a>
+                            <a class="btn btn-secondary text-light rounded-pill px-4 mb-2 mx-1">St. Albans</a>
+                            <a class="btn btn-secondary text-light rounded-pill px-4 mb-2 mx-1">Werribee</a>
+                            <a class="btn btn-secondary text-light rounded-pill px-4 mb-2 mx-1">Frankston</a>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="exampleFormControlSelect1">Min Rooms</label>
-                            <select class="form-control" name="min_bedrooms">
-                                <option>1</option>
+                    </div>
+                    <div class="form-row mb-2">
+                        <div class="form-group col-12 col-lg-4">
+                            <label for="bedroomInput">Bedrooms</label>
+                            <small id="suggested" class="form-text text-muted">Maximum</small>
+                            <select class="form-control" id="bedroomInput" name="bedrooms">
+                                <option selected>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
-                                <option>5</option>
+                                <option>5+</option>
                             </select>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="exampleFormControlSelect1">Max Rooms</label>
-                            <select class="form-control" name="max_bedrooms">
-                                <option>1</option>
+                        <div class="form-group col-12 col-lg-4">
+                            <label for="bathroomInput">Bathrooms</label>
+                            <small id="suggested" class="form-text text-muted">Maximum</small>
+                            <select class="form-control" id="bathroomInput" name="bathrooms">
+                                <option selected>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5+</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-12 col-lg-4">
+                            <label for="carSpaceInput">Car spaces</label>
+                            <small id="suggested" class="form-text text-muted">Maximum</small>
+                            <select class="form-control" id="carSpaceInput" name="carspaces">
+                                <option selected>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
@@ -30,83 +50,25 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-md-3 mb-3">
-                            <label for="exampleFormControlSelect1">Min Bathrooms</label>
-                            <select class="form-control" name="min_bathrooms">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="exampleFormControlSelect1">Max BathRooms</label>
-                            <select class="form-control" name="max_bathrooms">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5+</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="exampleFormControlSelect1">Min Carspaces</label>
-                            <select class="form-control" name="min_carspaces">
-                                <option>0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="exampleFormControlSelect1">Max Carspaces</label>
-                            <select class="form-control" name="max_carspaces">
-                                <option>0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3+</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" type="submit">Submit form</button>
+                    <button class="btn btn-primary rounded-pill px-4 py-2" type="submit">Find it</button>
                 </form>
             </div>
         </div>
-        <nav class="navbar navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
+        <div class="col-md-7">
+            <div class="w-75 mx-auto">
+                <h2 class="pt-5">Get started with the Stay app!</h2>
+                <p class="lead">
+                    Welcome to the RMIT Cloud Computing assignment from semester 2 2019 ✌
+                </p>
+                <p class="lead">
+                    Get started by either going to the pre-filtered searches or will out a form!
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="container">
-        {% if listings is defined %}
-            {% for p in listings %}
-                {% if p['type'] ==  'PropertyListing' %}
-                    <ul>
-                        <a href="{{ url_for('listing', property_id = p['listing']['id']) }}">
-                            <li>
-                                <div class="row">
-                                    <img src="{{ p['listing']['media'][0]['url'] }}"
-                                         style="height:150px;">{{ p['listing']['propertyDetails']['displayableAddress'] }}
-                                    <br>
-                                    {{ p['listing']['propertyDetails']['bedrooms'] }}
-                                    Bed, {{ p['listing']['propertyDetails']['bathrooms'] }}
-                                    Bath, {{ p['listing']['propertyDetails']['carspaces'] }} carspace
-                                    <br>
-                                    {{ p['listing']['propertyDetails']['landArea'] }} sqm
-                                    <br>
-                                    {{ p['listing']['priceDetails']['displayPrice'] }}
-                                </div>
-                            </li>
-                        </a>
-                    </ul>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </div>
-    <script src="js/js"></script>
+{% endblock %}
+
+
+{% block javascript %}
+    <script src="{{ url_for('static', path='js/index.js') }}"></script>
 {% endblock %}

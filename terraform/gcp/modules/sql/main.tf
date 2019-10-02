@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "stayapp" {
-  name   = "stayapp-sql"
+  name   = "stayapp-sql-instance"
   region = "australia-southeast1"
 
   settings {
@@ -8,8 +8,8 @@ resource "google_sql_database_instance" "stayapp" {
     ip_configuration {
       ipv4_enabled = true
       authorized_networks {
-        name  = "kubernetes-stayapp"
-        value = "${var.cluster_service_ip_range}"
+        name  = "kubernetes-stayapp-ip"
+        value = "${var.stayapp_ip}"
       }
       authorized_networks {
         name  = "allow-all"
@@ -27,6 +27,6 @@ resource "google_sql_user" "users" {
 }
 
 resource "google_sql_database" "database" {
-  name     = "stayapp"
+  name     = "${var.stayapp_sql_database_name}"
   instance = "${google_sql_database_instance.stayapp.name}"
 }

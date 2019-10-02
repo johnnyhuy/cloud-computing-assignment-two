@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  stayapp:
+    image: stayapp:${STAYAPP_TAG:-latest}
+    build:
+      context: .

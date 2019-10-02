@@ -15,23 +15,26 @@ spec:
       containers:
       - image: 961143247577.dkr.ecr.ap-southeast-2.amazonaws.com/stayapp:latest
         imagePullPolicy: Always
-        name: stayapp-flask-server
-        command: ['flask']
-        args: ['run', '--host=0.0.0.0', '--port=80']
+        name: stayapp
         ports:
-        - containerPort: 80
+        - containerPort: 8000
           protocol: TCP
-        env:
-        - name: FLASK_APP
-          value: app/main.py
-        - name: FLASK_DEBUG
-          value: '1'
+        envFrom:
+        - secretRef:
+            name: stayapp-secrets
         livenessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 8000
           initialDelaySeconds: 60
           periodSeconds: 30
+          timeoutSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 60
           timeoutSeconds: 20
         resources:
           limits:

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        {% if listings is defined %}
+            {% for result in listings %}
+                {% set listing = result.get('listing') %}
+                {% set propertyDetails = listing.get('propertyDetails') %}
+                {% set priceDetails = listing.get('priceDetails') %}
+                <div class="card mb-5 overflow-hidden rounded-lg">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 overflow-hidden">
+                            <div style="background: url('{{ listing['media'][0]['url'] }}'); height: 275px; background-position: center; background-size: cover;"></div>
+                        </div>
+                        <div class="col-md-8" style="height: 275px;">
+                            <div class="card-body">
+                                <a href="{{ url_for('listing', property_id = listing['id']) }}">
+                                    <h5 class="card-title font-weight-bold" style="max-width: 450px;">{{ listing['headline'] }}</h5>
+                                </a>
+                                <p class="card-text">{{ priceDetails['displayPrice'] }}</p>
+                                {% if (propertyDetails.get('landArea')) %}
+                                    <p class="card-text">{{ propertyDetails['landArea'] }} sqm</p>
+                                {% endif %}
+                                <p class="card-text">{{ propertyDetails['displayableAddress'] }}</p>
+                                <div class="row no-gutters">
+                                    {% if (propertyDetails.get('bedrooms')) %}
+                                        <div class="col-sm">
+                                            <p class="mb-3">{{ '%d' % propertyDetails['bedrooms'] }} bedroom{% if (propertyDetails['bedrooms'] > 1) %}s{% endif %}</p>
+                                        </div>
+                                    {% endif %}
+                                    {% if (propertyDetails.get('bathrooms')) %}
+                                        <div class="col-sm">
+                                            <p class="mb-3">{{ '%d' % propertyDetails['bathrooms'] }} bathroom{% if (propertyDetails['bathrooms'] > 1) %}s{% endif %}</p>
+                                        </div>
+                                    {% endif %}
+                                    {% if (propertyDetails.get('carspaces')) %}
+                                        <div class="col-sm">
+                                            <p class="mb-3">{{ '%d' % propertyDetails['carspaces'] }} car space{% if (propertyDetails['carspaces'] > 1) %}s{% endif %}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <a class="btn btn-primary" href="{{ url_for('listing', property_id = listing['id']) }}">See more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

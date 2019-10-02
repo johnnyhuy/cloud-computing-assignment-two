@@ -1,9 +1,10 @@
 import mysql.connector
 from mysql.connector import Error
-import requests
-import domain_api_constants as domain_constants
-import fee_constants
 import json
+import os
+import requests
+import domain.constants as domain_constants
+import fee_constants
 
 class DomainAccessToken:
 
@@ -13,7 +14,10 @@ class DomainAccessToken:
                 domain_constants.TOKEN_GENERATOR_URL,
                 headers=domain_constants.DOMAIN_TOKEN_GENERATOR_HEADERS,
                 data=domain_constants.TOKEN_GENERATOR_DATA,
-                auth=domain_constants.AUTH
+                auth=(
+                    os.getenv('DOMAIN_API_AUTH_CLIENT'),
+                    os.getenv('DOMAIN_API_AUTH_SECRET')
+                )
             )
 
             self.token = access_token_response.json()['access_token']
@@ -22,33 +26,6 @@ class DomainAccessToken:
 
     def get_token(self):
         return self.token
-
-
-class SearchResponseData:
-
-    def __init__(self, domain_api_token,api_query):
-        self.token = domain_api_token
-        self.api_query = api_query
-
-        # Appending to header constant to complete header variable
-        domain_constants.SEARCH_PROPERTIES_HEADERS['Authorization'] = 'Bearer ' + self.token
-
-        headers = domain_constants.SEARCH_PROPERTIES_HEADERS
-        data = self.api_query
-
-        try:
-            response = requests.post(
-                domain_constants.LISTINGS_SEARCH_URL,
-                headers=headers,
-                data= data
-            )
-
-            self.json_data = response.json()
-        except Error as e:
-            print(domain_constants.READ_API_ERROR, e)
-
-    def get_data(self):
-        return self.json_data
 
 
 class SuburbData:
@@ -61,9 +38,9 @@ class SuburbData:
     def __pull_sql_data(self):
 
         crime_database = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="password"
+            host=os.getenv('STAYAPP_DATABASE_HOST'),
+            user=os.getenv('STAYAPP_DATABASE_USER'),
+            passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
         """
@@ -78,14 +55,14 @@ class SuburbData:
             mycursor = crime_database.cursor(dictionary=True)
 
             mycursor.execute("SELECT * "
-                             "FROM crime_data.suburbs "
+                             "FROM stayapp.suburbs "
                              "WHERE name = '" + self.data_dict['suburb_name'] + "'"
                                                                                 ";")
             sub = mycursor.fetchall()[0]
             self.data_dict['postcode'] = sub['postcode']
             self.data_dict['council_name'] = sub['council_name']
             mycursor.execute("SELECT year_ending, sum(incidents_recorded) as total_incidents "
-                             "FROM crime_data.crimes_vic_by_suburb "
+                             "FROM stayapp.crimes_vic_by_suburb "
                              "WHERE suburb_name = '" + self.data_dict['suburb_name'] + "'"
                                                                                        "AND offence_division_code = 'A'"
                                                                                        "GROUP BY year_ending "
@@ -139,15 +116,14 @@ class SuburbData:
 class CouncilData:
 
     def __init__(self, council_name):
-        self.data_dict = {}
-        self.data_dict['council_name'] = council_name
+        self.data_dict = {'council_name': council_name}
         self.__pull_sql_data()
 
     def __pull_sql_data(self):
         crime_database = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="password"
+            host=os.getenv('STAYAPP_DATABASE_HOST'),
+            user=os.getenv('STAYAPP_DATABASE_USER'),
+            passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
         """
@@ -164,7 +140,8 @@ class CouncilData:
             mycursor = crime_database.cursor(dictionary=True)
 
             mycursor.execute("SELECT * "
-                             "FROM crime_data.councils "
+                             "FROM "
+                             "stayapp.councils "
                              "WHERE name = '" + self.data_dict['council_name'] + "'"
                                                                                  ";")
             cn = mycursor.fetchall()[0]
@@ -172,7 +149,7 @@ class CouncilData:
             self.data_dict['population_2016'] = cn['population_2016']
 
             mycursor.execute("SELECT year_ending, sum(incidents_recorded) as total_incidents "
-                             "FROM crime_data.crimes_vic_by_council "
+                             "FROM stayapp.crimes_vic_by_council "
                              "WHERE council_name = '" + self.data_dict['council_name'] + "'"
                                                                                          "AND offence_division_code = 'A'"  # A = crimes against a person
                                                                                          "GROUP BY year_ending "
@@ -185,7 +162,7 @@ class CouncilData:
                     self.data_dict['crimes_against_person_2019'] = crime['total_incidents']
 
             mycursor.execute("SELECT year_ending, sum(lga_rate_per_100000_population) as total_rate "
-                             "FROM crime_data.crimes_vic_by_council "
+                             "FROM stayapp.crimes_vic_by_council "
                              "WHERE council_name = '" + self.data_dict['council_name'] + "'"
                                                                                          "AND offence_division_code = 'A'"  # A = crimes against a person
                                                                                          "GROUP BY year_ending "
@@ -219,9 +196,9 @@ class StateData:
 
     def __pull_sql_data(self):
         crime_database = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="password"
+            host=os.getenv('STAYAPP_DATABASE_HOST'),
+            user=os.getenv('STAYAPP_DATABASE_USER'),
+            passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
         """
@@ -235,7 +212,7 @@ class StateData:
 
             mycursor.execute(
                 "SELECT year_ending, offence_division_code,sum(incidents_recorded) total_incidents, sum(rate_per_100000_population) rate "
-                "FROM crime_data.crimes_vic "
+                "FROM stayapp.crimes_vic "
                 "WHERE offence_division_code = 'A' "
                 "AND year_ending = '2019' "
                 "GROUP BY year_ending, offence_division_code")
@@ -273,16 +250,16 @@ class FeesData:
 
     def __pull_sql_data(self):
         crime_database = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            passwd="password"
+            host=os.getenv('STAYAPP_DATABASE_HOST'),
+            user=os.getenv('STAYAPP_DATABASE_USER'),
+            passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
         try:
             # Connect to db
             mycursor = crime_database.cursor(dictionary=True)
 
-            mycursor.execute("SELECT * FROM crime_data.stamp_duty_2019 WHERE " + str(
+            mycursor.execute("SELECT * FROM stayapp.stamp_duty_2019 WHERE " + str(
                 self.price_estimate) + " > min_threshold ORDER BY min_threshold DESC LIMIT 1;")
 
             fees = mycursor.fetchall()[0]

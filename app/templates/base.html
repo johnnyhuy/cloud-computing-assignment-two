@@ -1,27 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Stay</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-</head>
-<body>
-<nav class="navbar navbar-side navbar-expand-lg navbar-light bg-light ">
-    <a class="navbar-brand" href=" {{ url_for('index') }}">Stay</a>
-</nav>
+    <head>
+        <meta charset="UTF-8">
+        <title>Stay</title>
 
-{% block content %}
-{% endblock %}
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', path='favicon/apple-icon-57x57.png') }}">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', path='favicon/apple-icon-60x60.png') }}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', path='favicon/apple-icon-72x72.png') }}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', path='favicon/apple-icon-76x76.png') }}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', path='favicon/apple-icon-114x114.png') }}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', path='favicon/apple-icon-120x120.png') }}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', path='favicon/apple-icon-144x144.png') }}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', path='favicon/apple-icon-152x152.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', path='favicon/apple-icon-180x180.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', path='favicon/android-icon-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', path='favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', path='favicon/favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', path='favicon/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ url_for('static', path='favicon/manifest.json') }}">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="{{ url_for('static', path='favicon/ms-icon-144x144.png') }}">
+        <meta name="theme-color" content="#ffffff">
 
-</body>
+        <link href="https://fonts.googleapis.com/css?family=Cabin|Raleway&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+    </head>
+    <body class="d-flex flex-column">
+        <div class="container">
+            <header class="d-flex py-4">
+                <a class="d-flex" href="{{ url_for('index') }}">
+                    <img class="mr-2" style="height: 2em" src="{{ url_for('static', path='images/logo.svg') }}" alt="logo">
+                    <h3>Stay</h3>
+                </a>
+                <nav class="ml-auto d-flex">
+                    <a class="nav-link active" href="{{ url_for('index') }}">Home</a>
+                    <a class="nav-link" href="/about">About</a>
+                    <a class="nav-link" target="_blank" href="https://github.com/johnnyhuy/cloud-computing-assignment-two">GitHub</a>
+                </nav>
+            </header>
+        </div>
+        <main role="main" class="flex-grow-1">
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+        <footer>
+            <div class="py-5 container text-center">
+                Made with ❤ by <a target="_blank" href="https://github.com/goran-stojkoski">@goran-stojkoski</a> & <a target="_blank" href="https://github.com/johnnyhuy">@johnnyhuy</a>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                    crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                    crossorigin="anonymous"></script>
+            {% block javascript %}
+            {% endblock %}
+        </footer>
+    </body>
 </html>
