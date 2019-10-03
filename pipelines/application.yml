@@ -158,5 +158,6 @@ stages:
               kubernetesServiceEndpoint: '$(KUBERNETES_SERVICE_CONNECTION)'
               command: 'apply'
               useConfigurationFile: true
-              configuration: '$(Agent.BuildDirectory)/deployment/kubernetes/stayapp'
+              configuration: '$(Agent.BuildDirectory)/deployment/kubernetes'
+              arguments: '-R'
               secretType: 'generic'

@@ -1,0 +1,29 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: stayapp-ingressroute
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: Host(`stay.johnnyhuy.com`)
+    kind: Rule
+    services:
+    - name: stayapp-service
+      port: 8000
+  tls:
+    certResolver: default
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: stayapp-insecure-ingressroute
+spec:
+  entryPoints:
+  - web
+  routes:
+  - match: Host(`stay.johnnyhuy.com`)
+    kind: Rule
+    services:
+    - name: stayapp-service
+      port: 8000
