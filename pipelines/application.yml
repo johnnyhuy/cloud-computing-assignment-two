@@ -121,7 +121,9 @@ stages:
             displayName: 'Replace production env file'
             inputs:
               rootDirectory: '$(System.DefaultWorkingDirectory)'
-              targetFiles: '.env.production'
+              targetFiles: |
+                .env.production
+                **/*.yml
               encoding: 'auto'
               writeBOM: true
               actionOnMissing: 'warn'
