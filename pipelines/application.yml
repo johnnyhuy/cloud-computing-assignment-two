@@ -122,7 +122,7 @@ stages:
             inputs:
               rootDirectory: '$(Agent.BuildDirectory)'
               targetFiles: |
-                .env.production
+                **/*.env*
                 **/*.yml
               encoding: 'auto'
               writeBOM: true
