@@ -6,7 +6,7 @@ services:
     restart: always
     volumes:
       - ./app:/app
-    command: uvicorn main:app --host 0.0.0.0 --log-level debug --reload
+    command: uvicorn main:app --host 0.0.0.0 --log-level debug --reload --proxy-headers
     env_file: .env
     build:
       context: .
