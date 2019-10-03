@@ -5,10 +5,7 @@ metadata:
   namespace: default
 spec:
   ports:
-  - port: 80
+  - port: 8000
     protocol: TCP
-    targetPort: 8000
   selector:
     app.kubernetes.io/name: stayapp
-  type: LoadBalancer
-  loadBalancerIP: '35.244.74.9'
