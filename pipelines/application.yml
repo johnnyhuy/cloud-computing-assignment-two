@@ -120,7 +120,7 @@ stages:
           - task: replacetokens@3
             displayName: 'Replace production env file'
             inputs:
-              rootDirectory: '$(System.DefaultWorkingDirectory)'
+              rootDirectory: '$(Agent.BuildDirectory)'
               targetFiles: |
                 .env.production
                 **/*.yml
