@@ -7,5 +7,3 @@ class Suburb:
         self.population_in_2016 = population_in_2016
         self.crimes_against_person_2016=crimes_against_person_2016
         self.crimes_against_person_2019=crimes_against_person_2019
-
-
