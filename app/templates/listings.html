@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-md-8" style="height: 275px;">
                             <div class="card-body">
-                                <a href="{{ url_for('listing', property_id = listing['id']) }}">
+                                <a href="{{ url_for('get_listing', property_id=listing['id']) }}">
                                     <h5 class="card-title font-weight-bold" style="max-width: 450px;">{{ listing['headline'] }}</h5>
                                 </a>
                                 <p class="card-text">{{ priceDetails['displayPrice'] }}</p>
@@ -38,7 +38,7 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <a class="btn btn-primary" href="{{ url_for('listing', property_id = listing['id']) }}">See more</a>
+                                <a class="btn btn-primary" href="{{ url_for('get_listing', property_id=listing['id']) }}">See more</a>
                             </div>
                         </div>
                     </div>
