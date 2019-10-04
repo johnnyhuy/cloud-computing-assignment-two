@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import Error
-import json
 import os
 import requests
 import domain.constants as domain_constants

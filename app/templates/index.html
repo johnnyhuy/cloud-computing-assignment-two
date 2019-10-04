@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-5">
             <div class="shadow ml-5 p-4 rounded-lg bg-white border">
-                <form method="POST" action="/listings">
+                <form method="POST" action="{{ url_for('get_listings') }}">
                     <div id="suburbInputForm" class="form-group mb-3">
                         <label for="suburbInput">Suburb</label>
                         <input id="suburbInput" type="text" class="form-control" name="suburb_name" placeholder="Suburb" list="suburbs" required>

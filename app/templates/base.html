@@ -30,12 +30,12 @@
     <body class="d-flex flex-column">
         <div class="container">
             <header class="d-flex py-4">
-                <a class="d-flex" href="{{ url_for('index') }}">
+                <a class="d-flex" href="{{ url_for('home') }}">
                     <img class="mr-2" style="height: 2em" src="{{ url_for('static', path='images/logo.svg') }}" alt="logo">
                     <h3>Stay</h3>
                 </a>
                 <nav class="ml-auto d-flex">
-                    <a class="nav-link active" href="{{ url_for('index') }}">Home</a>
+                    <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
                     <a class="nav-link" href="/about">About</a>
                     <a class="nav-link" target="_blank" href="https://github.com/johnnyhuy/cloud-computing-assignment-two">GitHub</a>
                 </nav>
