@@ -2,13 +2,15 @@ from fastapi import FastAPI, Form, HTTPException
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-# import pydevd_pycharm
-import os
-import ptvsd
-from location import Suburb, Council, State
+from models.council import Council
+from models.suburb import Suburb
+from models.state import State
 from domain.search import Search
 from data_grabber import SuburbData, CouncilData, StateData, FeesData, DomainAccessToken
-from stats import GraphBuilder
+from stats.graph_builder import GraphBuilder
+import os
+import ptvsd
+# import pydevd_pycharm
 
 app = FastAPI()
 app.mount('/static', StaticFiles(directory='static'), name='static')
