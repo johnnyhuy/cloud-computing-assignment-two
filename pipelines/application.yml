@@ -57,7 +57,7 @@ stages:
   displayName: Production
   jobs:
   - deployment: deploy_stayapp_database
-    displayName: Deploy Stay Application SQL database
+    displayName: SQL database
     pool:
       vmImage: 'ubuntu-latest'
     environment: 'Stay Application'
@@ -69,13 +69,13 @@ stages:
             artifact: deployment
 
           - task: Bash@3
-            displayName: Seed Stay application SQL database
+            displayName: Seed SQL database
             inputs:
               filePath: '$(Agent.BuildDirectory)/deployment/sql/seed.sh'
               arguments: '-d stayapp -u $(STAYAPP_DATABASE_USER) -h $(STAYAPP_DATABASE_HOST) -p ''$(STAYAPP_DATABASE_PASSWORD)'''
 
   - deployment: deploy_stayapp
-    displayName: Deploy Stay Application to Kubernetes
+    displayName: Kubernetes
     pool:
       vmImage: 'ubuntu-latest'
     environment: 'Stay Application'
