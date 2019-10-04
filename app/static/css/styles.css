@@ -17,6 +17,12 @@ body {
   font-family: 'Cabin', sans-serif;
 }
 
+p,
+td,
+tr {
+  font-size: 1.2rem;
+}
+
 .slider {
   -webkit-appearance: none;
   width: 100%;

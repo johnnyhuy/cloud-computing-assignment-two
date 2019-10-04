@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: stayapp-service
   namespace: default
+  labels:
+      app.kubernetes.io/name: 'stayapp-service'
+      app.kubernetes.io/version: '1.0.0'
 spec:
   ports:
-  - port: 80
+  - port: 8000
     protocol: TCP
-    targetPort: 8000
   selector:
     app.kubernetes.io/name: stayapp
-  type: LoadBalancer
-  loadBalancerIP: '35.244.74.9'

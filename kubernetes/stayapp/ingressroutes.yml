@@ -1,0 +1,36 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: stayapp-ingressroute
+  metadata:
+    labels:
+      app.kubernetes.io/name: 'stayapp-ingressroute'
+      app.kubernetes.io/version: '1.0.0'
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: Host(`stay.johnnyhuy.com`)
+    kind: Rule
+    services:
+    - name: stayapp-service
+      port: 8000
+  tls:
+    certResolver: default
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: stayapp-insecure-ingressroute
+  labels:
+      app.kubernetes.io/name: 'stayapp-insecure-ingressroute'
+      app.kubernetes.io/version: '1.0.0'
+spec:
+  entryPoints:
+  - web
+  routes:
+  - match: Host(`stay.johnnyhuy.com`)
+    kind: Rule
+    services:
+    - name: stayapp-service
+      port: 8000

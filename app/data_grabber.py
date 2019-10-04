@@ -1,10 +1,10 @@
 import mysql.connector
 from mysql.connector import Error
-import json
 import os
 import requests
 import domain.constants as domain_constants
-import fee_constants
+import domain.fee_constants as fee_constants
+
 
 class DomainAccessToken:
 
@@ -50,36 +50,36 @@ class SuburbData:
             crimes_against_person_2016
             crimes_against_person_2019
         """
-        try:
-            # Connect to db
-            mycursor = crime_database.cursor(dictionary=True)
+        cursor = crime_database.cursor(dictionary=True)
 
-            mycursor.execute("SELECT * "
-                             "FROM stayapp.suburbs "
-                             "WHERE name = '" + self.data_dict['suburb_name'] + "'"
-                                                                                ";")
-            sub = mycursor.fetchall()[0]
+        try:
+
+            cursor.execute("SELECT * "
+                           "FROM stayapp.suburbs "
+                           "WHERE name = '" + self.data_dict['suburb_name'] + "'"
+                                                                              ";")
+            sub = cursor.fetchall()[0]
             self.data_dict['postcode'] = sub['postcode']
             self.data_dict['council_name'] = sub['council_name']
-            mycursor.execute("SELECT year_ending, sum(incidents_recorded) as total_incidents "
-                             "FROM stayapp.crimes_vic_by_suburb "
-                             "WHERE suburb_name = '" + self.data_dict['suburb_name'] + "'"
-                                                                                       "AND offence_division_code = 'A'"
-                                                                                       "GROUP BY year_ending "
-                                                                                       ";")
-            sub_crimes_by_year = mycursor.fetchall()
+            cursor.execute("SELECT year_ending, sum(incidents_recorded) as total_incidents "
+                           "FROM stayapp.crimes_vic_by_suburb "
+                           "WHERE suburb_name = '" + self.data_dict['suburb_name'] + "'"
+                                                                                     "AND offence_division_code = 'A'"
+                                                                                     "GROUP BY year_ending "
+                                                                                     ";")
+            sub_crimes_by_year = cursor.fetchall()
             for crime in sub_crimes_by_year:
-                if (crime['year_ending'] == 2016):
+                if crime['year_ending'] == 2016:
                     self.data_dict['crimes_against_person_2016'] = crime['total_incidents']
-                if (crime['year_ending'] == 2019):
+                if crime['year_ending'] == 2019:
                     self.data_dict['crimes_against_person_2019'] = crime['total_incidents']
 
         except Error as e:
             print("Error reading data from MySQL table", e)
         finally:
-            if (crime_database.is_connected()):
+            if crime_database.is_connected():
                 crime_database.close()
-                mycursor.close()
+                cursor.close()
                 print("MySQL connection is closed")
 
     def __pull_json_data(self, domain_api_token):
@@ -88,15 +88,16 @@ class SuburbData:
             # Get location ID
             address_locators_url = domain_constants.ADDRESS_LOCATORS_API_URL + self.data_dict['suburb_name']
 
-            headers = {'accept': 'application/json',
-                       'Authorization': 'Bearer ' + domain_api_token
-                       }
+            headers = {
+                'accept': 'application/json',
+                'Authorization': 'Bearer ' + domain_api_token
+            }
 
-            loctations_profile_response = requests.get(
+            locations_profile_response = requests.get(
                 address_locators_url,
                 headers=headers)
 
-            domain_suburb_id = loctations_profile_response.json()[0]['ids'][0]['id']
+            domain_suburb_id = locations_profile_response.json()[0]['ids'][0]['id']
 
             # Get population data
             location_profile_url = domain_constants.LOCATION_PROFILES_API_URL + str(domain_suburb_id)
@@ -135,52 +136,50 @@ class CouncilData:
             per_100k_population_2016 (also for crimes against a person)
             per_100k_population_2019 (also for crimes against a person)
         """
-        try:
-            # Connect to db
-            mycursor = crime_database.cursor(dictionary=True)
+        cursor = crime_database.cursor(dictionary=True)
 
-            mycursor.execute("SELECT * "
-                             "FROM "
-                             "stayapp.councils "
-                             "WHERE name = '" + self.data_dict['council_name'] + "'"
-                                                                                 ";")
-            cn = mycursor.fetchall()[0]
+        try:
+            cursor.execute("SELECT * "
+                           "FROM "
+                           "stayapp.councils "
+                           "WHERE name = '" + self.data_dict['council_name'] + "'"
+                                                                               ";")
+            cn = cursor.fetchall()[0]
             self.data_dict['land_area'] = cn['land_area']
             self.data_dict['population_2016'] = cn['population_2016']
 
-            mycursor.execute("SELECT year_ending, sum(incidents_recorded) as total_incidents "
-                             "FROM stayapp.crimes_vic_by_council "
-                             "WHERE council_name = '" + self.data_dict['council_name'] + "'"
-                                                                                         "AND offence_division_code = 'A'"  # A = crimes against a person
-                                                                                         "GROUP BY year_ending "
-                                                                                         ";")
-            council_crimes_by_year = mycursor.fetchall()
+            cursor.execute("SELECT year_ending, sum(incidents_recorded) as total_incidents "
+                           "FROM stayapp.crimes_vic_by_council "
+                           "WHERE council_name = '" + self.data_dict['council_name'] + "'"
+                                                                                       "AND offence_division_code = 'A'"  # A = crimes against a person
+                                                                                       "GROUP BY year_ending "
+                                                                                       ";")
+            council_crimes_by_year = cursor.fetchall()
             for crime in council_crimes_by_year:
-                if (crime['year_ending'] == 2016):
+                if crime['year_ending'] == 2016:
                     self.data_dict['crimes_against_person_2016'] = crime['total_incidents']
-                if (crime['year_ending'] == 2019):
+                if crime['year_ending'] == 2019:
                     self.data_dict['crimes_against_person_2019'] = crime['total_incidents']
 
-            mycursor.execute("SELECT year_ending, sum(lga_rate_per_100000_population) as total_rate "
-                             "FROM stayapp.crimes_vic_by_council "
-                             "WHERE council_name = '" + self.data_dict['council_name'] + "'"
-                                                                                         "AND offence_division_code = 'A'"  # A = crimes against a person
-                                                                                         "GROUP BY year_ending "
-                                                                                         ";")
-            council_crimes_by_year = mycursor.fetchall()
+            cursor.execute("SELECT year_ending, sum(lga_rate_per_100000_population) as total_rate "
+                           "FROM stayapp.crimes_vic_by_council "
+                           "WHERE council_name = '" + self.data_dict['council_name'] + "'"
+                                                                                       "AND offence_division_code = 'A'"  # A = crimes against a person
+                                                                                       "GROUP BY year_ending "
+                                                                                       ";")
+            council_crimes_by_year = cursor.fetchall()
             for crime in council_crimes_by_year:
-                if (crime['year_ending'] == 2016):
+                if crime['year_ending'] == 2016:
                     self.data_dict['per_100k_population_2016'] = crime['total_rate']
-                if (crime['year_ending'] == 2019):
+                if crime['year_ending'] == 2019:
                     self.data_dict['per_100k_population_2019'] = crime['total_rate']
-
 
         except Error as e:
             print("Error reading data from MySQL table", e)
         finally:
-            if (crime_database.is_connected()):
+            if crime_database.is_connected():
                 crime_database.close()
-                mycursor.close()
+                cursor.close()
                 print("MySQL connection is closed")
 
     def get_data(self):
@@ -190,8 +189,7 @@ class CouncilData:
 class StateData:
 
     def __init__(self, state_name):
-        self.data_dict = {}
-        self.data_dict['state_name'] = state_name
+        self.data_dict = {'state_name': state_name}
         self.__pull_sql_data()
 
     def __pull_sql_data(self):
@@ -206,27 +204,27 @@ class StateData:
             crimes_against_person_2019,
             per_100k_population_2019 (also for crimes against a person)
         """
-        try:
-            # Connect to db
-            mycursor = crime_database.cursor(dictionary=True)
+        cursor = crime_database.cursor(dictionary=True)
 
-            mycursor.execute(
-                "SELECT year_ending, offence_division_code,sum(incidents_recorded) total_incidents, sum(rate_per_100000_population) rate "
+        try:
+            cursor.execute(
+                "SELECT year_ending, offence_division_code,sum(incidents_recorded) total_incidents, "
+                "sum(rate_per_100000_population) rate "
                 "FROM stayapp.crimes_vic "
                 "WHERE offence_division_code = 'A' "
                 "AND year_ending = '2019' "
                 "GROUP BY year_ending, offence_division_code")
 
-            state = mycursor.fetchall()[0]
+            state = cursor.fetchall()[0]
             self.data_dict['crimes_against_person_2019'] = state['total_incidents']
             self.data_dict['per_100k_population_2019'] = state['rate']
 
         except Error as e:
             print("Error reading data from MySQL table", e)
         finally:
-            if (crime_database.is_connected()):
+            if crime_database.is_connected():
                 crime_database.close()
-                mycursor.close()
+                cursor.close()
                 print("MySQL connection is closed")
 
     def get_data(self):
@@ -255,14 +253,13 @@ class FeesData:
             passwd=os.getenv('STAYAPP_DATABASE_PASSWORD')
         )
 
-        try:
-            # Connect to db
-            mycursor = crime_database.cursor(dictionary=True)
+        cursor = crime_database.cursor(dictionary=True)
 
-            mycursor.execute("SELECT * FROM stayapp.stamp_duty_2019 WHERE " + str(
+        try:
+            cursor.execute("SELECT * FROM stayapp.stamp_duty_2019 WHERE " + str(
                 self.price_estimate) + " > min_threshold ORDER BY min_threshold DESC LIMIT 1;")
 
-            fees = mycursor.fetchall()[0]
+            fees = cursor.fetchall()[0]
 
             self.rate = float(fees['rate'])
             self.base_cost = float(fees['base_cost'])
@@ -271,7 +268,7 @@ class FeesData:
         except Error as e:
             print("Error reading data from MySQL table", e)
         finally:
-            if (crime_database.is_connected()):
+            if crime_database.is_connected():
                 crime_database.close()
-                mycursor.close()
+                cursor.close()
                 print("MySQL connection is closed")

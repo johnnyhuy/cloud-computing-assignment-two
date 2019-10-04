@@ -1,0 +1,47 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: aws-registry-credential-cron
+  labels:
+    app.kubernetes.io/name: 'stayapp-ecr-cronjob'
+    app.kubernetes.io/version: '1.0.0'
+spec:
+  schedule: "* */8 * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      backoffLimit: 4
+      template:
+        spec:
+          serviceAccountName: stayapp-serviceaccount
+          terminationGracePeriodSeconds: 0
+          restartPolicy: Never
+          containers:
+          - name: kubectl
+            imagePullPolicy: IfNotPresent
+            image: xynova/aws-kubectl:latest
+            env:
+            - name: SERVICE_ACCOUNT
+              value: stayapp-serviceaccount
+            - name: AWS_ACCOUNT_ID
+              value: '$(AWS_ACCOUNT_ID)'
+            - name: AWS_ACCESS_KEY_ID
+              value: '$(AWS_ACCESS_KEY_ID)'
+            - name: AWS_SECRET_ACCESS_KEY
+              value: '$(AWS_SECRET_ACCESS_KEY)'
+            command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              AWS_REGION=ap-southeast-2
+              DOCKER_REGISTRY_SERVER=https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+              DOCKER_USER=AWS
+              DOCKER_PASSWORD=`aws ecr get-login --region ${AWS_REGION} --output text --query authorizationData | cut -d ' ' -f6`
+              kubectl delete secret aws-registry --ignore-not-found
+              kubectl create secret docker-registry aws-registry \
+                --docker-server=$DOCKER_REGISTRY_SERVER \
+                --docker-username=$DOCKER_USER \
+                --docker-password=$DOCKER_PASSWORD \
+                --docker-email=no@email.local
+              kubectl patch serviceaccount ${SERVICE_ACCOUNT} -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'
