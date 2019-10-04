@@ -3,7 +3,7 @@ from mysql.connector import Error
 import os
 import requests
 import domain.constants as domain_constants
-import fee_constants
+import domain.fee_constants as fee_constants
 
 
 class DomainAccessToken:
@@ -77,7 +77,7 @@ class SuburbData:
         except Error as e:
             print("Error reading data from MySQL table", e)
         finally:
-            if (crime_database.is_connected()):
+            if crime_database.is_connected():
                 crime_database.close()
                 cursor.close()
                 print("MySQL connection is closed")
@@ -156,9 +156,9 @@ class CouncilData:
                                                                                        ";")
             council_crimes_by_year = cursor.fetchall()
             for crime in council_crimes_by_year:
-                if (crime['year_ending'] == 2016):
+                if crime['year_ending'] == 2016:
                     self.data_dict['crimes_against_person_2016'] = crime['total_incidents']
-                if (crime['year_ending'] == 2019):
+                if crime['year_ending'] == 2019:
                     self.data_dict['crimes_against_person_2019'] = crime['total_incidents']
 
             cursor.execute("SELECT year_ending, sum(lga_rate_per_100000_population) as total_rate "
@@ -208,7 +208,8 @@ class StateData:
 
         try:
             cursor.execute(
-                "SELECT year_ending, offence_division_code,sum(incidents_recorded) total_incidents, sum(rate_per_100000_population) rate "
+                "SELECT year_ending, offence_division_code,sum(incidents_recorded) total_incidents, "
+                "sum(rate_per_100000_population) rate "
                 "FROM stayapp.crimes_vic "
                 "WHERE offence_division_code = 'A' "
                 "AND year_ending = '2019' "
