@@ -23,11 +23,11 @@ Real estate application using cloud resources
 
 Create a real estate helper tool by developing a simple web application that can fetch real estate data from the Domain real estate public API that can be displayed on Google maps. User session can be used to store saved locations and a cache can also be used to store external API data.
 
-![](images/2019-10-05-09-00-28.png)
+![](images/2019-10-05-09-35-43.png)
 
-![](images/2019-10-05-09-02-09.png)
+![](images/2019-10-05-09-36-04.png)
 
-![](images/2019-10-05-09-02-41.png)
+![](images/2019-10-05-09-36-23.png)
 
 ### Distributed model for the application
 
