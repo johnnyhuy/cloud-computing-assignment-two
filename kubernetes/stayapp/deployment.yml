@@ -6,11 +6,13 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/name: stayapp
+      app.kubernetes.io/name: 'stayapp'
+      app.kubernetes.io/version: '1.0.0'
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: stayapp
+        app.kubernetes.io/name: 'stayapp'
+        app.kubernetes.io/version: '1.0.0'
     spec:
       serviceAccountName: stayapp-serviceaccount
       containers:

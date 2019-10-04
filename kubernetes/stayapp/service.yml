@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: stayapp-service
   namespace: default
+  labels:
+      app.kubernetes.io/name: 'stayapp-service'
+      app.kubernetes.io/version: '1.0.0'
 spec:
   ports:
   - port: 8000

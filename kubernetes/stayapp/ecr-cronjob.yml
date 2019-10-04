@@ -2,6 +2,9 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: aws-registry-credential-cron
+  labels:
+    app.kubernetes.io/name: 'stayapp-ecr-cronjob'
+    app.kubernetes.io/version: '1.0.0'
 spec:
   schedule: "* */8 * * *"
   successfulJobsHistoryLimit: 2
