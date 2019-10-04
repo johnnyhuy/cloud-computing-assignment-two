@@ -56,7 +56,7 @@ def index(
     #     listings = json.load(outfile)
 
     return templates.TemplateResponse(
-        'listings.html',
+        'listings/index.html',
         {
             'request': request,
             'listings': listings
@@ -85,7 +85,7 @@ def listing(request: Request, property_id: int):
     crime_fig_url = crime.get_url()
 
     return templates.TemplateResponse(
-        'listing.html',
+        'listings/show.html',
         {
             'request': request,
             'listing': listing,
@@ -124,7 +124,7 @@ def listing(
     fees = FeesData(price_estimate)
 
     return templates.TemplateResponse(
-        'listing.html',
+        'listings/show.html',
         {
             'request': request,
             'listing': listing,
