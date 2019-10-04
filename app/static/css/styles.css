@@ -17,7 +17,9 @@ body {
   font-family: 'Cabin', sans-serif;
 }
 
-p {
+p,
+td,
+tr {
   font-size: 1.2rem;
 }
 

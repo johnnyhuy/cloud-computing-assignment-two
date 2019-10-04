@@ -124,8 +124,9 @@ def listing(
     fees = FeesData(price_estimate)
 
     return templates.TemplateResponse(
-        'price.html',
+        'listing.html',
         {
+            'request': request,
             'listing': listing,
             'suburb': suburb,
             'council': council,

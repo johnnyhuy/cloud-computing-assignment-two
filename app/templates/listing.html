@@ -6,54 +6,57 @@
                 <div class="card shadow-lg">
                     <img class="img-fluid card-img-top" src="{{ listing['media'][0]['url'] }}" alt="listing">
                     <div class="card-body">
-                        <h2 class="card-title mb-4 font-weight-bold">{{ listing['priceDetails']['displayPrice'] }}</h2>
+                        <h2 class="card-title mb-4 py-2 font-weight-bold">{{ listing['priceDetails']['displayPrice'] }}</h2>
                         <h4>Price estimate</h4>
+                        {% if fees is defined %}
+                            <p>
+                                Listed below are the additional fees that you'll likely be required to pay on top of the
+                                property price.
+                            </p>
+                        {% endif %}
+                        <div class="table-responsive bg-warning text-black p-2 rounded-lg mb-4">
+                            <table class="table table-borderless mb-0">
+                                {% if fees is defined %}
+                                    <tr>
+                                        <td>Stamp Duty</td>
+                                        <td class="text-right">${{ fees.stamp_duty }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mortgage Registration Fee (Electronic)</td>
+                                        <td class="text-right">${{ fees.mortgage_registration_fee }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Land Transfer Fee</td>
+                                        <td class="text-right">${{ fees.land_transfer_fee }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Conveyancing</td>
+                                        <td class="text-right">${{ fees.conveyancing_fee }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">TOTAL</td>
+                                        <td class="text-right font-weight-bold">${{ fees.total_fees }}</td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        </div>
                         <p>Enter house price estimate to calculate added costs</p>
-                        <form class="form-inline" method="POST" action="{{ url_for('get_price', property_id=listing['id']) }}">
-                            <label class="sr-only" for="priceInput">Price</label>
-                            <input id="priceInput" type="number" class="form-control mr-2" name="price_estimate" placeholder="Please Enter Value">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <form class="mb-2" method="POST" action="{{ url_for('get_price', property_id=listing['id']) }}">
+                            <div class="form-group">
+                                <label class="sr-only" for="priceInput">Price</label>
+                                <input id="priceInput" type="number" class="form-control mr-2" name="price_estimate" placeholder="Please Enter Value">
+                                <small class="form-text text-muted">Data is fetched from a database</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2 rounded-pill px-4">Find price</button>
+                            <a href="{{ url_for('get_listing', property_id=listing['id']) }}" class="btn btn-secondary rounded-pill px-4">Reset</a>
                         </form>
-                        <small class="form-text text-muted">Data is fetched from a database</small>
                   </div>
                 </div>
             </div>
             <div class="col-md-7">
                 <div class="mx-auto w-75">
                     <h1 class="font-weight-bold py-5">{{ listing['headline'] }}</h1>
-                    <p class="card-text">{{ listing['description'] | safe }}</p>
-                    {% if fees is defined %}
-                        <p>
-                            Listed below are the additional fees that you'll likely be required to pay on top of the
-                            property price.
-                        </p>
-                    {% endif %}
-                    <div class="table-responsive">
-                        <table class="table">
-                            {% if fees is defined %}
-                                <tr>
-                                    <td>Stamp Duty</td>
-                                    <td>{{ fees.stamp_duty }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Mortgage Registration Fee (Electronic)</td>
-                                    <td>{{ fees.mortgage_registration_fee }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Land Transfer Fee</td>
-                                    <td>{{ fees.land_transfer_fee }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Conveyancing</td>
-                                    <td>{{ fees.conveyancing_fee }}</td>
-                                </tr>
-                                <tr>
-                                    <td>TOTAL</td>
-                                    <td>{{ fees.total_fees }}</td>
-                                </tr>
-                            {% endif %}
-                        </table>
-                    </div>
+                    <p class="card-text mb-5">{{ listing['description'] | safe }}</p>
                     <h2 class="pb-2">Crime</h2>
                     <p class="pb-2">
                         {{ suburb.name }}'s crime rate in 2019 is {{ suburb.get_low_high_crime_state_2019(council) }}
