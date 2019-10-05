@@ -144,3 +144,5 @@ pyvenv.cfg
 test.tfvars
 
 .idea
+
+sql/*.sql
