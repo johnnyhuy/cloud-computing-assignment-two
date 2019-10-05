@@ -74,13 +74,8 @@ stages:
               targetType: 'inline'
               script: |
                 tar -xf $(Agent.BuildDirectory)/deployment/sql/001_dump.tar.gz
+                chmod +x $(Agent.BuildDirectory)/deployment/sql/seed.sh
                 $(Agent.BuildDirectory)/deployment/sql/seed.sh -d stayapp -u $(STAYAPP_DATABASE_USER) -h $(STAYAPP_DATABASE_HOST) -p ''$(STAYAPP_DATABASE_PASSWORD)''
-
-          - task: Bash@3
-            displayName: Seed SQL database
-            inputs:
-              filePath: '$(Agent.BuildDirectory)/deployment/sql/seed.sh'
-              arguments: '-d stayapp -u $(STAYAPP_DATABASE_USER) -h $(STAYAPP_DATABASE_HOST) -p ''$(STAYAPP_DATABASE_PASSWORD)'''
 
   - deployment: deploy_stayapp
     displayName: Kubernetes
