@@ -43,20 +43,20 @@ Create a real estate helper tool by developing a simple web application that can
 
 ### Tools and techniques
 
-- Google Cloud Platform -> cloud provider
-- AWS -> secondary cloud provider
-- GitHub -> code repository
-- Azure DevOps -> DevOps pipelines
-- Terraform -> cloud deployment tool
+- [Google Cloud Platform](https://cloud.google.com/) -> cloud provider
+- [Amazon Web Services](https://aws.amazon.com/?nc2=h_lg) -> secondary cloud provider
+- [GitHub](https://github.com/) -> code repository
+- [Azure DevOps](https://dev.azure.com/) -> DevOps pipelines
+- [Terraform](https://www.terraform.io/) -> cloud deployment tool
 
 ### Data persistence
 
-- MySQL server -> data persistence of crime data and pricing
-- GitLab container registry or AWS ECR -> Docker image storage
+- [MySQL server](https://cloud.google.com/sql/docs/mysql/) -> data persistence of crime data and pricing
+- [Amazon ECR](https://aws.amazon.com/ecr/) -> Docker image storage
 
 ### User interface
 
-- Python Fast API + Jinja templating
+- Python [Fast API](https://github.com/tiangolo/fastapi) + [Jinja templating](https://jinja.palletsprojects.com/en/2.10.x/)
 
 ### Layout
 
