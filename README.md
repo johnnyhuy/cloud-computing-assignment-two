@@ -1,6 +1,6 @@
 # Cloud Computing Assignment Two
 
-Real estate application using cloud resources
+Real estate application using cloud resources for RMIT Cloud Computing course semester 2 2019.
 
 - [Cloud Computing Assignment Two](#cloud-computing-assignment-two)
   - [Project name: Stay App](#project-name-stay-app)
@@ -10,18 +10,25 @@ Real estate application using cloud resources
     - [User interface](#user-interface)
     - [Layout](#layout)
   - [Application Development](#application-development)
-    - [Startup Flask app](#startup-flask-app)
-    - [How to stop Flask app](#how-to-stop-flask-app)
+    - [Startup Fast API app](#startup-fast-api-app)
+    - [How to stop Fast API app](#how-to-stop-fast-api-app)
   - [Infrastructure Development](#infrastructure-development)
-    - [Getting started with pipelines in Azure DevOps](#getting-started-with-pipelines-in-azure-devops)
-      - [Creating the project](#creating-the-project)
-      - [Creating the pipelines](#creating-the-pipelines)
-      - [Get the application pipeline deploying applications](#get-the-application-pipeline-deploying-applications)
-    - [How to run a deployment from you local machine](#how-to-run-a-deployment-from-you-local-machine)
+    - [(Optional) How to run a deployment from you local machine](#optional-how-to-run-a-deployment-from-you-local-machine)
+  - [Azure DevOps deployment](#azure-devops-deployment)
+    - [Requirements](#requirements)
+    - [Creating the project](#creating-the-project)
+    - [Creating the pipelines](#creating-the-pipelines)
+    - [Get the application pipeline deploying applications](#get-the-application-pipeline-deploying-applications)
+      - [AWS extension](#aws-extension)
+      - [Terraform extension](#terraform-extension)
+      - [Kubernetes extension](#kubernetes-extension)
+    - [Run the bloody pipelines!](#run-the-bloody-pipelines)
 
 ## Project name: Stay App
 
 Create a real estate helper tool by developing a simple web application that can fetch real estate data from the Domain real estate public API that can be displayed on Google maps. User session can be used to store saved locations and a cache can also be used to store external API data.
+
+**Disclaimer:** this application requires GCP and AWS hosting, which costs money. The [stay.johnnyhuy.com](https://stay.johnnyhuy.com) demo link to the application may not exist as time passes. The application can be launched from the ground up with **Terraform**.
 
 ![](images/2019-10-05-09-35-43.png)
 
@@ -31,9 +38,8 @@ Create a real estate helper tool by developing a simple web application that can
 
 ### Distributed model for the application
 
-- Cluster computing
-- Deploy PHP application -> fetches API data and potentially user session
-- Use AWS EKS -> container orchestration
+- Cluster computing -> Google Kubernetes Engine as the container orchestration tool
+- Deploy Python application -> fetches API data and call a cloud database
 
 ### Tools and techniques
 
@@ -45,12 +51,12 @@ Create a real estate helper tool by developing a simple web application that can
 
 ### Data persistence
 
-- MySQL server -> data persistence
+- MySQL server -> data persistence of crime data and pricing
 - GitLab container registry or AWS ECR -> Docker image storage
 
 ### User interface
 
-- Python Flask application
+- Python Fast API + Jinja templating
 
 ### Layout
 
@@ -66,16 +72,16 @@ This is the continuous integration and delivery process to get it into the cloud
 
 We've provided a easy local development experience by using [Docker](https://www.docker.com/) to produce a consistent environment on any development system.
 
-### Startup Flask app
+### Startup Fast API app
 
 Run the following command at the project root. We're using [Docker Compose](https://docs.docker.com/compose/), a multi-container tool to run containers based on a single YAML config.
 
 ```bash
 # Run the container from the Docker Compose config detached (-d)
-docker-compose up -d
+docker-compose up -d --build
 ```
 
-### How to stop Flask app
+### How to stop Fast API app
 
 Once you're done for the day, you can run the following command to stop all containers from that config. Make sure you're in the root project directory.
 
@@ -101,19 +107,62 @@ Here are the prerequisites to start work on it:
 
 [Terraform Getting started - AWS](https://learn.hashicorp.com/terraform/getting-started/install)
 
-### Getting started with pipelines in Azure DevOps
+### (Optional) How to run a deployment from you local machine
+
+Sometimes we don't need to leverage Azure DevOps pipelines to deploy things into the cloud. Though this comes with the trade-off of more manual steps including getting the cloud provider credentials for Terraform to use.
+
+Here's some quick start commands to deploy the resources from your local machine. Change directory to either `terraform/gcp` or `terraform/aws` and run the following command to deploy resources. Be sure to have relevant Cloud credentials installed on the local machine before continuing.
+
+```bash
+# Initialise Terraform modules in the folder
+terraform init
+
+# Dry run deploy the resource
+terraform plan
+
+# Deploy the resources
+terraform apply
+```
+
+## Azure DevOps deployment
 
 This section will cover the setup in Azure DevOps
 
-#### Creating the project
+### Requirements
 
-TODO
+- Google Cloud Platform account
+- Amazon Web Services account
+- Azure DevOps account
+- CloudFlare account
+- A custom domain with access to its DNS records
 
-#### Creating the pipelines
+### Creating the project
 
-TODO
+- Go to [Azure DevOps](dev.azure.com) and login with a Microsoft account
+- Create a Azure DevOps project
+- Install the following Azure DevOps extensions on the organisation
 
-#### Get the application pipeline deploying applications
+![](images/2019-10-05-09-39-42.png)
+
+- Setup the following service connections (we will create the Kubernetes service connection later)
+
+![](images/2019-10-05-09-38-10.png)
+
+### Creating the pipelines
+
+- Go to the Azure DevOps project and navigate to the Pipelines page and create an existing pipeline
+- Link the existing pipeline to the GitHub repository
+
+![](images/2019-10-05-09-41-27.png)
+
+- There are two pipelines to add and rename them accordingly
+  - `pipelines/application.yml`
+  - `pipelines/infrastructure.yml`
+- Create a variables group with the following values
+
+![](images/2019-10-05-09-52-43.png)
+
+### Get the application pipeline deploying applications
 
 Pipelines are set in the code repository under `pipelines/application.yml` and `pipelines/infrastructure.yml` to allow Azure DevOps to run against their build agents.
 
@@ -126,16 +175,22 @@ We have installed the following Azure DevOps extensions under the organization:
 
 The infrastructure pipeline is the **initial** pipeline used to create the *underlying cloud resources* for the **application pipeline** to deploy on on top. We needed to setup individual service connections in order to allow the pipelines in Azure DevOps talk to cloud providers.
 
-![](images/2019-09-21-08-44-41.png)
+Service connection list required for the infrastructure and application pipelines based of specific extensions:
 
-Service connection list required for the infrastructure and application pipelines:
+#### AWS extension
 
-- aws-service-connection: AWS extension
-- aws-terraform-service-connection: Terraform extension
-- gcp-gke-service-connection: Kubernetes extension
-- google-terraform-service-connection: Terraform extension
+- aws-service-connection
 
-Run the infrastructure pipeline first and get access into the newly created Kubernetes cluster by running the following commands.
+#### Terraform extension
+
+- aws-terraform-service-connection
+- google-terraform-service-connection
+
+#### Kubernetes extension
+
+- gcp-gke-service-connection
+
+Run the infrastructure pipeline first and get access into the newly created Kubernetes cluster by running the following commands to create a service account in the cluster (this is a tricky manual task).
 
 ```bash
 # Login to GCloud
@@ -172,19 +227,8 @@ Should be greeted with a menu to create a Kubernetes service connection.
 
 Now we can use both the infrastructure and application pipelines to deploy our cloud resources and application on top.
 
-### How to run a deployment from you local machine
+### Run the bloody pipelines!
 
-Sometimes we don't need to leverage Azure DevOps pipelines to deploy things into the cloud. Though this comes with the trade-off of more manual steps including getting the cloud provider credentials for Terraform to use.
+Hopefully everything is working by now. We can run the **infrastructure** pipeline to create cloud infrastructure.
 
-Here's some quick start commands to deploy the resources from your local machine. Change directory to either `terraform/gcp` or `terraform/aws` and run the following command to deploy resources. Be sure to have relevant Cloud credentials installed on the local machine before continuing.
-
-```bash
-# Initialise Terraform modules in the folder
-terraform init
-
-# Dry run deploy the resource
-terraform plan
-
-# Deploy the resources
-terraform apply
-```
+Once we have cloud resources deployed, go to the GCP console and find the public static IP produced by the infrastructure pipeline. Modify the `loadBalancerIP` field at `kubernetes/stayapp/service.yml` to the IP address accordingly. Push the code up and deploy the application pipeline based off that branch with the change.
