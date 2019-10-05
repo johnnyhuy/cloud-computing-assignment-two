@@ -73,6 +73,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
+                tar -xvf $(Agent.BuildDirectory)/deployment/sql/000_create_database.tar.gz -C $(Agent.BuildDirectory)/deployment/sql
                 tar -xvf $(Agent.BuildDirectory)/deployment/sql/001_dump.tar.gz -C $(Agent.BuildDirectory)/deployment/sql
                 chmod +x $(Agent.BuildDirectory)/deployment/sql/seed.sh
                 $(Agent.BuildDirectory)/deployment/sql/seed.sh -d stayapp -u $(STAYAPP_DATABASE_USER) -h $(STAYAPP_DATABASE_HOST) -p ''$(STAYAPP_DATABASE_PASSWORD)''
