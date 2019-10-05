@@ -62,11 +62,11 @@ Create a real estate helper tool by developing a simple web application that can
 
 This is the application layout of the Python application in a Kubernetes cluster.
 
-![application](./images/cloud-computing-design-application.png)
+![application](./images/cloud-computing-design-application-update.png)
 
 This is the continuous integration and delivery process to get it into the cloud.
 
-![ci-cd](./images/cloud-computing-design-ci-cd.png)
+![ci-cd](./images/cloud-computing-design-ci-cd-update.png)
 
 ## Application Development
 
