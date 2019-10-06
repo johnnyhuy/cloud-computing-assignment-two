@@ -31,8 +31,11 @@ class Search:
             )
 
             return response.json()
+
         except requests.exceptions.HTTPError as e:
             print(domain_constants.READ_API_ERROR, e)
+
+        return []
 
     def get_residential_listing(self, property_id):
         """

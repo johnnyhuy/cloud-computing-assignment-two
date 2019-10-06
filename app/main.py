@@ -2,6 +2,7 @@ from fastapi import FastAPI, Form, HTTPException
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
+from starlette.responses import RedirectResponse
 from models.council import Council
 from models.suburb import Suburb
 from models.state import State
@@ -36,8 +37,12 @@ def index(
     suburb_name: str = Form(...),
     bedrooms: int = Form(...),
     bathrooms: int = Form(...),
-    carspaces: int = Form(...)
+    carspaces: int = Form(...),
+    honey: str = Form(None)
 ):
+    if honey:
+        return RedirectResponse(url='/', status_code=303)
+
     listing = {
         'listingType': 'Sale',
         'locations': [
