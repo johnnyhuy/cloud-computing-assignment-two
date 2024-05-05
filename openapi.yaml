@@ -1,0 +1,101 @@
+openapi: 3.0.2
+info:
+ title: Property Listing API
+ version: 1.0.0
+ description: API for searching and retrieving property listings.
+
+paths:
+ /:
+   get:
+     summary: Home page
+     responses:
+       '200':
+         description: Successful response
+         content:
+           text/html:
+             schema:
+               type: string
+
+ /listings/:
+   post:
+     summary: Get property listings
+     requestBody:
+       content:
+         application/x-www-form-urlencoded:
+           schema:
+             $ref: '#/components/schemas/ListingRequest'
+     responses:
+       '200':
+         description: Successful response
+         content:
+           text/html:
+             schema:
+               type: string
+
+ /listing/{property_id}:
+   get:
+     summary: Get property details
+     parameters:
+       - name: property_id
+         in: path
+         required: true
+         schema:
+           type: integer
+     responses:
+       '200':
+         description: Successful response
+         content:
+           text/html:
+             schema:
+               type: string
+       '404':
+         description: Property not found
+   post:
+     summary: Get property price estimate
+     parameters:
+       - name: property_id
+         in: path
+         required: true
+         schema:
+           type: integer
+     requestBody:
+       content:
+         application/x-www-form-urlencoded:
+           schema:
+             $ref: '#/components/schemas/PriceEstimateRequest'
+     responses:
+       '200':
+         description: Successful response
+         content:
+           text/html:
+             schema:
+               type: string
+       '404':
+         description: Property not found
+
+components:
+ schemas:
+   ListingRequest:
+     required:
+       - suburb_name
+       - bedrooms
+       - bathrooms
+       - carspaces
+     properties:
+       suburb_name:
+         type: string
+       bedrooms:
+         type: integer
+       bathrooms:
+         type: integer
+       carspaces:
+         type: integer
+       honey:
+         type: string
+
+   PriceEstimateRequest:
+     required:
+       - price_estimate
+     properties:
+       price_estimate:
+         type: string
