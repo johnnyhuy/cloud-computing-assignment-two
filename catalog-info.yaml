@@ -1,0 +1,133 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: stay-app
+  title: Stay App System
+  description: Stay App System
+spec:
+  owner: johnnyhuy
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: stay-app
+  title: Stay App
+  description: Real estate helper tool web application
+  tags:
+    - python
+    - docker
+spec:
+  type: service
+  lifecycle: experimental
+  owner: johnnyhuy
+  system: stay-app
+  providesApis:
+    - stay-app-api
+  dependsOn:
+    - resource:stay-app-cloudflare
+    - resource:stay-app-mysql
+    - resource:stay-app-ecr
+    - resource:stay-app-s3
+    - resource:stay-app-gke
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: stay-app-api
+  title: Stay App API
+  description: API for the Stay App
+  tags:
+    - api
+    - python
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: johnnyhuy
+  system: stay-app
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Stay App API
+      version: 1.0.0
+    servers:
+      - url: http://localhost:8000
+        description: Local development server
+    paths: {}
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: stay-app-cloudflare
+  title: Stay App Cloudflare
+  description: Cloudflare configuration for Stay App
+  tags:
+    - cloudflare
+    - terraform
+spec:
+  type: cloudflare
+  lifecycle: experimental
+  owner: johnnyhuy
+  system: stay-app
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: stay-app-mysql
+  title: Stay App MySQL
+  description: MySQL database for Stay App
+  tags:
+    - mysql
+spec:
+  type: mysql
+  lifecycle: experimental
+  owner: johnnyhuy
+  system: stay-app
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: stay-app-ecr
+  title: Stay App ECR
+  description: ECR repository for Stay App
+  tags:
+    - ecr
+    - terraform
+spec:
+  type: ecr
+  lifecycle: experimental
+  owner: johnnyhuy
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: stay-app-s3
+  title: Stay App S3
+  description: S3 bucket for Stay App
+  tags:
+    - s3
+spec:
+  type: s3
+  lifecycle: experimental
+  owner: johnnyhuy
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: stay-app-gke
+  title: Stay App GKE
+  description: The Google Kubernetes Engine for Stay App
+  tags:
+    - gke
+    - terraform
+spec:
+  type: gke
+  lifecycle: experimental
+  owner: johnnyhuy
+  system: stay-app
