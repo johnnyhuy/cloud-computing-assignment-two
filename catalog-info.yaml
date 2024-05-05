@@ -15,6 +15,7 @@ metadata:
   title: Stay App
   description: Real estate helper tool web application
   tags:
+    - gcp
     - python
     - docker
 spec:
@@ -64,7 +65,6 @@ metadata:
   title: Stay App Cloudflare
   description: Cloudflare configuration for Stay App
   tags:
-    - cloudflare
     - terraform
 spec:
   type: cloudflare
@@ -80,7 +80,8 @@ metadata:
   title: Stay App MySQL
   description: MySQL database for Stay App
   tags:
-    - mysql
+    - aws
+    - databases
 spec:
   type: mysql
   lifecycle: experimental
@@ -95,7 +96,7 @@ metadata:
   title: Stay App ECR
   description: ECR repository for Stay App
   tags:
-    - ecr
+    - aws
     - terraform
 spec:
   type: ecr
@@ -110,7 +111,7 @@ metadata:
   title: Stay App S3
   description: S3 bucket for Stay App
   tags:
-    - s3
+    - aws
 spec:
   type: s3
   lifecycle: experimental
@@ -124,7 +125,7 @@ metadata:
   title: Stay App GKE
   description: The Google Kubernetes Engine for Stay App
   tags:
-    - gke
+    - gcp
     - terraform
 spec:
   type: gke
